@@ -17,7 +17,7 @@ However, as sports betting gets more integrated into fans' lives, it remains a s
 * YouTube API (tbd)
 * Front-end framework (tbd)
 ## Entity Relational Diagram
-![ERD](./erd/PickEm-erd-v01.png)
+![ERD](./erd/PickEm-erd-v02.png)
 ## Routing Chart
 | HTTP METHOD | URL                               | CRUD    | Description                                                                                         | View                |     |     |     |
 |:----------- |:--------------------------------- |:------- |:--------------------------------------------------------------------------------------------------- |:------------------- | --- | --- | --- |
@@ -90,6 +90,7 @@ CSS
 
 JavaScript
 * Functional and responsive without bugs
+* Send appropriate webpage statuses
 * Picks auto populate to API data
 * User picks are tracked in database 
 * Response for pick actions
@@ -102,6 +103,8 @@ JavaScript
 * Live scores of picked games
 * Leaderboard 
 * 2+ leagues of picks available
+* Secondary 'confirm password' on sign up page
+* Integrate Outcomes model
 
 CSS
 * Flexible design for diverse screen sizes, mobile
