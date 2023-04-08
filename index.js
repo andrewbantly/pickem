@@ -57,6 +57,9 @@ app.get("/", (req, res) => {
 // controllers
 app.use("/users", require("./controllers/users.js"));
 
+app.get("*", (req, res) => {
+    res.render("404")
+})
 
 // listen port
 app.listen(PORT, () => {
