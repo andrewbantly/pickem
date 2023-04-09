@@ -2,7 +2,7 @@
     <div class="navHome">
         <!-- shown when the user is logged in -->
         <% if (user) { %>
-            <p><a href="/users/profile">HOME</a></p>
+            <p><a href="/members/profile">HOME</a></p>
             <% } else { %>
         <!-- shown when the user is logged out -->
         <p><a href="/">HOME</a></p>
@@ -21,10 +21,10 @@
     <div class="navLogIOS">
         <!-- shown when the user is logged in -->
         <% if (user) { %>
-            <p><a href="/users/logout">LOGOUT</a></p>
+            <p><a href="/members/logout">LOGOUT</a></p>
         <% } else { %>
             <!-- shown when the user is logged out -->
-            <p><a href="/users/login">LOGIN</a></p>
+            <p><a href="/members/login">LOGIN</a></p>
             <% } %>
     </div>
 </nav>

@@ -5,7 +5,6 @@ const db = require("../models")
 const bcrypt = require("bcrypt");
 const cryptoJs = require("crypto-js");
 
-
 // mount routes on router
 // GET users/new -- show route for a form that creates a new user (sign up for the app)
 router.get("/new", (req, res) => {
@@ -22,12 +21,14 @@ router.post("/", async (req, res) => {
         const [newUser, created] = await db.user.findOrCreate({
             where: {
                 email: req.body.email
+            }, defaults: {
+                username: req.body.username
             }
         })
         if (!created) {
             // if the user's return as found -- don't let them sign up & redirect them to log in page
             console.log("user account exists")
-            res.redirect("/users/login?message=Please login to your account to continue")
+            res.redirect("/members/login?message=Please login to your account to continue")
         } else {
             // hash the user's password before it is added to db
             const hashedPassed = bcrypt.hashSync(req.body.password, 12);
@@ -39,7 +40,7 @@ router.post("/", async (req, res) => {
             // set encryped ID as a cookie
             res.cookie("userId", encryptedPK.toString())
             // redirect user
-            res.redirect("/users/profile")
+            res.redirect("/members/profile")
 
         }
     } catch (error) {
@@ -71,11 +72,11 @@ router.post("/login", async (req, res) => {
             if (!foundUser) {
                 // if the user's email is not found -- do not let them login
                 console.log("user not found")
-                res.redirect("/users/login?message=" + failedLoginMessage)
+                res.redirect("/members/login?message=" + failedLoginMessage)
             } else if(!bcrypt.compareSync(req.body.password, foundUser.password)) {
                 // if the user exists but they have the wrong password -- do not let them login
                 console.log("incorrect password")
-                res.redirect("/users/login?message=" + failedLoginMessage)
+                res.redirect("/members/login?message=" + failedLoginMessage)
             } else {
                 // if the user exists, they know the right password -- log them in
                     // encrypt the user's PK
@@ -83,7 +84,7 @@ router.post("/login", async (req, res) => {
                 // set encryped ID as a cookie
                 res.cookie("userId", encryptedPK.toString())
                 // redirect user
-                res.redirect("/users/profile")
+                res.redirect("/members/profile")
             }
     } catch (error) {
         console.log(error);
@@ -105,7 +106,7 @@ router.get("/profile", (req, res) => {
     // if the user comes here and is not logged in, they lack authorization
     if (!res.locals.user) {
         // redirect them to the log in
-        res.redirect("/users/login?message=Authorization invalid. Please log in.")
+        res.redirect("/members/login?message=Authorization invalid. Please log in.")
     } else {
         //if allowed to be here, show them their profile
         res.render("users/profile.ejs")

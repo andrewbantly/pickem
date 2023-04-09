@@ -52,11 +52,48 @@ app.use(express.static(__dirname + '/public'));
 //routes
 app.get("/", (req, res) => {
     console.log(res.locals)
-    res.render("index.ejs")
+    res.render("index.ejs", {
+        message: req.query.message ? req.query.message : null
+    })
 })
 
+app.post("/", async (req, res) => {
+    try {
+        // search for the user's email in the db
+        const foundUser = await db.user.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+        const failedLoginMessage = "Incorrect email or password"
+            if (!foundUser) {
+                // if the user's email is not found -- do not let them login
+                console.log("user not found")
+                res.redirect("/users/login?message=" + failedLoginMessage)
+            } else if(!bcrypt.compareSync(req.body.password, foundUser.password)) {
+                // if the user exists but they have the wrong password -- do not let them login
+                console.log("incorrect password")
+                res.redirect("/users/login?message=" + failedLoginMessage)
+            } else {
+                // if the user exists, they know the right password -- log them in
+                    // encrypt the user's PK
+                const encryptedPK = cryptoJs.AES.encrypt(foundUser.id.toString(), process.env.ENC_KEY)
+                // set encryped ID as a cookie
+                res.cookie("userId", encryptedPK.toString())
+                // redirect user
+                res.redirect("/users/profile")
+            }
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+})
+
+
 // controllers
-app.use("/users", require("./controllers/users.js"));
+app.use("/members", require("./controllers/users.js"));
+app.use("picks", require("./controllers/picks"));
+app.request("/leagues", require("./controllers/leagues"));
 
 app.get("*", (req, res) => {
     res.render("404")

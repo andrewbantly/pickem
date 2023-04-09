@@ -2,14 +2,18 @@
 <%- include("../partials/nav-login") %>
 <h2>Sign up for an account</h2>
 
-<form method="POST" action="/users">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required/>
+<div class="formContainer">
+<form class="credsForm" method="POST" action="/members">
+    <label for="username"></label>
+    <input class="credsInput" type="text" name="username" id="username" placeholder="USERNAME" required/>
+    <label for="email"></label>
+    <input class="credsInput" type="email" name="email" id="email" placeholder="EMAIL" required/>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
+    <label for="password"></label>
+    <input class="credsInput" type="password" name="password" id="password" placeholder="PASSWORD" required />
 
-    <button type="submit">Sign Up!</button>
+    <button class="credsButton" type="submit">Sign Up!</button>
 </form>
+</div>
 
 <%- include("../partials/footer.ejs") %>

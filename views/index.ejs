@@ -1,4 +1,19 @@
 <%- include("./partials/header.ejs") %>
 <%- include("./partials/nav-signup.ejs") %>
 <h1>Welcome to the auth app, user.</h1>
+<% if (message) {%>
+    <p><%= message %></p>
+    <% } %>
+
+<div class="formContainer">
+<form class="credsForm" method="POST" action="/members/login">
+    <label for="email"></label>
+    <input class="credsInput" type="email" name="email" id="email" placeholder="EMAIL" required/>
+
+    <label for="password"></label>
+    <input  class="credsInput" type="password" name="password" id="password" placeholder="PASSWORD" required />
+
+    <button class="credsButton" type="submit">Log in!</button>
+</form>
+</div>
 <%- include("./partials/footer.ejs") %>
