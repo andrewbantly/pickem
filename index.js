@@ -47,6 +47,7 @@ app.use(async (req, res, next) => {
         next() // tells express this middleware has finished, go to the next thing
     }
 })
+app.use(express.static(__dirname + '/public'));
 
 //routes
 app.get("/", (req, res) => {

@@ -46,9 +46,9 @@ However, as sports betting gets more integrated into fans' lives, it remains a s
 | PUT/PATCH   | /:league/:username/update/:pickId | UPDATE  | Changes teamSelect of existing pickId, redirect to picks/                                           |                     |     |     |     |
 | DELETE      | /:league/:username/delete/:pickId | DESTROY | Removes pick from database, resets color of both picks                                              |                     |     |     |     |
 |             |                                   |         |                                                                                                     |                     |     |     |     |
-| GET         | /leaderboard                      | READ    | Displays leaderboard, default view is "yesterday"                                                   | Leaderboard         |     |     |     |
-| GET         | /leaderboard/:thismonth           | READ    | Displays leaderboard, view is "this month"                                                          |                     |     |     |     |
-| GET         | /leaderboard/alltime              | READ    | Displays leaderboard, default view is "all time"                                                    |                     |     |     |     |
+| GET         | /leaders                      | READ    | Displays leaderboard, default view is "yesterday"                                                   | Leaderboard         |     |     |     |
+| GET         | /leaders/:thismonth           | READ    | Displays leaderboard, view is "this month"                                                          |                     |     |     |     |
+| GET         | /leaders/alltime              | READ    | Displays leaderboard, default view is "all time"                                                    |                     |     |     |     |
 
 ## Wireframes
 ![homepage](wireframes/Pickem-homepage.png)

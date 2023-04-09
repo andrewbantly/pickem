@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(161, 161, 161);
+}
+
+nav {
+    background-color: rgb(105, 162, 143);
+    display: flex;
+    border-bottom: 3px solid white;
+}
+.navHome, .navPicks, .navLeagues, .navLeaders, .navLogIOS {
+    /* border: 3px solid black; */
+    width: 20%;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color:rgb(61, 61, 61)
+}

@@ -1,0 +1,30 @@
+<nav>
+    <div class="navHome">
+        <!-- shown when the user is logged in -->
+        <% if (user) { %>
+            <p><a href="/users/profile">HOME</a></p>
+            <% } else { %>
+        <!-- shown when the user is logged out -->
+        <p><a href="/">HOME</a></p>
+        <% } %>
+    </div>
+    <div class="navPicks">
+        <!-- Show whether the user is logged in or out -->
+       <p><a href="/picks">PICKS</a><p>
+    </div>
+    <div class="navLeagues">
+        <p><a href="/leagues">LEAGUES</a></p>
+    </div>
+    <div class="navLeaders">
+        <p><a href="/leaders">LEADERBOARD</a></p>
+    </div>
+    <div class="navLogIOS">
+        <!-- shown when the user is logged in -->
+        <% if (user) { %>
+            <p><a href="/users/logout">LOGOUT</a></p>
+        <% } else { %>
+            <!-- shown when the user is logged out -->
+            <p><a href="/users/new">SIGNUP</a></p>
+            <% } %>
+    </div>
+</nav>
