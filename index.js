@@ -92,8 +92,8 @@ app.post("/", async (req, res) => {
 
 // controllers
 app.use("/members", require("./controllers/users.js"));
-app.use("picks", require("./controllers/picks"));
-app.request("/leagues", require("./controllers/leagues"));
+app.use("/picks", require("./controllers/picks"));
+app.use("/leagues", require("./controllers/leagues"));
 
 app.get("*", (req, res) => {
     res.render("404")

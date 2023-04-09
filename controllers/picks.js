@@ -2,14 +2,22 @@
 const express = require("express");
 const router = express();
 const db = require("../models");
+const axios = require("axios");
 
 
 router.get("/", (req, res) => {
-    res.send("see all picks")
+    let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
+    axios.get(mlbURL).then(apiResponse => {
+        let sports = apiResponse.data;
+        console.log(sports);
+        res.render("picks/index.ejs", {
+            sports
+        })
+    })
 })
 
 // Add picks to database, redirect to /picks
-router.post("/:league/add/:pick", (req, res) => {
+router.post("/:league/add/:pickId", (req, res) => {
     res.send("Adds pick to database, change color of logo & switch")
 })
 // Updates a pick, redirects to /picks
@@ -17,7 +25,7 @@ router.put("/:league/update/:pickId", (req, res) => {
     res.send("Changes teamSelect of existing pickId")
 })
 // Delete a pick from database, redirect to /picks
-router.delete("/:league/update/:pickId", (req, res) => {
+router.delete("/:league/delete/:pickId", (req, res) => {
     res.send("Removes pick from database, resets color of both picks")
 })
 // Shows picks of user
@@ -36,4 +44,4 @@ router.delete("/:username/delete/:pickId", (req, res) => {
 
 
 // export the router instance
-models.exports = router;
+module.exports = router;
