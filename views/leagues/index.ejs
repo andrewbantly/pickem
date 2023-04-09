@@ -1,0 +1,68 @@
+<%- include("../partials/header.ejs") %>
+<%- include("../partials/nav-signup.ejs") %>
+<h2><%=sports.leagues[0].abbreviation%></h2>
+<div class="pickContainer">
+
+    
+    <% sports.events.forEach(event => { %>
+        <div class="eventName"><p><%=event.name%></p>
+            <% if (event.status.type.id === "1") { %>
+                <div class="gameStatus scheduled">SCHEDULED</div>
+            <% } else if (event.status.type.id === "2") { %>
+                <div class="gameStatus inProgress">IN PROGRESS</div>
+            <% } else { %>
+                <div class="gameStatus final">FINAL</div>
+                <% } %>
+        </div>
+        <div class="oddsLogo">
+        <% if (event.status.type.id === "1") { %>
+             <% event.competitions.forEach(competition => { %>
+            <div class="awayTeamContainer">
+                <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
+                <p>                
+                odds: <%=competition.odds[1].awayTeamOdds.spreadOdds%>
+            </p></div>
+        <div class="homeTeamContainer">
+                <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
+            <p>                
+            odds: <%=competition.odds[1].homeTeamOdds.spreadOdds%>
+        </p></div>
+
+
+         <% })} else if (event.status.type.id === "2") { %>
+            <% event.competitions.forEach(competition => { %>
+            <div class="awayTeamContainer">
+                <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
+                <p class="score"><%=competition.competitors[1].score%></p>
+            </div>
+            <div class="homeTeamContainer">
+                <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
+                <p class="score"><%=competition.competitors[0].score%></p>
+            </div>
+            <% })} else { %>
+                <% event.competitions.forEach(competition => { %>
+                    <div class="awayTeamContainer">
+                        <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
+                        <% if (competition.competitors[1].winner === true) { %>
+                            <p class="score winner">
+                            <%=competition.competitors[1].score%></p>
+                            <% } else { %> 
+                                <p class="score">
+                                <%=competition.competitors[1].score%></p>
+                            <% } %>
+                    </div>
+                    <div class="homeTeamContainer">
+                        <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
+                        <% if (competition.competitors[0].winner === true) { %>
+                            <p class="score winner">
+                                <%=competition.competitors[0].score%></p>
+                                <% } else { %> 
+                                    <p class="score">
+                                    <%=competition.competitors[0].score%></p>
+                                <% } %>
+                    </div>
+         <% })} %>
+        </div>
+    <% }) %>
+</div class="pickContainer">
+<%- include("../partials/footer.ejs") %>

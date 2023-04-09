@@ -6,14 +6,7 @@ const axios = require("axios");
 
 
 router.get("/", (req, res) => {
-    let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
-    axios.get(mlbURL).then(apiResponse => {
-        let sports = apiResponse.data;
-        console.log(sports);
-        res.render("picks/index.ejs", {
-            sports
-        })
-    })
+ res.send("see picks that people have made")
 })
 
 // Add picks to database, redirect to /picks
