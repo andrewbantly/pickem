@@ -2,4 +2,21 @@
 <%- include("../partials/nav-login.ejs") %>
 <h1>Welcome, <%=user.username%></h1>
 <h2>Make some picks!</h2>
+
+<div class="myPicks">
+    <% myPicks.forEach(pick => { %>
+        <p class="pick">You picked the <%=pick.selTeamName%> ODDS over the <%=pick.againstTeamName%></p>
+        <% if (pick.gameStatus === 1) { %>
+            <div class="pickStatus scheduledPick">UPDATE WITH GAME TIME
+       <% } else if (pick.gameStatus === 2) { %>
+        <div class="pickStatus pickInProgress">game in progress
+       <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>
+        <div class="pickStatus pickWin">winner!
+        <% } else if (pick.gameStatus === 3 && pick.correctPick === false) { %>
+            <div class="pickStatus pickLose">loser!
+       <% } %>
+    </div>
+        <img class="pickLogo" src="<%=pick.selTeamLogo%>"/>
+   <%  }) %>
+</div>
 <%- include("../partials/footer.ejs") %>

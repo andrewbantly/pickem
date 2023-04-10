@@ -101,15 +101,20 @@ router.get("/logout", (req, res) => {
 })
 
 // GET /users/profile -- show authorized users their profile page
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
     // res.send("show the currently logged in user their personal profile page.")
     // if the user comes here and is not logged in, they lack authorization
     if (!res.locals.user) {
         // redirect them to the log in
         res.redirect("/members/login?message=Authorization invalid. Please log in.")
     } else {
+        const myPicks = await db.pick.findAll({
+            where: {
+                userId: res.locals.user.id
+            }
+        })
         //if allowed to be here, show them their profile
-        res.render("users/profile.ejs")
+        res.render("users/profile.ejs", {myPicks})
     }
 })
 

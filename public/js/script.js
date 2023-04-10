@@ -1,4 +1,4 @@
-console.log("script.js connected");
+console.log("hello andrewb")
 const axios = require("axios");
 const db = require("../../models");
 
@@ -20,13 +20,13 @@ const checkWinners = async () => {
                             console.log(team.team.name);
                             const updatePicks =  db.pick.update({ correctPick: true, gameStatus: 3, pickActive: false }, {
                                 where: {
-                                    selectedTeam: team.team.id
+                                    selTeam: team.team.id
                                 }
                             })
                         } else if (team.winner === false) {
                             const updatePicks =  db.pick.update({ correctPick: false, gameStatus: 3, pickActive: false }, {
                                 where: {
-                                    selectedTeam: team.team.id
+                                    selTeam: team.team.id
                                 }
                             })
                         }
@@ -39,7 +39,7 @@ const checkWinners = async () => {
     }
 }
 
-const scoreChecks = setInterval(checkWinners, 30000)
+const scoreChecks = setInterval(checkWinners, 5000)
 
 
 // let sports = apiResponse.data;

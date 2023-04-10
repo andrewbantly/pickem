@@ -18,8 +18,20 @@ module.exports = {
       game: {
         type: Sequelize.INTEGER
       },
-      selectedTeam: {
+      selTeam: {
         type: Sequelize.INTEGER
+      },
+      selTeamName: {
+        type: Sequelize.STRING
+      },
+      againstTeamName: {
+        type: Sequelize.STRING
+      },
+      gameOdds: {
+        type: Sequelize.STRING
+      },
+      selTeamLogo: {
+        type: Sequelize.STRING
       },
       gameDate: {
         type: Sequelize.DATE
