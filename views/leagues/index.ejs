@@ -2,17 +2,21 @@
 <%- include("../partials/nav-signup.ejs") %>
 <h2><%=sports.leagues[0].abbreviation%></h2>
 <div class="pickContainer">
-
-    
     <% sports.events.forEach(event => { %>
         <div class="eventName"><p><%=event.name%></p>
             <% if (event.status.type.id === "1") { %>
                 <div class="gameStatus scheduled">SCHEDULED</div>
             <% } else if (event.status.type.id === "2") { %>
                 <div class="gameStatus inProgress">IN PROGRESS</div>
-            <% } else { %>
+            <% } else if (event.status.type.id === "3") { %>
                 <div class="gameStatus final">FINAL</div>
-                <% } %>
+            <% } else if (event.status.type.id === "6") { %>
+                <div class="gameStatus other">POSTPONED</div>
+            <% } else if (event.status.type.id === "7") { %>
+                <div class="gameStatus other">DELAYED</div>
+            <% } else if (event.status.type.id === "17") { %>
+                <div class="gameStatus other">RAIN DELAY</div>
+            <% } %>
         </div>
         <div class="oddsLogo">
         <% if (event.status.type.id === "1") { %>
@@ -32,10 +36,32 @@
          <% })} else if (event.status.type.id === "2") { %>
             <% event.competitions.forEach(competition => { %>
             <div class="awayTeamContainer">
+                <form method="POST" action="/leagues">
+                    <input hidden type="number" name="userId" value="<%=userId%>">
+                    <input hidden type="number" name="league" value="<%=sports.leagues[0].id%>"/>
+                    <input hidden type="number" name="game" value="<%=competition.id%>"/>
+                    <input hidden type="number" name="selectedTeam" value="<%=competition.competitors[1].id%>"/>
+                    <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
+                    <input hidden type="text" name="shortName" value="<%=event.shortName%>"/>
+                    <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
+                    <input hidden type="boolean" name="pickActive" value="true"/>
+                    <button type="submit">PICK</button>
+                </form>
                 <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
                 <p class="score"><%=competition.competitors[1].score%></p>
             </div>
             <div class="homeTeamContainer">
+                <form method="POST" action="/leagues">
+                    <input hidden type="number" name="userId" value="<%=userId%>">
+                    <input hidden type="number" name="league" value="<%=sports.leagues[0].id%>"/>
+                    <input hidden type="number" name="game" value="<%=competition.id%>"/>
+                    <input hidden type="number" name="selectedTeam" value="<%=competition.competitors[0].id%>"/>
+                    <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
+                    <input hidden type="text" name="shortName" value="<%=event.shortName%>"/>
+                    <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
+                    <input hidden type="boolean" name="pickActive" value="true"/>
+                    <button type="submit">PICK</button>
+                </form>
                 <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
                 <p class="score"><%=competition.competitors[0].score%></p>
             </div>

@@ -87,6 +87,12 @@ color: white;
     background-color: red;
     color: white;
 }
+.other {
+    border: 3px solid yellow;
+    background-color: yellow;
+    color: white;
+}
+
 .awayTeamContainer, .homeTeamContainer {
     width: 50%;
     border: 3px solid orange;
