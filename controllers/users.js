@@ -111,7 +111,8 @@ router.get("/profile", async (req, res) => {
         const myPicks = await db.pick.findAll({
             where: {
                 userId: res.locals.user.id
-            }
+            },
+            order: [['id', 'DESC']],
         })
         //if allowed to be here, show them their profile
         res.render("users/profile.ejs", {myPicks})

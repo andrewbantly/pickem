@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
     axios.get(mlbURL).then(apiResponse => {
         let sports = apiResponse.data;
-        console.log(sports.events[14].competitions[0].competitors[0].team.name);
+        // console.log(sports.events[14].competitions[0].competitors[0].team.name);
         // console.log("short name: ", sports.events[14]);
         // console.log("res locals ID: ", res.locals.user.id); 
         const userId = res.locals.user.id;      
@@ -19,7 +19,6 @@ router.get("/", (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    console.log("req body: ", req.body);
     try {
         const newPick = await db.pick.create({
             userId: req.body.userId,

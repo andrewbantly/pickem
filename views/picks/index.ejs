@@ -1,3 +1,9 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-signup.ejs") %>
+<ul>
+    <% allUsersAndPicks.forEach(pick => { %>
+        <li><%=pick.user.username%> is userId: <%=pick.userId%> selected <%=pick.selTeamName%> at pickId: <%=pick.id%></li>
+    <% }) %>
+</ul>
+
 <%- include("../partials/footer.ejs") %>

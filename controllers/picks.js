@@ -5,8 +5,14 @@ const db = require("../models");
 const axios = require("axios");
 
 
-router.get("/", (req, res) => {
- res.send("see picks that people have made")
+router.get("/", async (req, res) => {
+//  res.send("see picks that people have made");
+    const allUsersAndPicks = await db.pick.findAll({
+        include: [db.user],
+        order: [["id", "DESC"]]
+    })
+    console.log(allUsersAndPicks)
+    res.render("picks/index.ejs", { allUsersAndPicks })
 })
 
 // Add picks to database, redirect to /picks
