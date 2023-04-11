@@ -1,0 +1,14 @@
+<%- include("../partials/header.ejs") %>
+<%- include("../partials/nav-login.ejs") %>
+<h2>Edit your pick</h2>
+<h3><%=editPick.shortName%></h3>
+<h4>You picked the <%=editPick.selTeamName%> <%=editPick.gameSpread%>(<%=editPick.gameOdds%>). Do you want to switch your pick to the <%=editPick.againstTeamName%>?</h4>
+<form method="POST" action="/members/<%=editPick.id%>/?_method=PUT">
+    <input hidden type="number" name="id" value="<%=editPick.id%>"/>
+    <input hidden type="number" name="selTeam" value="<%=editPick.againstTeam%>"/>
+    <input hidden type="tex" name="selTeamName" value="<%=editPick.againstTeamName%>"/>
+    <input hidden type="number" name="againstTeam" value="<%=editPick.selTeam%>"/>
+    <input hidden type="text" name="againstTeamName" value="<%=editPick.selTeamName%>"/>
+    <button type="submit">SWITCH</button>
+</form>
+<%- include("../partials/footer.ejs") %>

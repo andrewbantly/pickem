@@ -8,6 +8,7 @@
     <% myPicks.forEach(pick => { %>
         <p class="pick">You picked the <%=pick.selTeamName%> <%=pick.gameSpread%>(<%=pick.gameOdds%>) over the <%=pick.againstTeamName%></p>
         <% if (pick.gameStatus === 1) { %>
+                <a href="/members/edit/<%=pick.id%>">Change pick</a>
                 <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
                 <input type="submit" value="Cancel Pick"/>
             </form>

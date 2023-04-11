@@ -121,10 +121,45 @@ router.get("/profile", async (req, res) => {
     }
 })
 
+// EDIT /members/edit/:pickId
+router.get("/edit/:pickId", async (req, res) => {
+    // console.log("req params:", req.params.pickId);
+    const editPick = await db.pick.findOne({
+        where: {
+            id: req.params.pickId
+        }
+    })
+    // console.log("pick: ", editPick)
+    res.render("users/edit.ejs", {editPick})
+})
 
-// DELETE /users/:pickId -- delete a single pick at the pickId
-router.delete("/:pickId", (req, res) => {
-    
+//PUT /members/edit/:pickId -- edit a single pick at the pickId
+router.put("/:pickId", async (req, res) => {
+    try{
+        const updatePick = await db.pick.update({ 
+            selTeamName: req.body.selTeamName,
+            againstTeam: req.body.againstTeam,
+            againstTeamName: req.body.againstTeamName,
+         }, {
+            where: {
+                id: req.body.id
+            }})
+    res.redirect("/members/profile")
+    } catch (error) {
+        console.log("error: ", error);
+        res.redirect("404.ejs")
+    }
+})
+
+// DELETE /members/:pickId -- delete a single pick at the pickId
+router.delete("/:pickId", async (req, res) => {
+    console.log("req params:", req.params.pickId)
+    const deletePick = await db.pick.destroy({
+        where: {
+            id: req.params.pickId
+        }
+    })
+    res.redirect("/members/profile")
 })
 
 
