@@ -109,49 +109,36 @@ const checkWinners = async () => {
                 }
              })
              compareTeams.forEach(team => {
-                    console.log(`event ID: ", event.id`)
+                    console.log("event ID: ", event.id)
                     // console.log(team);
                 // console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
                 if (team.favorite === true && (parseInt(team.selTeamScore) - parseFloat(team.gameSpread)) > parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.gameSpread)} and is more than ${parseInt(team.againstTeamScore)}`);
                     console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
-                    const pickWinner = db.pick.findAll({
+                    const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
-                            id: team.id
-                        }, default: {
-                            correctPick: true
-                        }
-                    })
+                            game: event.id
+                        }});
                 } else if (team.favorite === true && (parseInt(team.selTeamScore) - parseFloat(team.gameSpread)) < parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.gameSpread)} and is less than ${parseInt(team.againstTeamScore)}`);
                     console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
-                    const pickloser = db.pick.findAll({
+                    const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
-                            id: team.id
-                        }, default: {
-                            correctPick: false
-                        }
-                    })
-                } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) > parseInt(team.againstTeamScore)) {
+                            game: event.id
+                        }});                
+                    } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) > parseInt(team.againstTeamScore)) {
                     console.log(`Not favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.gameSpread)} and is more than ${parseInt(team.againstTeamScore)}`);
                     console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
-                    const pickWinner = db.pick.findAll({
+                    const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
-                            id: team.id
-                        }, default: {
-                            correctPick: true
-                        }
-                    })
-                } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) < parseInt(team.againstTeamScore)) {
+                            game: event.id
+                        }});                } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) < parseInt(team.againstTeamScore)) {
                     console.log(`Not favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.gameSpread)} and is less than than ${parseInt(team.againstTeamScore)}`);
                     console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
-                    const pickloser = db.pick.findAll({
+                    const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
-                            id: team.id
-                        }, default: {
-                            correctPick: false
-                        }
-                    })
+                            game: event.id
+                        }});         
                 }
               })
             }
