@@ -67,7 +67,7 @@ router.post("/like/:pickId", async (req, res) => {
 
 // Shows picks of user
 router.get("/:username", (req, res) => {
-    res.send("display feed of real-time picks")
+    res.send("display public version of :username profile")
 })
 
 

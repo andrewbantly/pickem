@@ -18,6 +18,27 @@ module.exports = {
       game: {
         type: Sequelize.INTEGER
       },
+      shortName: {
+        type: Sequelize.STRING
+      },
+      gameDate: {
+        type: Sequelize.DATE
+      },
+      gameStatus: {
+        type: Sequelize.INTEGER
+      },
+      pickActive: {
+        type: Sequelize.BOOLEAN
+      },
+      correctPick: {
+        type: Sequelize.BOOLEAN
+      },
+      likeCount: {
+        type: Sequelize.INTEGER
+      },
+      pickValue: {
+        type: Sequelize.INTEGER
+      },
       selTeam: {
         type: Sequelize.INTEGER
       },
@@ -26,6 +47,18 @@ module.exports = {
       },
       selTeamScore: {
         type: Sequelize.INTEGER
+      },
+      selTeamFavorite: {
+        type: Sequelize.BOOLEAN
+      },
+      selTeamSpread: {
+        type: Sequelize.STRING
+      },
+      selTeamOdds: {
+        type: Sequelize.INTEGER
+      },
+      selTeamLogo: {
+        type: Sequelize.STRING
       },
       againstTeam: {
         type: Sequelize.INTEGER
@@ -36,35 +69,17 @@ module.exports = {
       againstTeamScore: {
         type: Sequelize.INTEGER
       },
-      favorite: {
+      againstTeamFavorite: {
         type: Sequelize.BOOLEAN
       },
-      gameSpread: {
-        type: Sequelize.DECIMAL
-      },
-      gameOdds: {
-        type: Sequelize.INTEGER
-      },
-      selTeamLogo: {
+      againstTeamSpread: {
         type: Sequelize.STRING
       },
-      gameDate: {
-        type: Sequelize.DATE
+      againstTeamOdds: {
+        type: Sequelize.INTEGER
       },
-      shortName: {
+      againstTeamLogo: {
         type: Sequelize.STRING
-      },
-      correctPick: {
-        type: Sequelize.BOOLEAN
-      },
-      gameStatus: {
-        type: Sequelize.INTEGER
-      },
-      pickActive: {
-        type: Sequelize.BOOLEAN
-      },
-      likeCount: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

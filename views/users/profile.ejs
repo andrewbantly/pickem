@@ -6,7 +6,13 @@
 
 <div class="myPicks">
     <% myPicks.forEach(pick => { %>
-        <p class="pick">You picked the <%=pick.selTeamName%> <%=pick.gameSpread%>(<%=pick.gameOdds%>) over the <%=pick.againstTeamName%></p>
+        <p class="pick">You picked the <%=pick.selTeamName%> <%=pick.selTeamSpread%>
+            <% if (parseInt(pick.selTeamOdds) > 0) { %>
+                (+<%=pick.selTeamOdds%>) 
+            <% } else { %>
+            (<%=pick.selTeamOdds%>) 
+            <% } %>
+            over the <%=pick.againstTeamName%></p>
         <% if (pick.gameStatus === 1) { %>
                 <a href="/members/edit/<%=pick.id%>">Change pick</a>
                 <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
