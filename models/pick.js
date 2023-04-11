@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     againstTeamName: DataTypes.STRING,
     againstTeamScore: DataTypes.INTEGER,
     favorite: DataTypes.BOOLEAN,
-    gameSpread: DataTypes.STRING,
+    gameSpread: DataTypes.DECIMAL,
     gameOdds: DataTypes.INTEGER,
     selTeamLogo: DataTypes.STRING,
     gameDate: DataTypes.DATE,

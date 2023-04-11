@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       gameSpread: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       gameOdds: {
         type: Sequelize.INTEGER

@@ -31,7 +31,7 @@
                     <input hidden type="number" name="againstTeam" value="<%=competition.competitors[0].id%>"/>
                     <input hidden type="text" name="againstTeamName" value="<%=competition.competitors[0].team.name%>"/>
                     <input hidden type="boolean" name="favorite" value="<%=competition.odds[1].awayTeamOdds.favorite%>"/>
-                    <input hidden type="text" name="gameSpread" value="1.5"/>
+                    <input hidden type="number" name="gameSpread" value="1.5"/>
                     <input hidden type="number" name="gameOdds" value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>"/>
                     <input hidden type="text" name="selTeamLogo" value="<%=competition.competitors[1].team.logo%>"/>
                     <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
@@ -55,7 +55,7 @@
                 <input hidden type="text" name="againstTeamName" value="<%=competition.competitors[1].team.name%>"/>
                 <input hidden type="text" name="selTeamLogo" value="<%=competition.competitors[0].team.logo%>"/>
                 <input hidden type="boolean" name="favorite" value="<%=competition.odds[1].homeTeamOdds.favorite%>"/>
-                <input hidden type="text" name="gameSpread" value="1.5"/>
+                <input hidden type="number" name="gameSpread" value="1.5"/>
                 <input hidden type="number" name="gameOdds" value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>"/>
                 <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                 <input hidden type="text" name="shortName" value="<%=event.shortName%>"/>
@@ -80,7 +80,6 @@
             <% })} else { %>
                 <% event.competitions.forEach(competition => { %>
                     <div class="awayTeamContainer">
-
                         <form method="POST" action="/leagues">
                             <input hidden type="number" name="userId" value="<%=userId%>">
                             <input hidden type="number" name="league" value="<%=sports.leagues[0].id%>"/>
@@ -90,7 +89,7 @@
                             <input hidden type="number" name="againstTeam" value="<%=competition.competitors[0].id%>"/>
                             <input hidden type="text" name="againstTeamName" value="<%=competition.competitors[0].team.name%>"/>
                             <input hidden type="boolean" name="favorite" value="true"/>
-                            <input hidden type="text" name="gameSpread" value="1.5"/>
+                            <input hidden type="number" name="gameSpread" value="1.5"/>
                             <input hidden type="number" name="gameOdds" value="-135"/>
                             <input hidden type="text" name="selTeamLogo" value="<%=competition.competitors[1].team.logo%>"/>
                             <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
@@ -119,7 +118,7 @@
                             <input hidden type="text" name="againstTeamName" value="<%=competition.competitors[1].team.name%>"/>
                             <input hidden type="text" name="selTeamLogo" value="<%=competition.competitors[0].team.logo%>"/>
                             <input hidden type="boolean" name="favorite" value="false"/>
-                            <input hidden type="text" name="gameSpread" value="1.5"/>
+                            <input hidden type="number" name="gameSpread" value="1.5"/>
                             <input hidden type="number" name="gameOdds" value="120"/>
                             <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                             <input hidden type="text" name="shortName" value="<%=event.shortName%>"/>

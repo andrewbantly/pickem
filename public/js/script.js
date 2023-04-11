@@ -1,9 +1,10 @@
-console.log("hello andrewb")
-const axios = require("axios");
-const db = require("../../models");
-const { compare } = require("bcrypt");
+// console.log("hello andrewb");
+// const axios = require("axios");
+// const db = require("../../models");
+// const { compare } = require("bcrypt");
 
 const checkWinners = async () => {
+    console.log("check winner is running")
     try {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
@@ -43,20 +44,26 @@ const checkWinners = async () => {
                     game: event.id
                 }
              })
-             console.log("event ID: ", event.id)
-                compareTeams.forEach(team => {
+             compareTeams.forEach(team => {
+                    console.log(`event ID: ", event.id`)
                     // console.log(team);
                 console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
+                if (team.favorite === true && (team.selTeamScore - team.gameSpread) > team.againstTeamScore) {
+                    console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
+                } else if (team.favorite === true && (team.selTeamScore - team.gameSpread) < team.againstTeamScore) {
+                    console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
+                } else if (team.favorite === false && (team.selTeamScore + team.gameSpread) > team.againstTeamScore) {
+                    console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
+                } else if (team.favorite === false && (team.selTeamScore + team.gameSpread) < team.againstTeamScore) {
+                    console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
+                }
               })
             }
         })
-
-            
-
     } catch (error) {
         console.log(error)
     }
 }
 
 
-const scoreChecks = setInterval(checkWinners, 5000)
+// const scoreChecks = setInterval(checkWinners, 5000)

@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
         })
         res.redirect("/leagues")
     } catch (error) {
-        console.log(error);
+        console.log("error: ", error);
         res.redirect("404.ejs")
     }
 })
