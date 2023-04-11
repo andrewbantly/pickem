@@ -1,6 +1,7 @@
 // required packages
 require("dotenv").config();
 const express = require("express");
+const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const cryptoJs = require("crypto-js");
 const db = require("./models")
@@ -13,6 +14,7 @@ app.set("view engine", "ejs")
 
 //middleware
 app.use(express.urlencoded( { extended: false }));
+app.use(methodOverride("_method"))
 app.use(cookieParser())
 app.use((req, res, next) => {
     // console.log("the middleware has been invoked.");

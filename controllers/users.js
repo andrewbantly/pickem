@@ -1,9 +1,10 @@
 // required packages
 const express = require("express");
-const router = express()
-const db = require("../models")
+const router = express();
+const db = require("../models");
 const bcrypt = require("bcrypt");
 const cryptoJs = require("crypto-js");
+
 
 // mount routes on router
 // GET users/new -- show route for a form that creates a new user (sign up for the app)
@@ -119,6 +120,13 @@ router.get("/profile", async (req, res) => {
         res.render("users/profile.ejs", {myPicks})
     }
 })
+
+
+// DELETE /users/:pickId -- delete a single pick at the pickId
+router.delete("/:pickId", (req, res) => {
+    
+})
+
 
 // export the router instance
 module.exports = router

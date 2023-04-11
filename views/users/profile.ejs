@@ -6,9 +6,12 @@
 
 <div class="myPicks">
     <% myPicks.forEach(pick => { %>
-        <p class="pick">You picked the <%=pick.selTeamName%> ODDS over the <%=pick.againstTeamName%></p>
+        <p class="pick">You picked the <%=pick.selTeamName%> <%=pick.gameSpread%>(<%=pick.gameOdds%>) over the <%=pick.againstTeamName%></p>
         <% if (pick.gameStatus === 1) { %>
-            <div class="pickStatus scheduledPick">UPDATE WITH GAME TIME
+                <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
+                <input type="submit" value="Cancel Pick"/>
+            </form>
+            <div class="pickStatus scheduledPick">GAME TIME
        <% } else if (pick.gameStatus === 2) { %>
         <div class="pickStatus pickInProgress">game in progress
        <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>
