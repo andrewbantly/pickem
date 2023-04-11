@@ -4,6 +4,7 @@ const router = express();
 const db = require("../models");
 const axios = require("axios");
 
+// GET ALL AVAILABLE PICKS
 router.get("/", (req, res) => {
     let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
     axios.get(mlbURL).then(apiResponse => {
@@ -24,6 +25,7 @@ router.get("/", (req, res) => {
     })
 })
 
+// CREATE PICK IN DATABASE 
 router.post("/", async (req, res) => {
     try {
         const newPick = await db.pick.create({
@@ -49,8 +51,6 @@ router.post("/", async (req, res) => {
         res.redirect("404.ejs")
     }
 })
-
-
 
 // export the router instance
 module.exports = router;
