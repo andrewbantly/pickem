@@ -3,6 +3,11 @@
 <ul>
     <% allUsersAndPicks.forEach(pick => { %>
         <li><%=pick.user.username%> is userId: <%=pick.userId%> selected <%=pick.selTeamName%> at pickId: <%=pick.id%></li>
+        <form method="POST" action="/picks/like/<%=pick.id%>">
+            <input hidden type="boolean" name="liked">
+            <button type="submit">Like</button>
+        </form> (<%=pick.likeCount%>👍) liked by: 
+        <% pick.likes.forEach(like => { %><%=like.likerName%> <% }) %>
     <% }) %>
 </ul>
 

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.pick.belongsTo(models.user);
+      models.pick.hasMany(models.like);
       models.pick.hasMany(models.comment);
     }
   }
@@ -33,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     shortName: DataTypes.STRING,
     correctPick: DataTypes.BOOLEAN,
     gameStatus: DataTypes.INTEGER,
-    pickActive: DataTypes.BOOLEAN
+    pickActive: DataTypes.BOOLEAN,
+    likeCount: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'pick',

@@ -63,6 +63,9 @@ module.exports = {
       pickActive: {
         type: Sequelize.BOOLEAN
       },
+      likeCount: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

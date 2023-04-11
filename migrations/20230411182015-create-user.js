@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       points: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
       },
       createdAt: {
         allowNull: false,

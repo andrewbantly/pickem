@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    points: DataTypes.INTEGER
+    points: DataTypes.DECIMAL
   }, {
     sequelize,
     modelName: 'user',
