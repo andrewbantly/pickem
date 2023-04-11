@@ -22,7 +22,8 @@ router.post("/", async (req, res) => {
             where: {
                 email: req.body.email
             }, defaults: {
-                username: req.body.username
+                username: req.body.username,
+                points: req.body.points
             }
         })
         if (!created) {

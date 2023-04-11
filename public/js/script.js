@@ -1,57 +1,62 @@
 console.log("hello andrewb")
 const axios = require("axios");
 const db = require("../../models");
+const { compare } = require("bcrypt");
 
 const checkWinners = async () => {
     try {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
         const sports = await response.data;
-        await sports.events.forEach(event => {
+        await sports.events.forEach(async event => {
             // CHECK IF THE GAME IS OVER (GAME STATUS ID = 3)
-            if (event.status.type.id === "3") {
-                // console.log(event.name)
-                // IF THE GAME IS OVER, IDENTIFY THE WINNER BY GOING THROUGH events.competitions array
-                event.competitions.forEach(competition => {
-                    // console.log(competition.competitors)
-                    // IDENTIFY THE WINNING TEAM
-                    competition.competitors.forEach(team => {
-                        if (team.winner === true) {
-                            console.log(team.team.name);
-                            const updatePicks =  db.pick.update({ correctPick: true, gameStatus: 3, pickActive: false }, {
-                                where: {
-                                    selTeam: team.team.id
-                                }
-                            })
-                        } else if (team.winner === false) {
-                            const updatePicks =  db.pick.update({ correctPick: false, gameStatus: 3, pickActive: false }, {
-                                where: {
-                                    selTeam: team.team.id
-                                }
-                            })
-                        }
-                    })
+            if (event.status.type.id === "3") { 
+                console.log("Game over eventId: ", event.id)
+                const updateGameStatus = db.pick.update( { gameStatus: 3 }, {
+                    where: {
+                        game: event.id
+                    }
                 })
+                // IF THE GAME IS OVER, IDENTIFY THE FINAL SCORES OF THE events.competitions array
+                const events = event.competitions;
+                for (let competition of events) {
+                    // console.log(competition)
+                    // console.log(competition.competitors)
+                    // IDENTIFY THE SCORES BY MATCHING TEAM IDS
+                    const games = competition.competitors;
+                    for (let teams of games) {
+                        // console.log(teams)
+                        const updateSelectTeamScore = await db.pick.update ( {selTeamScore: teams.score}, {
+                            where: {
+                                selTeam: teams.id
+                            }
+                        } )
+                        const updateAgainstTeamScore = await db.pick.update ( {againstTeamScore: teams.score}, {
+                            where: {
+                                againstTeam: teams.id
+                            }
+                        })
+                    }}
+                // AFTER SCORES ARE INPUTED, DETERMINE correctPick AND ADJUST pickActive
+             const compareTeams = await db.pick.findAll({
+                where: {
+                    game: event.id
+                }
+             })
+             console.log("event ID: ", event.id)
+                compareTeams.forEach(team => {
+                    // console.log(team);
+                console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
+              })
             }
         })
+
+            
+
     } catch (error) {
-        console.log("error: ", error)
+        console.log(error)
     }
 }
 
+
 const scoreChecks = setInterval(checkWinners, 5000)
-
-
-// let sports = apiResponse.data;
-// sports.events.forEach(event => {
-//     if (event.status.type.id === "3") {
-//         event.competitions.forEach(competition => {
-//             const allPicks = picks.findAll({
-//                 where: {
-//                     game: competition.id
-//                 }
-//             })
-//             allPicks.correctPick = false;
-//         })
-//     }})
-// })

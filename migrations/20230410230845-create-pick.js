@@ -24,11 +24,26 @@ module.exports = {
       selTeamName: {
         type: Sequelize.STRING
       },
+      selTeamScore: {
+        type: Sequelize.INTEGER
+      },
+      againstTeam: {
+        type: Sequelize.INTEGER
+      },
       againstTeamName: {
         type: Sequelize.STRING
       },
-      gameOdds: {
+      againstTeamScore: {
+        type: Sequelize.INTEGER
+      },
+      favorite: {
+        type: Sequelize.BOOLEAN
+      },
+      gameSpread: {
         type: Sequelize.STRING
+      },
+      gameOdds: {
+        type: Sequelize.INTEGER
       },
       selTeamLogo: {
         type: Sequelize.STRING

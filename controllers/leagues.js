@@ -10,11 +10,17 @@ router.get("/", (req, res) => {
         let sports = apiResponse.data;
         // console.log(sports.events[14].competitions[0].competitors[0].team.name);
         // console.log("short name: ", sports.events[14]);
-        // console.log("res locals ID: ", res.locals.user.id); 
-        const userId = res.locals.user.id;      
-        res.render("leagues/index.ejs", {
-            sports, userId
-        })
+        // console.log("res locals ID: ", res.locals.user.id);
+        if (!res.locals.user) {
+            res.render("leagues/show.ejs", {
+                sports
+            })
+        } else {
+            const userId = res.locals.user.id;      
+            res.render("leagues/index.ejs", {
+                sports, userId
+            })
+        } 
     })
 })
 
@@ -26,9 +32,12 @@ router.post("/", async (req, res) => {
             game: req.body.game,
             selTeam: req.body.selTeam,
             selTeamName: req.body.selTeamName,
+            againstTeam: req.body.againstTeam,
             againstTeamName: req.body.againstTeamName,
-            selTeamLogo: req.body.selTeamLogo,
+            favorite: req.body.favorite,
+            gameSpread: req.body.gameSpread,
             gameOdds: req.body.gameOdds,
+            selTeamLogo: req.body.selTeamLogo,
             gameDate: req.body.gameDate,
             shortName: req.body.shortName,
             gameStatus: req.body.gameStatus,
