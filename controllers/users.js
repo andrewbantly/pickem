@@ -137,9 +137,18 @@ router.get("/edit/:pickId", async (req, res) => {
 router.put("/:pickId", async (req, res) => {
     try{
         const updatePick = await db.pick.update({ 
+            selTeam: req.body.selTeam,
             selTeamName: req.body.selTeamName,
+            selTeamFavorite: req.body.selTeamFavorite,
+            selTeamSpread: req.body.selTeamSpread,
+            selTeamOdds: req.body.selTeamOdds,
+            selTeamLogo: req.body.selTeamLogo,
             againstTeam: req.body.againstTeam,
             againstTeamName: req.body.againstTeamName,
+            againstTeamFavorite: req.body.againstTeamFavorite,
+            againstTeamSpread: req.body.againstTeamSpread,
+            againstTeamOdds: req.body.againstTeamOdds,
+            againstTeamLogo: req.body.againstTeamLogo
          }, {
             where: {
                 id: req.body.id

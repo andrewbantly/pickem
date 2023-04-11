@@ -2,13 +2,36 @@
 <%- include("../partials/nav-login.ejs") %>
 <h2>Edit your pick</h2>
 <h3><%=editPick.shortName%></h3>
-<h4>You picked the <%=editPick.selTeamName%> <%=editPick.gameSpread%>(<%=editPick.gameOdds%>). Do you want to switch your pick to the <%=editPick.againstTeamName%>?</h4>
+<h4>You picked the <%=editPick.selTeamName%> <%=editPick.selTeamSpread%> 
+    
+    <% if (parseInt(editPick.selTeamOdds) > 0) { %>
+        (+<%=editPick.selTeamOdds%>)
+    <% } else { %>
+    (<%=editPick.selTeamOdds%>)
+    <% } %>
+    
+    
+    with <%=editPick.pickValue%> points. Do you want to switch your pick to the <%=editPick.againstTeamName%> <%=editPick.againstTeamSpread%>
+    <% if (parseInt(editPick.againstTeamOdds) > 0) { %>
+        (+<%=editPick.againstTeamOdds%>)
+    <% } else { %>
+    (<%=editPick.againstTeamOdds%>)
+    <% } %>
+    ?</h4>
 <form method="POST" action="/members/<%=editPick.id%>/?_method=PUT">
     <input hidden type="number" name="id" value="<%=editPick.id%>"/>
     <input hidden type="number" name="selTeam" value="<%=editPick.againstTeam%>"/>
-    <input hidden type="tex" name="selTeamName" value="<%=editPick.againstTeamName%>"/>
+    <input hidden type="text" name="selTeamName" value="<%=editPick.againstTeamName%>"/>
+    <input hidden type="boolean" name="selTeamFavorite" value="<%=editPick.againstTeamFavorite%>"/>
+    <input hidden type="text" name="selTeamSpread" value="<%=editPick.againstTeamSpread%>"/>
+    <input hidden type="number" name="selTeamOdds" value="<%=editPick.againstTeamOdds%>"/>
+    <input hidden type="text" name="selTeamLogo" value="<%=editPick.againstTeamLogo%>"/>
     <input hidden type="number" name="againstTeam" value="<%=editPick.selTeam%>"/>
     <input hidden type="text" name="againstTeamName" value="<%=editPick.selTeamName%>"/>
+    <input hidden type="boolean" name="againstTeamFavorite" value="<%=editPick.selTeamFavorite%>"/>
+    <input hidden type="text" name="againstTeamSpread" value="<%=editPick.selTeamSpread%>"/>
+    <input hidden type="number" name="againstTeamOdds" value="<%=editPick.selTeamOdds%>"/>
+    <input hidden type="text" name="againstTeamLogo" value="<%=editPick.selTeamLogo%>"/>
     <button type="submit">SWITCH</button>
 </form>
 <%- include("../partials/footer.ejs") %>

@@ -2,7 +2,7 @@
 <%- include("../partials/nav-login.ejs") %>
 <h1>Welcome, <%=user.username%></h1>
 <h2>Make some picks!</h2>
-<h3>POINTS: <%=user.points%></h3>
+<h3>YOU HAVE <%=user.points%> POINTS.</h3>
 
 <div class="myPicks">
     <% myPicks.forEach(pick => { %>
