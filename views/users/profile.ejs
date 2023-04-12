@@ -18,7 +18,7 @@
                 <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
                 <input type="submit" value="Cancel Pick"/>
             </form>
-            <div class="pickStatus scheduledPick">GAME TIME
+            <div class="pickStatus scheduledPick">GAME TIME:
        <% } else if (pick.gameStatus === 2) { %>
         <div class="pickStatus pickInProgress">game in progress
        <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>

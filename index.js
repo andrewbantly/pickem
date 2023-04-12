@@ -69,8 +69,8 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-const checkWinners = async () => {
-    console.log("check winner is running")
+const gameStatusCheck = async () => {
+    console.log("check game status is running")
     try {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
@@ -114,41 +114,44 @@ const checkWinners = async () => {
                     console.log("event ID: ", event.id)
                     // console.log(team);
                 // console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
-                if (team.favorite === true && (parseInt(team.selTeamScore) - parseFloat(team.gameSpread)) > parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.gameSpread)} and is more than ${parseInt(team.againstTeamScore)}`);
-                    console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
+                if (team.selTeamFavorite === true && (parseInt(team.selTeamScore) - parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
+                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
                     const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});
-                        userWins(parseInt(team.gameOdds), team.userId);
-                        // userWins (odds, userId) => userWins(parseInt(team.gameOdds), team.userId)
-                } else if (team.favorite === true && (parseInt(team.selTeamScore) - parseFloat(team.gameSpread)) < parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.gameSpread)} and is less than ${parseInt(team.againstTeamScore)}`);
-                    console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
+                        userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);
+                        // userWins (odds, userId) => userWins(parseInt(team.selTeamOdds), team.userId)
+                } else if (team.selTeamFavorite === true && (parseInt(team.selTeamScore) - parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
+                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) - parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
                     const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});     
-                        userLoses(parseInt(team.gameOdds), team.userId);           
-                    } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) > parseInt(team.againstTeamScore)) {
-                    console.log(`Not favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.gameSpread)} and is more than ${parseInt(team.againstTeamScore)}`);
-                    console.log(`${team.selTeamName} covered against the ${team.againstTeamName}`);
+                        userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);           
+                    } else if (team.selTeamFavorite === false && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
+                    console.log(`Underdog ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
                     const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});             
-                        userWins(parseInt(team.gameOdds), team.userId);   
-                    } else if (team.favorite === false && (parseInt(team.selTeamScore) + parseFloat(team.gameSpread)) < parseInt(team.againstTeamScore)) {
-                    console.log(`Not favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.gameSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.gameSpread)} and is less than than ${parseInt(team.againstTeamScore)}`);
-                    console.log(`${team.selTeamName} did not cover against the ${team.againstTeamName}`);
+                        userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);   
+                    } else if (team.selTeamFavorite === false && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
+                    console.log(`Underdog ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
                     const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});
-                        userLoses(parseInt(team.gameOdds), team.userId);                    
+                        userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);                    
                 }
               })
+            } if (event.status.type.id === "2") {
+                // IF GAME STATUS === 2, the game has started and picks are locked
+                const updateGameStatus = db.pick.update( { gameStatus: 2 }, {
+                    where: {
+                        game: event.id
+                    }
+                })
             }
         })
     } catch (error) {
@@ -156,23 +159,23 @@ const checkWinners = async () => {
     }
 }
 
-const userWins = async (odds, member) => { 
+const userWins = async (pickValue, odds, member) => { 
     console.log("winning memberId: ", member);
     const winner = await db.user.findOne({ 
         where: {
             id: member
         }});
         let initialValue = await winner.points;
-        console.log(`${winner.username} has ${initialValue} points. After winning a 10 pt pick with ${odds} odds, ${winner.username} should now have ${(initialValue + ((100/(Math.abs(odds))) * 10)).toFixed(2)}`)
+        console.log(`${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${(initialValue + ((100/(Math.abs(odds))) * pickValue)).toFixed(2)}`)
     if (odds > 0) {
-        const updatedPoints = await (initialValue + (((odds)/100).toFixed(0) * 10)); // add .toFixed(2) after you changed the user.points to decimal type from integer type
+        const updatedPoints = await (initialValue + ((((odds)/100) * pickValue).toFixed(2)));
         const pointsChange = await db.user.update({ points: updatedPoints }, {
             where: {
                 id: member
             }
         })
     } else if (odds < 0) {
-        const updatedPoints = await (initialValue + ((100/(Math.abs(odds))).toFixed(0) * 10)); // add .toFixed(2) after you changed the user.points to decimal type from integer type
+        const updatedPoints = await (initialValue + (((100/(Math.abs(odds))) * pickValue)).toFixed(2)); // add .toFixed(2) after you changed the user.points to decimal type from integer type
         const pointsChange = await db.user.update({ points: updatedPoints }, {
             where: {
                 id: member
@@ -180,25 +183,25 @@ const userWins = async (odds, member) => {
         })
     } 
 }
-const userLoses = async (odds, member) => { 
+const userLoses = async (pickValue, odds, member) => { 
     console.log("losing memberId: ", member);
     const loser = await db.user.findOne({ 
         where: {
             id: member
         }});
         const initialValue = await loser.points;
-        const updatedPoints = initialValue - 10; // 10 us default pick value
+        const updatedPoints = initialValue - pickValue;
         const pointsChange = await db.user.update( {points: updatedPoints}, {
         where: {
             id: member
         }
     })
-        console.log(`${loser.username} has ${initialValue} points. After losing a 10 pt pick with ${odds} odds, ${loser.username} should now have ${(initialValue - 10).toFixed(2)}`)
+        console.log(`${loser.username} has ${initialValue} points. After losing a ${pickValue} point pick with ${odds} odds, ${loser.username} should now have ${(initialValue - pickValue).toFixed(2)}`)
 }
 
 
 
-// const scoreChecks = setInterval(checkWinners, 5000)
+// const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
 
 
 
