@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const cryptoJs = require("crypto-js");
 const db = require("./models")
 const axios = require("axios");
+const { compare } = require("bcrypt");
 
 // app config
 const app = express();
@@ -110,41 +111,38 @@ const gameStatusCheck = async () => {
                     game: event.id
                 }
              })
-            //  for (let team of compareTeams) {}
-             compareTeams.forEach(team => {
+            //  for (const team of compareTeams) {
+                compareTeams.forEach(async team => { 
                     console.log("event ID: ", event.id)
                     // console.log(team);
                 // console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
-                if (team.selTeamFavorite === true && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
-                    const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
+                if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
+                    console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
+                    const pickWinner = await db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});
-                        await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);
+                    const userPointValueChange = await db.user.update({ 
+                        points: await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId) }, {
+                        where: {
+                            id: team.userId
+                        }
+                    })
                         // userWins (odds, userId) => userWins(parseInt(team.selTeamOdds), team.userId)
-                } else if (team.selTeamFavorite === true && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
+                } else if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
+                    console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
                     const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
                             game: event.id
                         }});     
-                        userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);           
-                    } else if (team.selTeamFavorite === false && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
-                    console.log(`Underdog ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
-                    const pickWinner = db.pick.update({correctPick: true, pickActive: false}, { 
-                        where: {
-                            game: event.id
-                        }});             
-                        userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);   
-                    } else if (team.selTeamFavorite === false && (parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
-                    console.log(`Underdog ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than than ${parseInt(team.againstTeamScore)}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
-                    const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
-                        where: {
-                            game: event.id
-                        }});
-                        userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);                    
-                }
+                        // userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);
+                        const userPointValueChange = await db.user.update({ 
+                            points: await userLoses(team.pickValue, team.userId) }, {
+                            where: {
+                                id: team.userId
+                            }
+                        })           
+                    }
               })
             } if (event.status.type.id === "2") {
                 // IF GAME STATUS === 2, the game has started and picks are locked
@@ -159,59 +157,39 @@ const gameStatusCheck = async () => {
         console.log(error)
     }
 }
-
+     
 const userWins = async (pickValue, odds, member) => { 
-    console.log("winning memberId: ", member);
-    const winner = await db.user.findOne({ 
-        where: {
-            id: member
-        }});
-        let initialValue = await winner.points;
-        if (odds > 0) {
-            console.log(`${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${(initialValue + ((odds/100) * pickValue)).toFixed(2)}`);
-            const updatedPoints = (initialValue + (((odds)/100) * pickValue).toFixed(2));
-            const pointsChange = await db.user.update({ points: updatedPoints }, {
-                where: {
-                    id: member
-                }
-            })
-        } else if (odds < 0) {
-            console.log(`${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${(initialValue + (((100/(Math.abs(odds))) * pickValue).toFixed(2)))}`)
-            const updatedPoints = (initialValue + (((100/(Math.abs(odds))) * pickValue).toFixed(2))); // add .toFixed(2) after you changed the user.points to decimal type from integer type
-        const pointsChange = await db.user.update({ points: updatedPoints }, {
+        console.log("winning memberId: ", member);
+        let winner = await db.user.findOne({ 
             where: {
                 id: member
-            }
-        })
-    } 
+                    }});
+        let initialValue = parseFloat(winner.points);
+        if (odds > 0) {
+            let updatedPoints = (initialValue + (((odds)/100) * pickValue));
+            const newPointValue = (updatedPoints.toFixed(2))
+            console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with positive ${odds} odds, ${winner.username} should now have ${newPointValue}`)
+            return parseFloat(newPointValue);
+        } else if (odds < 0) {
+            let updatedPoints = (initialValue + ((100/(Math.abs(odds))) * pickValue));
+            const newPointValue = (updatedPoints.toFixed(2)); 
+            console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with negative ${odds} odds, ${winner.username} should now have ${newPointValue}`);
+            return parseFloat(newPointValue);
+        } 
+    }
+const userLoses = async (pickValue, member) => { 
+        console.log("losing memberId: ", member);
+        let loser = await db.user.findOne({ 
+            where: {
+                id: member
+            }});
+        let initialValue = parseFloat(loser.points);
+        const newPointValue = (initialValue - pickValue).toFixed(2);
+        console.log(`Loser ${loser.username} has ${initialValue} points. After losing a ${pickValue}, ${loser.username} should now have ${newPointValue}`)
+        return parseFloat(newPointValue);
 }
-const userLoses = async (pickValue, odds, member) => { 
-    console.log("losing memberId: ", member);
-    const loser = await db.user.findOne({ 
-        where: {
-            id: member
-        }});
-        const initialValue = await loser.points;
-        const updatedPoints = initialValue - pickValue;
-        const pointsChange = await db.user.update( {points: updatedPoints}, {
-        where: {
-            id: member
-        }
-    })
-        console.log(`${loser.username} has ${initialValue} points. After losing a ${pickValue} point pick with ${odds} odds, ${loser.username} should now have ${(initialValue - pickValue).toFixed(2)}`)
-}
-
-
 
 // const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
-
-
-
-
-
-
-
-
 
 //routes
 app.get("/", (req, res) => {
