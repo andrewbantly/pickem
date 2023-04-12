@@ -8,6 +8,17 @@
             <button type="submit">Like</button>
         </form> (<%=pick.likeCount%>👍) liked by: 
         <% pick.likes.forEach(like => { %><%=like.likerName%> <% }) %>
+        <% pick.comments.forEach(comment => { %>
+            <li>
+                <%=comment.commenterName%>: <%=comment.content%> 
+            </li>
+                <% }) %>
+        <form method="POST" action="/picks/comment/<%=pick.id%>">
+            <textarea name="content"></textarea>
+            <button type="submit">Comment</button>
+        </form>
+
+
     <% }) %>
 </ul>
 

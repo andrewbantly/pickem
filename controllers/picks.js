@@ -8,7 +8,7 @@ const axios = require("axios");
 router.get("/", async (req, res) => {
 //  res.send("see picks that people have made");
     const allUsersAndPicks = await db.pick.findAll({
-        include: [db.user, db.like],
+        include: [db.user, db.like, db.comment],
         order: [["id", "DESC"]]
     })
     // console.log(allUsersAndPicks[0].likes)
@@ -64,6 +64,35 @@ router.post("/like/:pickId", async (req, res) => {
     // console.log("req body: ", req.body[0]);
     res.redirect("/picks")
 })
+
+
+router.post("/comment/:pickId", async (req, res) => {
+    // console.log("req params: ", req.params.content);
+    console.log("req body: ", req.body.content);
+    // console.log("res locals userId: ", res.locals.user.id);
+    // console.log("res locals username: ", res.locals.user.username);
+    const commenterName = res.locals.user.username;
+    const [newComment, commentCreated]= await db.comment.findOrCreate({
+        where: {
+            userId: res.locals.user.id,
+            pickId: req.params.pickId,
+            commenterName: commenterName 
+        }, defaults: {
+            content: req.body.content    
+    }
+    })
+    res.redirect("/picks")
+})
+
+
+
+
+
+
+
+
+
+
 
 // Shows picks of user
 router.get("/:username", (req, res) => {

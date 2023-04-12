@@ -57,5 +57,18 @@ router.post("/", async (req, res) => {
     }
 })
 
+// GET - /leagues/:game - shows details of a specific game
+router.get("/:league/:game", async (req, res) => {
+    console.log("params: ", req.params);
+    console.log("league: ", req.params.league);
+    console.log("game: ", req.params.game);
+    let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
+    axios.get(mlbURL).then(apiResponse => {
+        let sports = apiResponse.data;    
+        const game = req.params.game;
+        res.render("leagues/details.ejs", {game});
+    })
+})
+
 // export the router instance
 module.exports = router;

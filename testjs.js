@@ -1,14 +1,20 @@
-const userWins = async (pickValue, odds, member) => { 
-        const username = "MurphyBoy";
-        let initialValue = 10;
-        if (odds > 0) {
-            console.log(`${username} has ${initialValue} points. After winning a ${pickValue} point pick with positive ${odds} odds, ${username} should now have ${(initialValue + (((odds)/100) * pickValue)).toFixed(2)}`);
-            const updatedPoints = await (initialValue + (((odds)/100) * pickValue)).toFixed(2);
-            console.log("updated points: ", updatedPoints)
-        } else if (odds < 0) {
-            console.log(`${username} has ${initialValue} points. After winning a ${pickValue} point pick with negative ${odds} odds, ${username} should now have ${(initialValue + ((100/(Math.abs(odds))) * pickValue)).toFixed(2)}`)
-            const updatedPoints = await (initialValue + ((100/(Math.abs(odds))) * pickValue)).toFixed(2); 
-            console.log("updated points: ", updatedPoints)
-    } 
+const axios = require("axios");
+function apiTest () {
+    let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
+    axios.get(mlbURL).then(apiResponse => {
+        let sports = apiResponse.data;    
+        sports.events.forEach(event => {
+            if (event.status.type.id === "1") {
+                event.competitions.forEach(competition => {
+                    console.log("away team: ", competition.competitors[1].team.name)
+                    console.log("pitcher: ", competition.competitors[1].probables[0].athlete.displayName);
+                    console.log("wins: ", competition.competitors[1].probables[0]?.statistics[2]?.displayValue)
+                })
+            } else (
+                console.log("a different game?")
+                )
+            })
+})
 }
-userWins(10, 200, 1)
+
+apiTest();
