@@ -196,14 +196,23 @@ color: white;
     width: 100%;
     flex-wrap: wrap;
 }
-.shortNameContainer {
+.gameNameContainer {
     width: 100%;
     position: relative;
     justify-content: space-between;
     display: flex;
   }
-  .shortName {
+  .matchup {
     display: block;
+    margin: 0;
+    margin-bottom: 0.3rem;
+    font-size: 1.5rem;
+}
+.ballpark {
+      display: block;
+      margin: 0;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
   }
   .btn-close {
       display: block;
@@ -221,10 +230,32 @@ color: white;
       color: white;
       border-radius: 50%;
   }
-  .probablesContainer {
-    width: 100%;
+.probablesContainer {
+    width: 50%;
+    border: 3px soild green;
   }
-
+.probablesHeader {
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+}
+  .pitcherTeam {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+.pitcherInfo {
+    margin: 0;
+    margin-bottom: 0.3rem;
+}
+.teamLeadersContainer {
+    width: 45%;
+}
+.headshot {
+    height: 3rem;
+}
+.battingLeadersInfo {
+    margin: 0;
+    margin-bottom: 0.3rem;
+}
 .btn-open {
     border: none;
     bottom: 1px;

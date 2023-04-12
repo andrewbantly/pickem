@@ -8,36 +8,47 @@
                 <div class="gameStatus scheduled">SCHEDULED</div>
                 <section id="modal-<%=event.id%>"class="modal hidden">
                     <div class="modalContainer">
-                        <div class="shortNameContainer">
+                        <div class="gameNameContainer"><div class="divider">
                         <% event.competitions.forEach(competition => { %>
-                            <h3 class="shortName"><%=event.shortName%></h3>
+                            <h3 class="matchup"><%=event.name%></h3>
+                            <p class="ballpark"><%=competition.venue.fullName%> - <%=competition.venue.address.city%>, <%=competition.venue.address.state%></p></div>
                             <button class="btn-close" data-target="#modal-<%=event.id%>">x</button>
                         </div>
                         <div class="probablesContainer">
-                            <h4>Probable Pitchers</h4>
-                                <p class="pitchers"><%=competition.competitors[1].team.name%>: <%=competition.competitors[1].probables[0].athlete.displayName%> 
+                            <h4 class="probablesHeader">Probable Pitchers</h4>
+                                <p class="pitcherTeam"><%=competition.competitors[1].team.name%></p><p class="pitcherInfo"><%=competition.competitors[1].probables[0].athlete.displayName%> 
                                     <% if (competition.competitors[1].probables[0].statistics.length !== 0) { %>
                                         (<%=competition.competitors[1].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[1].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[1].probables[0]?.statistics[3]?.displayValue%> ERA)
                                         <% } else { %>
                                             (0-0, 0.00 ERA)
                                             <%}%>
-                                        </p>
-                                        <p class="pitchers"><%=competition.competitors[0].team.name%>: <%=competition.competitors[0].probables[0].athlete.displayName%> 
+                                        </p><img class="headshot" src="<%=competition.competitors[1].probables[0].athlete.headshot%>">
+                                        <p class="pitcherTeam"><%=competition.competitors[0].team.name%></p><p class="pitcherInfo"><%=competition.competitors[0].probables[0].athlete.displayName%> 
                                             <% if (competition.competitors[0].probables[0].statistics.length !== 0) { %>
                                                 (<%=competition.competitors[0].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[0].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[0].probables[0]?.statistics[3]?.displayValue%> ERA)
                                                 <% } else { %>
                                                     (0-0, 0.00 ERA)
                                                     <%}%>
-                                                </p>
+                                                </p><img class="headshot" src="<%=competition.competitors[0].probables[0].athlete.headshot%>">
                                             </div>
-                                            
+                                            <!--  -->
+                                            <div class="teamLeadersContainer">
+                                                <h4><%=competition.competitors[1].team.name%> Batting Leaders</h4>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[0].shortDisplayName%>: <%=competition.competitors[1].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[0].leaders[0].displayValue%>)</strong></p>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[1].shortDisplayName%>: <%=competition.competitors[1].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[1].leaders[0].displayValue%>)</strong></p>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[2].shortDisplayName%>: <%=competition.competitors[1].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[2].leaders[0].displayValue%>)</strong></p>
+                                                <!--  -->
+                                                <h4><%=competition.competitors[0].team.name%> Batting Leaders</h4>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[0].shortDisplayName%>: <%=competition.competitors[0].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[0].leaders[0].displayValue%>)</strong></p>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[1].shortDisplayName%>: <%=competition.competitors[0].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[1].leaders[0].displayValue%>)</strong></p>
+                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[2].shortDisplayName%>: <%=competition.competitors[0].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[2].leaders[0].displayValue%>)</strong></p>
+                                            </div>
+
                                             <% }) %>
                                         </div>
                 </section>
                 <div id="overlay-<%=event.id%>" class="overlay hidden"></div>
                 <button class="btn btn-open" data-target="#modal-<%=event.id%>">More info</button>
-
-
             <% } else if (event.status.type.id === "2") { %>
                 <div class="gameStatus inProgress">IN PROGRESS</div>
             <% } else if (event.status.type.id === "3") { %>
