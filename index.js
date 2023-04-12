@@ -111,9 +111,9 @@ const gameStatusCheck = async () => {
                     game: event.id
                 }
              })
-            //  for (const team of compareTeams) {
-                compareTeams.forEach(async team => { 
-                    console.log("event ID: ", event.id)
+             for (const team of compareTeams) {
+                // compareTeams.forEach(async team => { 
+                    console.log("team: ", event.id)
                     // console.log(team);
                 // console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
                 if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
@@ -122,12 +122,14 @@ const gameStatusCheck = async () => {
                         where: {
                             game: event.id
                         }});
+                    let newPointValue = await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);
+                    console.log("higher newPointValue: ", newPointValue)
                     const userPointValueChange = await db.user.update({ 
-                        points: await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId) }, {
-                        where: {
-                            id: team.userId
-                        }
-                    })
+                    points: newPointValue }, {
+                    where: {
+                        id: team.userId
+                    }
+                })
                         // userWins (odds, userId) => userWins(parseInt(team.selTeamOdds), team.userId)
                 } else if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
@@ -136,14 +138,18 @@ const gameStatusCheck = async () => {
                             game: event.id
                         }});     
                         // userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);
+                        let newPointValue = await userLoses(team.pickValue, team.userId);
+                        console.log("lower newPointValue: ", newPointValue)
                         const userPointValueChange = await db.user.update({ 
-                            points: await userLoses(team.pickValue, team.userId) }, {
+                            points: newPointValue }, {
                             where: {
                                 id: team.userId
                             }
                         })           
+                    } else {
+                        console.log("THIS SHOULD NEVER RUN OR ELSE SOMETHING IS WRONG")
                     }
-              })
+              }
             } if (event.status.type.id === "2") {
                 // IF GAME STATUS === 2, the game has started and picks are locked
                 const updateGameStatus = db.pick.update( { gameStatus: 2 }, {
@@ -177,7 +183,7 @@ const userWins = async (pickValue, odds, member) => {
             return parseFloat(newPointValue);
         } 
     }
-const userLoses = async (pickValue, member) => { 
+        const userLoses = async (pickValue, member) => { 
         console.log("losing memberId: ", member);
         let loser = await db.user.findOne({ 
             where: {
