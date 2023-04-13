@@ -1,25 +1,37 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-signup.ejs") %>
-<ul>
-    <% allUsersAndPicks.forEach(pick => { %>
-        <p><%=pick.user.username%> selected <%=pick.selTeamName%> at <%=pick.selTeamSpread%> (<%=pick.selTeamOdds%>) - <a href="/members/<%=pick.user.username%>">See their picks</a></p>
-        <form method="POST" action="/picks/like/<%=pick.id%>">
-            <input hidden type="boolean" name="liked">
-            <button type="submit">Like</button>
-        </form> (<%=pick.likeCount%>👍) liked by: 
-        <% pick.likes.forEach(like => { %><%=like.likerName%> <% }) %>
-        <% pick.comments.forEach(comment => { %>
-            <li>
-                <%=comment.commenterName%>: <%=comment.content%> 
-            </li>
-                <% }) %>
-        <form method="POST" action="/picks/comment/<%=pick.id%>">
-            <textarea name="content"></textarea>
-            <button type="submit">Comment</button>
+<h2 class="league">Community Picks</h2>
+<div class="pickList">
+    <% for (let i =0; i< 5; i++) { %>
+        <div class="recentPicks">
+        <p class="game allPicks"><%=allUsersAndPicks[i].user.username%> selected <%=allUsersAndPicks[i].selTeamName%> at <%=allUsersAndPicks[i].selTeamSpread%> (<%=allUsersAndPicks[i].selTeamOdds%>)</p></div>
+        <div class="pickReactions">
+        <a class="profileLink" href="/members/<%=allUsersAndPicks[i].user.username%>">Profile</a>
+        
+        
+        <form method="POST" action="/picks/like/<%=allUsersAndPicks[i].id%>">
+            <input hidden type="boolean" name="liked">            
+                <button class="likeComment" type="submit"><img class="likeButton" src="../../public/media/like-icon.png"/> (
+                    <% if (allUsersAndPicks[i].likeCount > 0) { %>
+                    <%=allUsersAndPicks[i].likeCount%>
+                    <% } else { %>
+                        0
+                    <% } %>
+                    )</button>
         </form>
 
 
-    <% }) %>
-</ul>
+        <% allUsersAndPicks[i].comments.forEach(comment => { %>
+            <p>
+                <%=comment.commenterName%>: <%=comment.content%> 
+            </p>
+                <% }) %>
+        <form method="POST" action="/picks/comment/<%=allUsersAndPicks[i].id%>">
+            <textarea name="content"></textarea>
+            <button class="likeComment" type="submit">Comment</button>
+        </form>
+        </div>
+    <% } %>
+</div>
 
 <%- include("../partials/footer.ejs") %>
