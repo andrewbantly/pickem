@@ -18,20 +18,30 @@
                         </div>
                         <div class="probablesContainer">
                             <h4 class="probablesHeader">Probable Pitchers</h4>
-                                <p class="pitcherTeam"><%=competition.competitors[1].team.name%></p><p class="pitcherInfo"><%=competition.competitors[1].probables[0].athlete.displayName%> 
+                                <p class="pitcherTeam"><%=competition.competitors[1].team.name%></p>
+                                <% if (competition.competitors[1].probables) { %>
+                                    <p class="pitcherInfo"><%=competition.competitors[1].probables[0].athlete.displayName%></p> 
                                     <% if (competition.competitors[1].probables[0].statistics.length !== 0) { %>
                                         (<%=competition.competitors[1].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[1].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[1].probables[0]?.statistics[3]?.displayValue%> ERA)
                                         <% } else { %>
                                             (0-0, 0.00 ERA)
                                             <%}%>
                                         </p><img class="headshot" src="<%=competition.competitors[1].probables[0].athlete.headshot%>">
-                                        <p class="pitcherTeam"><%=competition.competitors[0].team.name%></p><p class="pitcherInfo"><%=competition.competitors[0].probables[0].athlete.displayName%> 
-                                            <% if (competition.competitors[0].probables[0].statistics.length !== 0) { %>
-                                                (<%=competition.competitors[0].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[0].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[0].probables[0]?.statistics[3]?.displayValue%> ERA)
-                                                <% } else { %>
-                                                    (0-0, 0.00 ERA)
-                                                    <%}%>
-                                                </p><img class="headshot" src="<%=competition.competitors[0].probables[0].athlete.headshot%>">
+                                        <% } else { %>
+                                            <p class="pitcherInfo">No probable listed</p> 
+                                                <% } %>
+                                        <p class="pitcherTeam"><%=competition.competitors[0].team.name%></p>
+                                        <% if (competition.competitors[0].probables) { %>
+                                            <p class="pitcherInfo"><%=competition.competitors[0].probables[0].athlete.displayName%> 
+                                                <% if (competition.competitors[0].probables[0].statistics.length !== 0) { %>
+                                                    (<%=competition.competitors[0].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[0].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[0].probables[0]?.statistics[3]?.displayValue%> ERA)
+                                                    <% } else { %>
+                                                        (0-0, 0.00 ERA)
+                                                        <%}%>
+                                                    </p><img class="headshot" src="<%=competition.competitors[0].probables[0].athlete.headshot%>">
+                                                    <% } else { %>
+                                                        <p class="pitcherInfo">No probable listed</p> 
+                                                    <% } %>
                                             </div>
                                             <!--  -->
                                             <div class="teamLeadersContainer">
@@ -50,7 +60,7 @@
                                         </div>
                 </section>
                 <div id="overlay-<%=event.id%>" class="overlay hidden"></div>
-                <button class="btn-open" data-target="#modal-<%=event.id%>">More info</button>
+                <button class="btn-open" data-target="#modal-<%=event.id%>">PREVIEW</button>
             <% } else if (event.status.type.id === "2") { %>
                 <div class="gameStatus inProgress">IN PROGRESS</div>
             <% } else if (event.status.type.id === "3") { %>
@@ -87,7 +97,7 @@
                     <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                     <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
                     <input hidden type="boolean" name="pickActive" value="true"/>
-                    <input required class="pickValueInput" type="number" name="pickValue" placeholder="Pick risk"/>
+                    <input required class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
                     <input hidden type="number" name="selTeam" value="<%=competition.competitors[1].id%>"/>
                     <input hidden type="text" name="selTeamName" value="<%=competition.competitors[1].team.name%>"/>
                     <input hidden type="boolean" name="selTeamFavorite" value="<%=competition.odds[1].awayTeamOdds.favorite%>"/>
@@ -132,7 +142,7 @@
                 <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                 <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
                 <input hidden type="boolean" name="pickActive" value="true"/>
-                <input required class="pickValueInput" type="number" name="pickValue" placeholder="Pick risk"/>
+                <input required class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
                 <input hidden type="number" name="selTeam" value="<%=competition.competitors[0].id%>"/>
                 <input hidden type="text" name="selTeamName" value="<%=competition.competitors[0].team.name%>"/>
                 <input hidden type="boolean" name="selTeamFavorite" value="<%=competition.odds[1].homeTeamOdds.favorite%>"/>
