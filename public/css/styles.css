@@ -1,11 +1,11 @@
 html {
     font-size: 1.5vw;
+    box-sizing: border-box;
 }
 body {
     font-family: sans-serif;
     background-color: rgb(161, 161, 161);
 }
-
 nav {
     background-color: rgb(105, 162, 143);
     display: flex;
@@ -22,7 +22,6 @@ a {
 }
 
 .formContainer {
-    border: 3px solid hotpink;
     margin: 0 auto;
     display: flex;
 }
@@ -54,70 +53,84 @@ a {
     cursor: pointer;
 }
 .pickContainer {
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 .eventName {
-    width: 60%;
+    width: 50%;
+    margin: 0.3rem 0;
 }
 .oddsLogo {
-    width: 40%;
+    width: 50%;
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
 }
-.eventName > p {
-    color :rgb(0, 0, 110);
+.game {
+    font-size: 1rem;
+    font-weight: bold;
     margin: 0;
+    color:rgb(61, 61, 61);
 }
 .gameStatus {
     width: fit-content;
-    padding: 0 1vw;
+    padding: 0 0.3rem;
+    font-size: 0.7rem;
 }
 .scheduled {
-    border: 3px solid green;
-    background-color: green;
+    background-color: rgb(0, 125, 0);
     color: white;
 }
 .inProgress {
-border: 3px solid blue;
-background-color: blue;
+background-color: rgb(0, 0, 125);
 color: white;
 }
 .final {
-    border: 3px solid red;
-    background-color: red;
+    background-color: rgb(125, 0, 0);
     color: white;
 }
 .other {
-    border: 3px solid yellow;
-    background-color: yellow;
+    background-color: rgb(200, 200, 0);
     color: white;
 }
-
-.awayTeamContainer, .homeTeamContainer {
-    width: 50%;
-    border: 3px solid orange;
+.teamContainer {
+    width: 45%;
+    background-color: rgb(213, 213, 213);
+    border: 3px solid rgb(60, 60, 60);
     border-radius: 3px;
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    padding: 0.3rem;
 }
-.awayTeamLogo, .homeTeamLogo {
-    height: 4vh;
+.spread {
+    display: inline;
+    margin: 0.2rem;
+    text-align: center;
 }
-.awayTeamContainer, .homeTeamContainer > p {
+
+.pickValueInput {
+    width: 6rem;
+}
+.pickButton {
+    width: 3rem;
+}
+.teamLogo {
+    height: 6vh;
+}
+.teamContainer > p {
     color:rgb(61, 61, 61);
     margin: 0;
 }
 .score {
     text-align: center;
-    font-size: 2vh;
+    font-size: 2rem;
 }
 .winner {
-    font-style: italic;
-    text-decoration: underline;
+    font-weight: bold;
 }
 .myPicks {
     width: 60%;
@@ -176,13 +189,13 @@ color: white;
 .modal {
     width: 40rem;
     padding: 1.5rem;
-    height: 20rem;
+    height: 22rem;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: whitesmoke;
-    border: 3px solid rgb(99, 99, 99);
+    border: 5px solid rgb(99, 99, 99);
     border-radius: 5px;
     z-index: 2;
   }
@@ -206,25 +219,26 @@ color: white;
     display: block;
     margin: 0;
     margin-bottom: 0.3rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
-.ballpark {
+.ballpark, .firstPitch {
       display: block;
       margin: 0;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
       font-size: 1rem;
   }
-  .btn-close {
-      display: block;
+.btn-close {
+      display: flex;
       position: relative;
       cursor: pointer;
-      padding: 0.5rem 0.7rem;
-      /* border-radius: 50%; */
+      padding: 0.5rem 0.5rem;
       right: 0;
-      font-size: 1.5rem;
+      font-size: 1rem;
+      align-items: center;
+      justify-content: center;
       font-weight: 300;
-      height: fit-content;
-      width: fit-content;
+      height: 2rem;
+      width: 2rem;
       border: none;
       background: #000000;
       color: white;
@@ -251,6 +265,7 @@ color: white;
 }
 .headshot {
     height: 3rem;
+    margin-bottom: .3rem;
 }
 .battingLeadersInfo {
     margin: 0;
@@ -262,6 +277,9 @@ color: white;
     cursor: pointer;
     background: #3c3c3c;
     color: white;
+    width: fit-content;
+    padding: 0 0.3rem;
+    font-size: 0.7rem;
 }
 .hidden {
     display: none;

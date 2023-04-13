@@ -3,7 +3,7 @@
 <h2><%=sports.leagues[0].abbreviation%></h2>
 <div class="pickContainer">
     <% sports.events.forEach(event => { %>
-        <div class="eventName"><p><%=event.name%></p>
+        <div class="eventName"><p class="game"><%=event.name%></p>
             <% if (event.status.type.id === "1") { %>
                 <div class="gameStatus scheduled">SCHEDULED</div>
                 <section id="modal-<%=event.id%>"class="modal hidden">
@@ -11,8 +11,10 @@
                         <div class="gameNameContainer"><div class="divider">
                         <% event.competitions.forEach(competition => { %>
                             <h3 class="matchup"><%=event.name%></h3>
-                            <p class="ballpark"><%=competition.venue.fullName%> - <%=competition.venue.address.city%>, <%=competition.venue.address.state%></p></div>
-                            <button class="btn-close" data-target="#modal-<%=event.id%>">x</button>
+                            <p class="ballpark"><%=competition.venue.fullName%> - <%=competition.venue.address.city%>, <%=competition.venue.address.state%></p>
+                            <p class="firstPitch">First pitch: <%=event.status.type.detail%></p>
+                        </div>
+                            <button class="btn-close" data-target="#modal-<%=event.id%>">X</button>
                         </div>
                         <div class="probablesContainer">
                             <h4 class="probablesHeader">Probable Pitchers</h4>
@@ -48,7 +50,7 @@
                                         </div>
                 </section>
                 <div id="overlay-<%=event.id%>" class="overlay hidden"></div>
-                <button class="btn btn-open" data-target="#modal-<%=event.id%>">More info</button>
+                <button class="btn-open" data-target="#modal-<%=event.id%>">More info</button>
             <% } else if (event.status.type.id === "2") { %>
                 <div class="gameStatus inProgress">IN PROGRESS</div>
             <% } else if (event.status.type.id === "3") { %>
@@ -64,7 +66,19 @@
         <div class="oddsLogo">
         <% if (event.status.type.id === "1") { %>
              <% event.competitions.forEach(competition => { %>
-            <div class="awayTeamContainer">
+            <div class="teamContainer">
+                <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
+                    <p class="spread"><%=competition.competitors[1].team.name%>         
+                        <% if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
+                            -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                            <% } else if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
+                                -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
+                                    +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                    <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
+                                        +1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                        <% } %>
+                                    </p>
                 <form method="POST" action="/leagues">
                     <input hidden type="number" name="userId" value="<%=userId%>">
                     <input hidden type="number" name="league" value="<%=sports.leagues[0].id%>"/>
@@ -73,7 +87,7 @@
                     <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                     <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
                     <input hidden type="boolean" name="pickActive" value="true"/>
-                    <input required type="number" name="pickValue" placeholder="Enter pick value"/>
+                    <input required class="pickValueInput" type="number" name="pickValue" placeholder="Pick risk"/>
                     <input hidden type="number" name="selTeam" value="<%=competition.competitors[1].id%>"/>
                     <input hidden type="text" name="selTeamName" value="<%=competition.competitors[1].team.name%>"/>
                     <input hidden type="boolean" name="selTeamFavorite" value="<%=competition.odds[1].awayTeamOdds.favorite%>"/>
@@ -94,21 +108,22 @@
                     <% } %>
                     <input hidden type="number" name="againstTeamOdds" value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>"/>
                     <input hidden type="text" name="againstTeamLogo" value="<%=competition.competitors[0].team.logo%>"/>
-                    <button type="submit">PICK</button>
+                    <button class="pickButton" type="submit">PICK</button>
                 </form>
-                <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
-                <p>         
-            <% if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
-                -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                <% } else if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                    -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
-                    +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                    +1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                    <% } %>
-            </p></div>
-        <div class="homeTeamContainer">
+                </div>
+        <div class="teamContainer">
+            <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
+            <p class="spread"><%=competition.competitors[0].team.name%>
+                <% if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
+                    -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                    <% } else if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
+                        -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                        <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
+                            +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+               <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
+                +1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                <% } %>
+            </p>
             <form method="POST" action="/leagues">
                 <input hidden type="number" name="userId" value="<%=userId%>">
                 <input hidden type="number" name="league" value="<%=sports.leagues[0].id%>"/>
@@ -117,7 +132,7 @@
                 <input hidden type="date" name="gameDate" value="<%=sports.day.date%>"/>
                 <input hidden type="integer" name="gameStatus" value="<%=event.status.type.id%>"/>
                 <input hidden type="boolean" name="pickActive" value="true"/>
-                <input required type="number" name="pickValue" placeholder="Enter pick value"/>
+                <input required class="pickValueInput" type="number" name="pickValue" placeholder="Pick risk"/>
                 <input hidden type="number" name="selTeam" value="<%=competition.competitors[0].id%>"/>
                 <input hidden type="text" name="selTeamName" value="<%=competition.competitors[0].team.name%>"/>
                 <input hidden type="boolean" name="selTeamFavorite" value="<%=competition.odds[1].homeTeamOdds.favorite%>"/>
@@ -138,34 +153,23 @@
                 <% } %>
                 <input hidden type="number" name="againstTeamOdds" value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>"/>
                 <input hidden type="text" name="againstTeamLogo" value="<%=competition.competitors[1].team.logo%>"/>
-                <button type="submit">PICK</button>
+                <button class="pickButton" type="submit">PICK</button>
             </form>
-                <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
-            <p> 
-            <% if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
-               -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-               <% } else if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
-                -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-               <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
-                +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-               <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
-                +1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                <% } %>
-        </p></div>
+            </div>
          <% })} else if (event.status.type.id === "2") { %>
             <% event.competitions.forEach(competition => { %>
-            <div class="awayTeamContainer">
-                <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
+            <div class="teamContainer">
+                <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
                 <p class="score"><%=competition.competitors[1].score%></p>
             </div>
-            <div class="homeTeamContainer">
-                <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
+            <div class="teamContainer">
+                <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
                 <p class="score"><%=competition.competitors[0].score%></p>
             </div>
             <% })} else { %>
                 <% event.competitions.forEach(competition => { %>
-                    <div class="awayTeamContainer">
-                        <img class="awayTeamLogo" src="<%=competition.competitors[1].team.logo%>">
+                    <div class="teamContainer">
+                        <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
                         <% if (competition.competitors[1].winner === true) { %>
                             <p class="score winner">
                             <%=competition.competitors[1].score%></p>
@@ -174,8 +178,8 @@
                                 <%=competition.competitors[1].score%></p>
                             <% } %>
                     </div>
-                    <div class="homeTeamContainer">
-                        <img class="homeTeamLogo" src="<%=competition.competitors[0].team.logo%>">
+                    <div class="teamContainer">
+                        <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
                         <% if (competition.competitors[0].winner === true) { %>
                             <p class="score winner">
                                 <%=competition.competitors[0].score%></p>
