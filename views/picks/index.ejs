@@ -11,7 +11,7 @@
         
         <form method="POST" action="/picks/like/<%=allUsersAndPicks[i].id%>">
             <input hidden type="boolean" name="liked">            
-                <button class="likeComment" type="submit"><img class="likeButton" src="../../public/media/like-icon.png"/> (
+                <button class="likeComment" type="submit"><img class="likeButton" src="media/like-icon.png"/> (
                     <% if (allUsersAndPicks[i].likeCount > 0) { %>
                     <%=allUsersAndPicks[i].likeCount%>
                     <% } else { %>
