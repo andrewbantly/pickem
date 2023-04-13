@@ -117,7 +117,7 @@ router.get("/profile", async (req, res) => {
             order: [['id', 'DESC']],
         })
         //if allowed to be here, show them their profile
-        console.log(myPicks)
+        // console.log(myPicks)
         res.render("users/profile.ejs", {myPicks})
     }
 })

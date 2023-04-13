@@ -4,7 +4,10 @@ html {
 }
 body {
     font-family: sans-serif;
-    background-color: rgb(161, 161, 161);
+    background-image: url("../../media/BallparkSunrise.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 nav {
     background-color: rgb(105, 162, 143);
@@ -51,6 +54,9 @@ a {
 }
 .credsButton:hover {
     cursor: pointer;
+}
+.league {
+    text-align: center;
 }
 .pickContainer {
     width: 70%;
@@ -107,6 +113,10 @@ a {
     flex-direction: column;
     padding: 0.3rem;
 }
+.teamLoser {
+    background-color: rgb(106, 106, 106);
+    border: 3px solid rgb(60, 60, 60);
+}
 .spread {
     display: inline;
     margin: 0.2rem;
@@ -132,6 +142,7 @@ a {
 }
 .winner {
     font-weight: bold;
+    color: white;
 }
 .profileContainer {
     display: flex;

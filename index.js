@@ -200,7 +200,7 @@ const userLoses = (pickValue, member) => {
 }
 
 
-// const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
+// const gameStatusCheckLoop = setInterval(gameStatusCheck, 60000)
 
 //routes
 app.get("/", (req, res) => {
@@ -247,6 +247,7 @@ app.post("/", async (req, res) => {
 app.use("/members", require("./controllers/users"));
 app.use("/picks", require("./controllers/picks"));
 app.use("/leagues", require("./controllers/leagues"));
+app.use("/leaders", require("./controllers/leaderboard"));
 
 app.get("*", (req, res) => {
     res.render("404")

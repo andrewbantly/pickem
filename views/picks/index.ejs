@@ -2,7 +2,7 @@
 <%- include("../partials/nav-signup.ejs") %>
 <ul>
     <% allUsersAndPicks.forEach(pick => { %>
-        <p><%=pick.user.username%> selected <%=pick.selTeamName%> at <%=pick.selTeamSpread%> (<%=pick.selTeamOdds%>) - <a href="/members/<%=pick.user.username%>">visit their profile</a></p>
+        <p><%=pick.user.username%> selected <%=pick.selTeamName%> at <%=pick.selTeamSpread%> (<%=pick.selTeamOdds%>) - <a href="/members/<%=pick.user.username%>">See their picks</a></p>
         <form method="POST" action="/picks/like/<%=pick.id%>">
             <input hidden type="boolean" name="liked">
             <button type="submit">Like</button>

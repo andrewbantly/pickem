@@ -1,6 +1,6 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-signup.ejs") %>
-<h2><%=sports.leagues[0].abbreviation%></h2>
+<h2 class="league"><%=sports.leagues[0].name%></h2>
 <div class="pickContainer">
     <% sports.events.forEach(event => { %>
         <div class="eventName"><p class="game"><%=event.name%></p>
@@ -168,26 +168,30 @@
             </div>
             <% })} else { %>
                 <% event.competitions.forEach(competition => { %>
+                    <% if (competition.competitors[1].winner === true) { %>
                     <div class="teamContainer">
                         <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
-                        <% if (competition.competitors[1].winner === true) { %>
-                            <p class="score winner">
-                            <%=competition.competitors[1].score%></p>
+                        <p class="score winner">
+                            <%=competition.competitors[1].score%></p></div>
                             <% } else { %> 
+                                <div class="teamContainer teamLoser">
+                                    <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
                                 <p class="score">
                                 <%=competition.competitors[1].score%></p>
+                            </div>
                             <% } %>
-                    </div>
+                    <% if (competition.competitors[0].winner === true) { %>
                     <div class="teamContainer">
                         <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
-                        <% if (competition.competitors[0].winner === true) { %>
-                            <p class="score winner">
-                                <%=competition.competitors[0].score%></p>
-                                <% } else { %> 
+                        <p class="score winner">
+                            <%=competition.competitors[0].score%></p></div>
+                            <% } else { %> 
+                                <div class="teamContainer teamLoser">
+                                <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
                                     <p class="score">
                                     <%=competition.competitors[0].score%></p>
+                                </div>
                                 <% } %>
-                    </div>
                     <% })} %>
         </div>
     <% }) %>
