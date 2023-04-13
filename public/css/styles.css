@@ -66,6 +66,7 @@ a {
 .recentPicks {
     width: fit-content;
     display: inline-block;
+    margin-bottom: 0.3rem;
 }
 .allPicks {
     /* text-align: center; */
@@ -84,10 +85,12 @@ a {
     font-size: 1.3rem;
     border-radius: 3px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    margin: 0;
     margin-left: 1rem;
+    display: flex;
 }
 .likeButton {
-    height: 1.2rem;
+    height: 1.5rem;
 }
 .pickReactions {
 display: flex;
