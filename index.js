@@ -76,7 +76,8 @@ const gameStatusCheck = async () => {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
         const sports = await response.data;
-        await sports.events.forEach(async event => {
+        // await sports.events.forEach(async event => {
+        for (let event of sports.events) {
             // CHECK IF THE GAME IS OVER (GAME STATUS ID = 3)
             if (event.status.type.id === "3") { 
                 console.log("Game over eventId: ", event.id)
@@ -123,29 +124,28 @@ const gameStatusCheck = async () => {
                             game: event.id
                         }});
                     let newPointValue = await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);
-                    console.log("higher newPointValue: ", newPointValue)
+                    console.log("winner new point value promise: ", newPointValue)
                     const userPointValueChange = await db.user.update({ 
                     points: newPointValue }, {
-                    where: {
+                    where: { 
                         id: team.userId
                     }
                 })
                         // userWins (odds, userId) => userWins(parseInt(team.selTeamOdds), team.userId)
                 } else if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
-                    const pickLoser = db.pick.update({correctPick: false, pickActive: false}, { 
+                    const pickLoser = await db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
                             game: event.id
-                        }});     
-                        // userLoses(team.pickValue, parseInt(team.selTeamOdds), team.userId);
-                        let newPointValue = await userLoses(team.pickValue, team.userId);
-                        console.log("lower newPointValue: ", newPointValue)
-                        const userPointValueChange = await db.user.update({ 
-                            points: newPointValue }, {
-                            where: {
-                                id: team.userId
-                            }
-                        })           
+                        }});
+                    let newPointValue = await userLoses(team.pickValue, team.userId);
+                    console.log("loser new point value promise: ", newPointValue)
+                    const userPointValueChange = await db.user.update({ 
+                        points: newPointValue }, {
+                        where: {
+                            id: team.userId
+                        }
+                    })           
                     } else {
                         console.log("THIS SHOULD NEVER RUN OR ELSE SOMETHING IS WRONG")
                     }
@@ -158,42 +158,47 @@ const gameStatusCheck = async () => {
                     }
                 })
             }
-        })
+        }
     } catch (error) {
         console.log(error)
     }
 }
      
-const userWins = async (pickValue, odds, member) => { 
-        console.log("winning memberId: ", member);
-        let winner = await db.user.findOne({ 
-            where: {
+
+const userWins = (pickValue, odds, member) => { 
+    return new Promise((resolve, reject) => {
+       db.user.findOne({ where: {
                 id: member
-                    }});
-        let initialValue = parseFloat(winner.points);
-        if (odds > 0) {
-            let updatedPoints = (initialValue + (((odds)/100) * pickValue));
-            const newPointValue = (updatedPoints.toFixed(2))
-            console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with positive ${odds} odds, ${winner.username} should now have ${newPointValue}`)
-            return parseFloat(newPointValue);
-        } else if (odds < 0) {
-            let updatedPoints = (initialValue + ((100/(Math.abs(odds))) * pickValue));
-            const newPointValue = (updatedPoints.toFixed(2)); 
-            console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with negative ${odds} odds, ${winner.username} should now have ${newPointValue}`);
-            return parseFloat(newPointValue);
-        } 
+                    }})
+                    .then(winner => {
+                        let initialValue = parseFloat(winner.points);
+                        let updatedPoints;
+                        if (odds > 0) {
+                            updatedPoints = (initialValue + (((odds)/100) * pickValue));
+                        } else if (odds < 0) {
+                            updatedPoints = (initialValue + ((100/(Math.abs(odds))) * pickValue));
+                        } 
+                        let newPointValue = (updatedPoints.toFixed(2));
+                        console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${newPointValue}`);
+                        resolve(parseFloat(newPointValue));
+                    })
+                })
     }
-        const userLoses = async (pickValue, member) => { 
-        console.log("losing memberId: ", member);
-        let loser = await db.user.findOne({ 
-            where: {
-                id: member
-            }});
-        let initialValue = parseFloat(loser.points);
-        const newPointValue = (initialValue - pickValue).toFixed(2);
-        console.log(`Loser ${loser.username} has ${initialValue} points. After losing a ${pickValue}, ${loser.username} should now have ${newPointValue}`)
-        return parseFloat(newPointValue);
+
+const userLoses = (pickValue, member) => {
+    return new Promise((resolve, reject) => {
+        db.user.findOne({ where: {
+            id:member
+        }})
+        .then(loser => {
+            let initialValue = parseFloat(loser.points);
+            let newPointValue = (initialValue - pickValue).toFixed(2);
+            console.log(`Loser ${loser.username} has ${initialValue} points. After losing a ${pickValue}, ${loser.username} should now have ${newPointValue}`)
+            resolve(parseFloat(newPointValue));
+        })
+    })
 }
+
 
 // const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
 
