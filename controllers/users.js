@@ -162,19 +162,20 @@ router.put("/:pickId", async (req, res) => {
 })
 
 router.get("/:username", async (req, res) => {
-    console.log(req.params)
-    const findUser = await db.pick.findOne({
+    console.log(req.params.username)
+    const findUser = await db.user.findOne({
         where: {
-            username: res.params.username
+            username: req.params.username
         }
     })
+    const foundUsername = findUser.username;
     const userPicks = await db.pick.findAll({
         where: {
             userId: findUser.id
         },
         order: [['id', 'DESC']],
     })
-    res.render("/visit.ejs", {userPicks})
+    res.render("users/visit.ejs", {userPicks, foundUsername})
 })
 
 // DELETE /members/:pickId -- delete a single pick at the pickId
