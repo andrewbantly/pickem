@@ -12,7 +12,7 @@
             <% } else { %>
             (<%=pick.selTeamOdds%>) 
             <% } %>
-            over the <%=pick.againstTeamName%></p>
+            over the <%=pick.againstTeamName%> with <%=pick.pickValue%> points!</p>
         <% if (pick.gameStatus === 1) { %>
                 <a href="/members/edit/<%=pick.id%>">Change pick</a>
                 <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
@@ -22,9 +22,17 @@
        <% } else if (pick.gameStatus === 2) { %>
         <div class="pickStatus pickInProgress">game in progress
        <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>
-        <div class="pickStatus pickWin">winner!
+        <div class="pickStatus pickWin">
+        <% let odds = parseInt(pick.selTeamOdds) %>
+        <% if (odds > 0) { %>
+        <%   updatedPoints = ((((odds)/100) * pick.pickValue)); %>
+            +<%=updatedPoints.toFixed(2)%> points
+            <%  } else if (odds < 0) { %>
+            <%    updatedPoints = (((100/(Math.abs(odds))) * pick.pickValue)); %>
+            +<%=updatedPoints.toFixed(2)%> points
+        <%  } %>
         <% } else if (pick.gameStatus === 3 && pick.correctPick === false) { %>
-            <div class="pickStatus pickLose">loser!
+            <div class="pickStatus pickLose"> -<%=pick.pickValue%> points
        <% } %>
     </div>
         <img class="pickLogo" src="<%=pick.selTeamLogo%>"/>
