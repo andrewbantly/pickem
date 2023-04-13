@@ -117,6 +117,7 @@ router.get("/profile", async (req, res) => {
             order: [['id', 'DESC']],
         })
         //if allowed to be here, show them their profile
+        console.log(myPicks)
         res.render("users/profile.ejs", {myPicks})
     }
 })
@@ -158,6 +159,22 @@ router.put("/:pickId", async (req, res) => {
         console.log("error: ", error);
         res.redirect("404.ejs")
     }
+})
+
+router.get("/:username", async (req, res) => {
+    console.log(req.params)
+    const findUser = await db.pick.findOne({
+        where: {
+            username: res.params.username
+        }
+    })
+    const userPicks = await db.pick.findAll({
+        where: {
+            userId: findUser.id
+        },
+        order: [['id', 'DESC']],
+    })
+    res.render("/visit.ejs", {userPicks})
 })
 
 // DELETE /members/:pickId -- delete a single pick at the pickId

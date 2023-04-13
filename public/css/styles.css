@@ -85,11 +85,12 @@ a {
     color: white;
 }
 .inProgress {
-background-color: rgb(0, 0, 125);
-color: white;
+    background-color: rgb(0, 0, 125);
+    color: white;
 }
 .final {
     background-color: rgb(125, 0, 0);
+
     color: white;
 }
 .other {
@@ -132,43 +133,62 @@ color: white;
 .winner {
     font-weight: bold;
 }
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+}
+.pickHistory {
+    margin: 0 5rem;
+}
 .myPicks {
     width: 60%;
-    margin: 0 auto;
+    margin-left: 5rem;
+    margin-right: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    position: relative;
+    align-items: center;
+}
+.userStats {
+    position: fixed;
+    right: 5rem;
+    display: inline-block;
 }
 .pick {
     width: 60%;
     margin: 0;
-    display: block;
+    display: inline-block;
 }
 .pickLogo {
     height: 4vh;
+    margin: 0 1.3rem 0 0.7rem;
 }
 .pickStatus {
+    display: flex;
     border-radius: 4px;
     width: fit-content;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem;
+}
+.pickStatus > p {
+    margin: 0;
 }
 .scheduledPick {
-    border: 3px solid green;
-    background-color: green;
+    background-color: rgb(200, 200, 0);
     color: white;
 }
 .pickInProgress{
-    border: 3px solid blue;
-    background-color: blue;
+    background-color: rgb(0, 0, 125);
     color: white;
 }
 .pickWin {
-    border: 3px solid green;
-    background-color: green;
+    background-color: rgb(0, 125, 0);
     color: white;
 }
 .pickLose {
-    border: 3px solid red;
-    background-color: red;
+    background-color: rgb(125, 0, 0);
     color: white;
 }
 
