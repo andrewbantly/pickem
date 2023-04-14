@@ -159,7 +159,7 @@ const userLoses = (pickValue, member) => {
 }
 
 
-const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
+// const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
 
 //routes
 app.get("/", (req, res) => {
