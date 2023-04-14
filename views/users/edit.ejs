@@ -1,16 +1,15 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-login.ejs") %>
-<h2>Edit your pick</h2>
-<h3><%=editPick.shortName%></h3>
-<h4>You picked the <%=editPick.selTeamName%> <%=editPick.selTeamSpread%> 
-    
+<div class="editPickContainer">
+<h2 class="editPickHeader">Edit pick</h2>
+<h3 class="editPickShortName"><%=editPick.shortName%></h3>
+<h3 class="editPickDate">pick locks at <%=editPick.gameDate%></h3>
+<h4 class="editPickInfo">You picked the <%=editPick.selTeamName%> <%=editPick.selTeamSpread%> 
     <% if (parseInt(editPick.selTeamOdds) > 0) { %>
         (+<%=editPick.selTeamOdds%>)
     <% } else { %>
     (<%=editPick.selTeamOdds%>)
     <% } %>
-    
-    
     with <%=editPick.pickValue%> points. Do you want to switch your pick to the <%=editPick.againstTeamName%> <%=editPick.againstTeamSpread%>
     <% if (parseInt(editPick.againstTeamOdds) > 0) { %>
         (+<%=editPick.againstTeamOdds%>)
@@ -32,6 +31,7 @@
     <input hidden type="text" name="againstTeamSpread" value="<%=editPick.selTeamSpread%>"/>
     <input hidden type="number" name="againstTeamOdds" value="<%=editPick.selTeamOdds%>"/>
     <input hidden type="text" name="againstTeamLogo" value="<%=editPick.selTeamLogo%>"/>
-    <button type="submit">SWITCH</button>
+    <button class="editPickConfirm-btn" type="submit">CONFIRM</button>
 </form>
+</div>
 <%- include("../partials/footer.ejs") %>

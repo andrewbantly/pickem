@@ -324,7 +324,7 @@ input::-webkit-inner-spin-button {
     color: rgb(233, 233, 233);
 }
 .userHeader {
-    margin: 0 15rem;
+    margin: 0.7rem 15rem;
     color: rgb(233, 233, 233);
     font-size: 5rem;
 }
@@ -441,6 +441,54 @@ input::-webkit-inner-spin-button {
     background: #3c3c3c;
     color: rgb(233, 233, 233);
 }
+.editPickContainer {
+    width: 80%;
+    margin: 3rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    background-color: rgb(213, 213, 213, 0.5);
+    border: 3px solid rgb(60, 60, 60);
+    border-radius: 3px;
+}
+.editPickHeader {
+    width: 100%;
+    margin: 3rem 0 0 3rem;
+    font-size: 5rem;
+}
+.editPickShortName {
+    width: 100%;
+    margin: 0 0 0 3rem;
+    font-size: 4rem;
+    color: rgb(60, 60, 60);
+}
+.editPickDate {
+    width: 100%;
+    margin: 0 0 1rem 3rem;
+    font-size: 2rem;
+    color: rgb(60, 60, 60);
+}
+.editPickInfo {
+    width: 100%;
+    margin: 0 0 1rem 3rem;
+    font-size: 3rem;
+}
+.editPickConfirm-btn {
+    width: 5rem;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0.2rem 0.5rem;
+    font-size: 1.3rem;
+    border-radius: 3px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.1rem;
+    color: #3c3c3c;
+    background: rgb(233, 233, 233);
+    margin: 0 0 3rem 3rem;
+}
+
 /* MODAL STYLING */
  .overlay {
   position: fixed;

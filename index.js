@@ -23,7 +23,6 @@ app.use((req, res, next) => {
     console.log(`[${new Date().toLocaleString()}]: ${req.method} ${req.url}`)
     console.log("request body: ", req.body)
     // send data downstream to the other routes
-    // res.locals.myData = "howdy 👋🏼 partner 🤠";
     next() // tells express that this middleware has finished
 })
 app.use(async (req, res, next) => {
@@ -53,30 +52,13 @@ app.use(async (req, res, next) => {
 })
 app.use(express.static(__dirname + '/public'));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// GAME STATUS FUNCTION TO CHECK IF USER PICKS A WINNER, LOSER AND ADJUSTS POINT BALANCE IN USER'S ACCOUNT
 const gameStatusCheck = async () => {
     console.log("check game status is running")
     try {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
         const sports = await response.data;
-        // await sports.events.forEach(async event => {
         for (let event of sports.events) {
             // CHECK IF THE GAME IS OVER (GAME STATUS ID = 3)
             if (event.status.type.id === "3") { 
@@ -89,8 +71,6 @@ const gameStatusCheck = async () => {
                 // IF THE GAME IS OVER, IDENTIFY THE FINAL SCORES OF THE events.competitions array
                 const events = event.competitions;
                 for (let competition of events) {
-                    // console.log(competition)
-                    // console.log(competition.competitors)
                     // IDENTIFY THE SCORES BY MATCHING TEAM IDS
                     const games = competition.competitors;
                     for (let teams of games) {
@@ -113,10 +93,6 @@ const gameStatusCheck = async () => {
                 }
              })
              for (const team of compareTeams) {
-                // compareTeams.forEach(async team => { 
-                    console.log("team: ", event.id)
-                    // console.log(team);
-                // console.log(`You (userId:${team.userId}) selected ${team.selTeamName} which scored ${team.selTeamScore} runs against the ${team.againstTeamName} that scored ${team.againstTeamScore}.`)
                 if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
                     const pickWinner = await db.pick.update({correctPick: true, pickActive: false}, { 
@@ -124,14 +100,12 @@ const gameStatusCheck = async () => {
                             game: event.id
                         }});
                     let newPointValue = await userWins(team.pickValue, parseInt(team.selTeamOdds), team.userId);
-                    console.log("winner new point value promise: ", newPointValue)
                     const userPointValueChange = await db.user.update({ 
                     points: newPointValue }, {
                     where: { 
                         id: team.userId
                     }
                 })
-                        // userWins (odds, userId) => userWins(parseInt(team.selTeamOdds), team.userId)
                 } else if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
                     console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
                     const pickLoser = await db.pick.update({correctPick: false, pickActive: false}, { 
@@ -139,16 +113,13 @@ const gameStatusCheck = async () => {
                             game: event.id
                         }});
                     let newPointValue = await userLoses(team.pickValue, team.userId);
-                    console.log("loser new point value promise: ", newPointValue)
                     const userPointValueChange = await db.user.update({ 
                         points: newPointValue }, {
                         where: {
                             id: team.userId
                         }
                     })           
-                    } else {
-                        console.log("THIS SHOULD NEVER RUN OR ELSE SOMETHING IS WRONG")
-                    }
+                    } 
               }
             } if (event.status.type.id === "2") {
                 // IF GAME STATUS === 2, the game has started and picks are locked
@@ -174,9 +145,9 @@ const userWins = (pickValue, odds, member) => {
                         let initialValue = parseFloat(winner.points);
                         let updatedPoints;
                         if (odds > 0) {
-                            updatedPoints = (initialValue + (((odds)/100) * pickValue));
+                            updatedPoints = ((((odds)/100) * pickValue));
                         } else if (odds < 0) {
-                            updatedPoints = (initialValue + ((100/(Math.abs(odds))) * pickValue));
+                            updatedPoints = (((100/(Math.abs(odds))) * pickValue));
                         } 
                         let newPointValue = (updatedPoints.toFixed(2));
                         console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${newPointValue}`);
@@ -200,7 +171,7 @@ const userLoses = (pickValue, member) => {
 }
 
 
-// const gameStatusCheckLoop = setInterval(gameStatusCheck, 60000)
+// const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
 
 //routes
 app.get("/", (req, res) => {
