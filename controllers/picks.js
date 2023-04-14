@@ -7,12 +7,18 @@ const axios = require("axios");
 
 router.get("/", async (req, res) => {
 //  res.send("see picks that people have made");
-    const allUsersAndPicks = await db.pick.findAll({
-        include: [db.user, db.like, db.comment],
-        order: [["id", "DESC"]]
+const allUsersAndPicks = await db.pick.findAll({
+    include: [db.user, db.like, db.comment],
+    order: [["id", "DESC"]]
+})
+if (!res.locals.user) {
+    res.render("picks/show.ejs", {
+        allUsersAndPicks
     })
-    // console.log(allUsersAndPicks[0].likes)
+} else {
     res.render("picks/index.ejs", { allUsersAndPicks })
+} 
+    // console.log(allUsersAndPicks[0].likes)
 })
 
 // POST - CREATE LIKE OF A PICK

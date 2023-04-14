@@ -1,5 +1,8 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-signup.ejs") %>
+<h2 class="league">Leaderboard</h2>
+
+
 <% let winners = [] %>
 <% allUsersAndPicks.forEach(user => { %>
     <% let wins = [] %>
@@ -12,8 +15,8 @@
     <%winners.sort(function(b, a) {
         return b[1] - a[1];
    })%>
-    <p>No 1 <%=winners[0]%> with <%=winners[1]%></p>
-    <p>No 2 <%=winners[2]%> with <%=winners[3]%></p>
-    <p>No 3 Need more pickers!</p>
+    <h3 class="ranking">No 1 </h3><p><%=winners[0]%> with <%=winners[1]%></p>
+    <h3 class="ranking">No 2 </h3><p><%=winners[2]%> with <%=winners[3]%></p>
+    <h3 class="ranking">No 3 </h3><p><%=winners[4]%> with <%=winners[5]%></p>
 
 <%- include("../partials/footer.ejs") %>

@@ -7,19 +7,18 @@
             <% if (allUsersAndPicks[i].selTeamOdds > 0) {%>+<%}%><%=allUsersAndPicks[i].selTeamOdds%>) against the <%=allUsersAndPicks[i].againstTeamName%></p>
         <div class="pickReactions">
         <div class="likeContainer">
-        <a class="profileLink" href="/members/<%=allUsersAndPicks[i].user.username%>">Profile</a>
-        <form method="POST" action="/picks/like/<%=allUsersAndPicks[i].id%>">
-            <input hidden type="boolean" name="liked">            
-                <button class="like-btn" type="submit"> <img class="likeIcon" src="media/like-icon.png"/>  (
-                    <% if (allUsersAndPicks[i].likeCount > 0) { %>
-                    <%=allUsersAndPicks[i].likeCount%>
-                    <% } else { %>
-                        0
-                    <% } %>
-                    )</button>
+        <a class="profileLink" href="/members/new">Profile</a>
+        <form method="GET" action="/members/new">         
+        <button class="like-btn" type="submit"> <img class="likeIcon" src="media/like-icon.png"/>  (
+        <% if (allUsersAndPicks[i].likeCount > 0) { %>
+        <%=allUsersAndPicks[i].likeCount%>
+        <% } else { %>
+            0
+        <% } %>
+        )</button>
         </form>
         </div>
-        <form class="commentContainer" method="POST" action="/picks/comment/<%=allUsersAndPicks[i].id%>">
+        <form class="commentContainer" method="GET" action="/members/new">
             <textarea class="commentBox" name="content"></textarea>
             <button class="comment" type="submit">Comment</button>
         </form>
