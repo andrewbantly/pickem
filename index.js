@@ -135,9 +135,9 @@ const userWins = (pickValue, odds, member) => {
                         let initialValue = parseFloat(winner.points);
                         let updatedPoints;
                         if (odds > 0) {
-                            updatedPoints = ((((odds)/100) * pickValue));
+                            updatedPoints = (initialValue + (((odds)/100) * pickValue));
                         } else if (odds < 0) {
-                            updatedPoints = (((100/(Math.abs(odds))) * pickValue));
+                            updatedPoints = (initialValue + ((100/(Math.abs(odds))) * pickValue));
                         } 
                         let newPointValue = (updatedPoints.toFixed(2));
                         resolve(parseFloat(newPointValue));
@@ -159,7 +159,7 @@ const userLoses = (pickValue, member) => {
 }
 
 
-// const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
+const gameStatusCheckLoop = setInterval(gameStatusCheck, 5000)
 
 //routes
 app.get("/", (req, res) => {
