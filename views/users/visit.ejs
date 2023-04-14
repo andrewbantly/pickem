@@ -8,7 +8,7 @@
         <% if (pick.correctPick === true) { %>
         <%wins.push(pick)%>
     <%}}) %>
-    <h2 class="userInfo">Wins:<p class="userInfoNums"><%=wins.length%> (<%=((wins.length)/(userPicks.length)).toFixed(2) * 100%>%)</p></h2>
+    <h2 class="userInfo">Wins:<p class="userInfoNums"><%=wins.length%> (<%=(((wins.length)/(userPicks.length)) * 100).toFixed(2)%>%)</p></h2>
     <h2 class="userInfo">picks placed:<p class="userInfoNums"><%=userPicks.length%></p></h2>
 </div>
 <div class="userStats">
