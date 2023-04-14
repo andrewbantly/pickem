@@ -15,7 +15,7 @@
                     <% } else { %>
                         0
                     <% } %>
-                    )</button>
+                )</button>
         </form>
         </div>
         <form class="commentContainer" method="POST" action="/picks/comment/<%=allUsersAndPicks[i].id%>">
@@ -26,10 +26,10 @@
     <% allUsersAndPicks[i].comments.forEach(comment => { %>
         <div class="commentContentContainer">
         <p class="commentContent">
-                <strong><%=comment.commenterName%>:</strong> <%=comment.content%> 
-            </p>
+            <strong><%=comment.commenterName%>:</strong> <%=comment.content%> 
+        </p>
         </div>
-                <% }) %>
+    <% }) %>
     <% } %>
 </div>
 
