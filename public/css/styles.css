@@ -1,18 +1,22 @@
 html {
     font-size: 1vw;
     box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    margin: 0;
     background-image: url("../media/Ballpark-background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
-body {
-    font-family: sans-serif;
-}
 nav {
-    background-color: rgb(105, 162, 143);
+    background-color: rgb(90, 90, 90);
     display: flex;
-    border-bottom: 3px solid white;
+    font-size: 1.7rem;
+    width: 100%;
+    border-bottom: 5px solid rgb(60, 60, 60);
+
 }
 .navHome, .navPicks, .navLeagues, .navLeaders, .navLogIOS {
     width: 20%;
@@ -20,7 +24,8 @@ nav {
 }
 a {
     text-decoration: none;
-    color:rgb(61, 61, 61)
+    color: rgb(233, 233, 233);
+    font-weight: bold;
 }
 
 .formContainer {
@@ -54,6 +59,7 @@ a {
 .credsButton:hover {
     cursor: pointer;
 }
+/* ---------------- PICKS ------------- */
 .pickList {
     justify-content: center;
     display: flex;
@@ -89,7 +95,6 @@ a {
 .pickReactions {
     display: flex;
     justify-content: space-between;
-    /* width: fit-content; */
 }
 .likeContainer{
     display: flex;
@@ -139,7 +144,7 @@ a {
     margin: 0.3rem 0;
     font-size: 1.2rem;
 }
-/* /LEAGUES */
+/* ------------ /LEAGUES ---------------- */
 .league {
     font-size: 3rem;
     text-align: center;    
@@ -207,6 +212,7 @@ a {
 .teamLoser {
     background-color: rgb(106, 106, 106);
     border: 3px solid rgb(60, 60, 60);
+    filter: saturate(0);
 }
 .spread {
     display: inline;
@@ -316,8 +322,6 @@ input::-webkit-inner-spin-button {
 .pickLose {
     background-color: rgb(125, 0, 0);
 }
-
-
 /* MODAL STYLING */
  .overlay {
   position: fixed;
@@ -431,3 +435,45 @@ input::-webkit-inner-spin-button {
 .hidden {
     display: none;
   }
+
+/* ------------ LEADERBOARD -------------- */
+.rankingContainer {
+    width: 80%;
+    margin: 0 auto;
+    border: 3px solid rgb(213, 213, 213);
+    background-color: rgb(60, 60, 60, .5);
+    border-radius: 3px;
+}
+.nOneContainer, .nTwoContainer, .nThreeContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 3rem 0;
+}
+.rankingOne, .rankingTwo, .rankingThree {
+    /* color:rgb(61, 61, 61); */
+    display: inline-block;
+    font-size: 8rem;
+    margin: 0;
+    margin-right: 3rem;
+    width: 30%;
+    text-align: center;
+}
+
+.userRanksOne, .userRanksTwo, .userRanksThree {
+    /* color:rgb(61, 61, 61); */
+    display: inline-block; 
+    font-size: 5rem;
+    margin: 0;
+    text-align: center;
+    width: 70%;
+}
+.rankingOne, .userRanksOne {
+    color: rgb(255,215,0);
+}
+.rankingTwo, .userRanksTwo {
+    color: rgb(192,192,192);
+}
+.rankingThree, .userRanksThree {
+    color: rgb(205, 127, 50);
+}

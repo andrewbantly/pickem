@@ -15,8 +15,16 @@
     <%winners.sort(function(b, a) {
         return b[1] - a[1];
    })%>
-    <h3 class="ranking">No 1 </h3><p><%=winners[0]%> with <%=winners[1]%></p>
-    <h3 class="ranking">No 2 </h3><p><%=winners[2]%> with <%=winners[3]%></p>
-    <h3 class="ranking">No 3 </h3><p><%=winners[4]%> with <%=winners[5]%></p>
+   <div class="rankingContainer">
+   <div class="nOneContainer">
+       <h3 class="rankingOne">#1</h3><p class="userRanksOne"><%=winners[0]%>'s <%=winners[1]%> wins</p>
+   </div>
+   <div class="nTwoContainer">
+       <h3 class="rankingTwo">#2</h3><p class="userRanksTwo"><%=winners[2]%>'s <%=winners[3]%> wins</p>
+   </div>
+   <div class="nThreeContainer">
+       <h3 class="rankingThree">#3</h3><p class="userRanksThree"><%=winners[4]%>'s <%=winners[5]%> wins</p>
+   </div>
+   </div>
 
 <%- include("../partials/footer.ejs") %>
