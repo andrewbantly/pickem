@@ -3,8 +3,7 @@
 <h2 class="league">Community Picks</h2>
 <div class="pickList">
     <% for (let i =0; i< 6; i++) { %>
-        <p class="allPicks"><%=allUsersAndPicks[i].user.username%> selected <%=allUsersAndPicks[i].selTeamName%> at <%=allUsersAndPicks[i].selTeamSpread%> (
-            <% if (allUsersAndPicks[i].selTeamOdds > 0) {%>+<%}%><%=allUsersAndPicks[i].selTeamOdds%>) against the <%=allUsersAndPicks[i].againstTeamName%></p>
+        <p class="allPicks"><%=allUsersAndPicks[i].user.username%> selected <%=allUsersAndPicks[i].selTeamName%> at <%=allUsersAndPicks[i].selTeamSpread%> (<% if (allUsersAndPicks[i].selTeamOdds > 0) {%>+<%}%><%=allUsersAndPicks[i].selTeamOdds%>) against the <%=allUsersAndPicks[i].againstTeamName%></p>
         <div class="pickReactions">
         <div class="likeContainer">
         <a class="profileLink" href="/members/new">Profile</a>
