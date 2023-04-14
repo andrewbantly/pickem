@@ -381,6 +381,7 @@ input::-webkit-inner-spin-button {
 .userStats {
     position: relative;
     display: inline-block;
+    margin-bottom: 5rem;
 }
 .pick {
     width: 90%;

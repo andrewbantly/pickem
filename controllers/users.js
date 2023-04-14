@@ -169,13 +169,14 @@ router.get("/:username", async (req, res) => {
         }
     })
     const foundUsername = findUser.username;
+    const foundUserPoints = findUser.points;
     const userPicks = await db.pick.findAll({
         where: {
             userId: findUser.id
         },
         order: [['id', 'DESC']],
     })
-    res.render("users/visit.ejs", {userPicks, foundUsername})
+    res.render("users/visit.ejs", {userPicks, foundUsername, foundUserPoints})
 })
 
 // DELETE /members/:pickId -- delete a single pick at the pickId

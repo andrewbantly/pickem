@@ -1,52 +1,51 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-login.ejs") %>
-<h1><%=foundUsername%></h1>
-<div class="proileContainer">
-    <div class="userStats">
-        <h3>Success Rate</h3>
-        <p>Total picks placed: <%=userPicks.length%></p>
-        <% let wins = [] %>
-        <% userPicks.forEach(pick => { %>
+<h1 class="userHeader"><%=foundUsername%></h1>
+<div class="profileContainer">
+    <h2 class="userInfo">Points:<p class="userInfoNums"><%=foundUserPoints%></p></h2>
+    <% let wins = [] %>
+    <% userPicks.forEach(pick => { %>
         <% if (pick.correctPick === true) { %>
             <%wins.push(pick)%>
-        <%}}) %>
-        <p>Wins: <%=wins.length%> (<%=((wins.length)/(userPicks.length)).toFixed(2) * 100%>%)</p>
-</div>
-<h3 class="pickHistory">Pick history</h3>
-<div class="myPicks">
-    <% userPicks.forEach(pick => { %>
-        <p class="pick"><strong><%=pick.pickValue%> points</strong>: <%=pick.selTeamName%> <%=pick.selTeamSpread%>
-            <% if (parseInt(pick.selTeamOdds) > 0) { %>
-                (+<%=pick.selTeamOdds%>) 
-            <% } else { %>
-            (<%=pick.selTeamOdds%>) 
-            <% } %>
-            over the <%=pick.againstTeamName%></p>
-            <img class="pickLogo" src="<%=pick.selTeamLogo%>"/>
-
-        <% if (pick.gameStatus === 1) { %>
-                <a href="/members/edit/<%=pick.id%>">Change pick</a>
-                <form method="POST" action="/members/<%=pick.id%>/?_method=DELETE">
-                <input type="submit" value="Cancel Pick"/>
-            </form>
-            <div class="pickStatus scheduledPick"><p>GAME TIME:</p></div>
-       <% } else if (pick.gameStatus === 2) { %>
-        <div class="pickStatus pickInProgress"><p>pick in progress</p></div>
-       <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>
-        <div class="pickStatus pickWin">
-        <% let odds = parseInt(pick.selTeamOdds) %>
-        <% if (odds > 0) { %>
-        <%   updatedPoints = ((((odds)/100) * pick.pickValue)); %>
-            <p>+<%=updatedPoints.toFixed(2)%> points</p>
-            <%  } else if (odds < 0) { %>
-            <%    updatedPoints = (((100/(Math.abs(odds))) * pick.pickValue)); %>
-            <p>+<%=updatedPoints.toFixed(2)%> points</p>
-        <%  } %></div>
-        <% } else if (pick.gameStatus === 3 && pick.correctPick === false) { %>
-            <div class="pickStatus pickLose"><p>-<%=pick.pickValue%> points</p>
-            </div>
-            <% } %>
-            <%  }) %>
+            <%}}) %>
+            <h2 class="userInfo">Wins:<p class="userInfoNums"><%=wins.length%> (<%=((wins.length)/(userPicks.length)).toFixed(2) * 100%>%)</p></h2>
+            <h2 class="userInfo">picks placed:<p class="userInfoNums"><%=userPicks.length%></p></h2>
         </div>
-</div>
-<%- include("../partials/footer.ejs") %>
+
+
+        <div class="userStats">
+            <h3 class="pickHistory">Pick history</h3>
+            <div class="myPicks">
+                <% userPicks.forEach(pick => { %>
+                    <div class="myPickandLogo">
+                    <p class="pick"><strong><%=pick.pickValue%> points</strong>: <%=pick.selTeamName%> <%=pick.selTeamSpread%>
+                        <% if (parseInt(pick.selTeamOdds) > 0) { %>
+                            (+<%=pick.selTeamOdds%>) 
+                        <% } else { %>
+                        (<%=pick.selTeamOdds%>) 
+                        <% } %>
+                        over the <%=pick.againstTeamName%></p>
+                        <img class="pickLogo" src="<%=pick.selTeamLogo%>"/>
+                            </div>
+                    <% if (pick.gameStatus === 1) { %>
+                        <div class="pickStatus scheduledPick"><p>GAME STARTS AT <%=pick.gameDate%></p></div>
+                   <% } else if (pick.gameStatus === 2) { %>
+                    <div class="pickStatus pickInProgress"><p>pick in progress</p></div>
+                   <% } else if (pick.gameStatus === 3 && pick.correctPick === true) { %>
+                    <div class="pickStatus pickWin">
+                    <% let odds = parseInt(pick.selTeamOdds) %>
+                    <% if (odds > 0) { %>
+                    <%   updatedPoints = ((((odds)/100) * pick.pickValue)); %>
+                        <p>+<%=updatedPoints.toFixed(2)%> points</p>
+                        <%  } else if (odds < 0) { %>
+                        <%    updatedPoints = (((100/(Math.abs(odds))) * pick.pickValue)); %>
+                        <p>+<%=updatedPoints.toFixed(2)%> points</p>
+                    <%  } %></div>
+                    <% } else if (pick.gameStatus === 3 && pick.correctPick === false) { %>
+                        <div class="pickStatus pickLose"><p>-<%=pick.pickValue%> points</p>
+                        </div>
+                        <% } %>
+                        <%  }) %>
+                    </div>
+            </div>
+            <%- include("../partials/footer.ejs") %>
