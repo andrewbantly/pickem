@@ -12,12 +12,9 @@ router.get("/", (req, res) => {
         sports.events.forEach(event => {
             event.competitions.forEach(competition => {
                 competition.competitors.forEach(competitor => {
-                    // console.log(competitor.probables)
-                    // console.log(competitor.team.name)
                 })
             })
         })
-        
         if (!res.locals.user) {
             res.render("leagues/show.ejs", {
                 sports
@@ -58,7 +55,6 @@ router.post("/", async (req, res) => {
         })
         res.redirect("/leagues")
     } catch (error) {
-        console.log("error: ", error);
         res.redirect("404.ejs")
     }
 })

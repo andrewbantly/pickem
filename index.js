@@ -18,10 +18,7 @@ app.use(express.urlencoded( { extended: false }));
 app.use(methodOverride("_method"))
 app.use(cookieParser())
 app.use((req, res, next) => {
-    // console.log("the middleware has been invoked.");
     // incoming request console logger
-    console.log(`[${new Date().toLocaleString()}]: ${req.method} ${req.url}`)
-    console.log("request body: ", req.body)
     // send data downstream to the other routes
     next() // tells express that this middleware has finished
 })
@@ -36,13 +33,12 @@ app.use(async (req, res, next) => {
             // mount the found user on the res.locals
             // in all other routes you can assume that the res.locals.user is the currently logged in user
             res.locals.user = user;
-            // res.locals.user.addBet({}) !!! how we only allow the loged in user to add a bet to their profile
+            // res.locals.user.addBet({}) !!! how we only allow the logged in user to add a bet to their profile
         } else {
             // if there is no cookie, set the res.locals.user to be null
             res.locals.user = null;
         }
     } catch (error) {
-        console.log(error)
         // if something goes wrong, set the user in the res.locals to be null
         res.locals.user = null;
     } finally {
@@ -54,7 +50,6 @@ app.use(express.static(__dirname + '/public'));
 
 // GAME STATUS FUNCTION TO CHECK IF USER PICKS A WINNER, LOSER AND ADJUSTS POINT BALANCE IN USER'S ACCOUNT
 const gameStatusCheck = async () => {
-    console.log("check game status is running")
     try {
         let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
         const response = await axios.get(mlbURL);
@@ -62,7 +57,6 @@ const gameStatusCheck = async () => {
         for (let event of sports.events) {
             // CHECK IF THE GAME IS OVER (GAME STATUS ID = 3)
             if (event.status.type.id === "3") { 
-                console.log("Game over eventId: ", event.id)
                 const updateGameStatus = db.pick.update( { gameStatus: 3 }, {
                     where: {
                         game: event.id
@@ -74,7 +68,6 @@ const gameStatusCheck = async () => {
                     // IDENTIFY THE SCORES BY MATCHING TEAM IDS
                     const games = competition.competitors;
                     for (let teams of games) {
-                        // console.log(teams)
                         const updateSelectTeamScore = await db.pick.update ( {selTeamScore: teams.score}, {
                             where: {
                                 selTeam: teams.id
@@ -94,7 +87,6 @@ const gameStatusCheck = async () => {
              })
              for (const team of compareTeams) {
                 if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) > parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is more than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} covered against the ${team.againstTeamName}`);
                     const pickWinner = await db.pick.update({correctPick: true, pickActive: false}, { 
                         where: {
                             game: event.id
@@ -107,7 +99,6 @@ const gameStatusCheck = async () => {
                     }
                 })
                 } else if ((parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)) < parseInt(team.againstTeamScore)) {
-                    console.log(`Favorite ${team.selTeamFavorite} ${team.selTeamName} scored ${parseInt(team.selTeamScore)} and the spread was ${parseFloat(team.selTeamSpread)}, which totals ${parseInt(team.selTeamScore) + parseFloat(team.selTeamSpread)} and is less than ${parseInt(team.againstTeamScore)} by the ${team.againstTeamName}. ${team.selTeamName} did not cover against the ${team.againstTeamName}`);
                     const pickLoser = await db.pick.update({correctPick: false, pickActive: false}, { 
                         where: {
                             game: event.id
@@ -131,7 +122,6 @@ const gameStatusCheck = async () => {
             }
         }
     } catch (error) {
-        console.log(error)
     }
 }
      
@@ -150,7 +140,6 @@ const userWins = (pickValue, odds, member) => {
                             updatedPoints = (((100/(Math.abs(odds))) * pickValue));
                         } 
                         let newPointValue = (updatedPoints.toFixed(2));
-                        console.log(`Winner ${winner.username} has ${initialValue} points. After winning a ${pickValue} point pick with ${odds} odds, ${winner.username} should now have ${newPointValue}`);
                         resolve(parseFloat(newPointValue));
                     })
                 })
@@ -164,7 +153,6 @@ const userLoses = (pickValue, member) => {
         .then(loser => {
             let initialValue = parseFloat(loser.points);
             let newPointValue = (initialValue - pickValue).toFixed(2);
-            console.log(`Loser ${loser.username} has ${initialValue} points. After losing a ${pickValue}, ${loser.username} should now have ${newPointValue}`)
             resolve(parseFloat(newPointValue));
         })
     })
@@ -175,7 +163,6 @@ const userLoses = (pickValue, member) => {
 
 //routes
 app.get("/", (req, res) => {
-    console.log(res.locals)
     res.render("index.ejs", {
         message: req.query.message ? req.query.message : null
     })
@@ -192,11 +179,9 @@ app.post("/", async (req, res) => {
         const failedLoginMessage = "Incorrect email or password"
             if (!foundUser) {
                 // if the user's email is not found -- do not let them login
-                console.log("user not found")
                 res.redirect("/users/login?message=" + failedLoginMessage)
             } else if(!bcrypt.compareSync(req.body.password, foundUser.password)) {
                 // if the user exists but they have the wrong password -- do not let them login
-                console.log("incorrect password")
                 res.redirect("/users/login?message=" + failedLoginMessage)
             } else {
                 // if the user exists, they know the right password -- log them in
@@ -208,7 +193,6 @@ app.post("/", async (req, res) => {
                 res.redirect("/users/profile")
             }
     } catch (error) {
-        console.log(error);
         res.redirect("/");
     }
 })

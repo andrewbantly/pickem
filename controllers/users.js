@@ -5,19 +5,15 @@ const db = require("../models");
 const bcrypt = require("bcrypt");
 const cryptoJs = require("crypto-js");
 
-
 // mount routes on router
 // GET users/new -- show route for a form that creates a new user (sign up for the app)
 router.get("/new", (req, res) => {
-    // res.send("show a form to sign up for the app")
     res.render("users/new.ejs")
 })
 
 // POST /users -- CREATE a new user from the form @ GET /users/new
 router.post("/", async (req, res) => {
-    // res.send("create a new user if they do not exist already in the db, log a user in")
     try {
-        console.log(req.body)
         // do a find or create with the user's given email
         const [newUser, created] = await db.user.findOrCreate({
             where: {
@@ -29,7 +25,6 @@ router.post("/", async (req, res) => {
         })
         if (!created) {
             // if the user's return as found -- don't let them sign up & redirect them to log in page
-            console.log("user account exists")
             res.redirect("/members/login?message=Please login to your account to continue")
         } else {
             // hash the user's password before it is added to db
@@ -46,7 +41,6 @@ router.post("/", async (req, res) => {
 
         }
     } catch (error) {
-        console.log(error)
         res.redirect("/")
     }
 
@@ -73,11 +67,9 @@ router.post("/login", async (req, res) => {
         const failedLoginMessage = "Incorrect email or password"
             if (!foundUser) {
                 // if the user's email is not found -- do not let them login
-                console.log("user not found")
                 res.redirect("/members/login?message=" + failedLoginMessage)
             } else if(!bcrypt.compareSync(req.body.password, foundUser.password)) {
                 // if the user exists but they have the wrong password -- do not let them login
-                console.log("incorrect password")
                 res.redirect("/members/login?message=" + failedLoginMessage)
             } else {
                 // if the user exists, they know the right password -- log them in
@@ -89,15 +81,12 @@ router.post("/login", async (req, res) => {
                 res.redirect("/members/profile")
             }
     } catch (error) {
-        console.log(error);
         res.redirect("/");
     }
 })
 
 // GET /users/logout -- log out the current user
 router.get("/logout", (req, res) => {
-    // res.send("log a user out")
-    console.log("logging user out");
     res.clearCookie("userId");
     res.redirect("/")
 })
@@ -117,20 +106,17 @@ router.get("/profile", async (req, res) => {
             order: [['id', 'DESC']],
         })
         //if allowed to be here, show them their profile
-        // console.log(myPicks)
         res.render("users/profile.ejs", {myPicks})
     }
 })
 
 // EDIT /members/edit/:pickId
 router.get("/edit/:pickId", async (req, res) => {
-    // console.log("req params:", req.params.pickId);
     const editPick = await db.pick.findOne({
         where: {
             id: req.params.pickId
         }
     })
-    // console.log("pick: ", editPick)
     res.render("users/edit.ejs", {editPick})
 })
 
@@ -156,13 +142,11 @@ router.put("/:pickId", async (req, res) => {
             }})
     res.redirect("/members/profile")
     } catch (error) {
-        console.log("error: ", error);
         res.redirect("404.ejs")
     }
 })
 
 router.get("/:username", async (req, res) => {
-    console.log(req.params.username)
     const findUser = await db.user.findOne({
         where: {
             username: req.params.username
@@ -181,7 +165,6 @@ router.get("/:username", async (req, res) => {
 
 // DELETE /members/:pickId -- delete a single pick at the pickId
 router.delete("/:pickId", async (req, res) => {
-    console.log("req params:", req.params.pickId)
     const deletePick = await db.pick.destroy({
         where: {
             id: req.params.pickId
@@ -189,7 +172,6 @@ router.delete("/:pickId", async (req, res) => {
     })
     res.redirect("/members/profile")
 })
-
 
 // export the router instance
 module.exports = router

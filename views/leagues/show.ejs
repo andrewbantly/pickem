@@ -1,11 +1,15 @@
 <%- include("../partials/header.ejs") %>
 <%- include("../partials/nav-signup.ejs") %>
+<!-- NAME OF LEAGUE -->
 <h2 class="league"><%=sports.leagues[0].name%></h2>
 <div class="pickContainer">
     <% sports.events.forEach(event => { %>
+        <!-- GAME EVENT MATCHUP (ex. SAN FRANCISCO GIANTS AT SAN DIEGO PADRES) -->
         <div class="eventName"><p class="game"><%=event.name%></p>
+            <!-- GAME STATUS CONDITIONS FOR USER AWARENESS ONLY -->
             <% if (event.status.type.id === "1") { %>
                 <div class="gameStatus scheduled">SCHEDULED</div>
+                <!-- MODAL THAT INCLUDES IMPORTANT GAME INFORMATION -->
                 <section id="modal-<%=event.id%>"class="modal hidden">
                     <div class="modalContainer">
                         <div class="gameNameContainer"><div class="divider">
@@ -18,49 +22,51 @@
                         </div>
                         <div class="probablesContainer">
                             <h4 class="probablesHeader">Probable Pitchers</h4>
+                            <!-- AWAY TEAM PROBABLE PITCHER -->
                                 <p class="pitcherTeam"><%=competition.competitors[1].team.name%></p>
                                 <% if (competition.competitors[1].probables) { %>
-                                    <p class="pitcherInfo"><%=competition.competitors[1].probables[0].athlete.displayName%></p> 
-                                    <% if (competition.competitors[1].probables[0].statistics.length !== 0) { %>
-                                        (<%=competition.competitors[1].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[1].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[1].probables[0]?.statistics[3]?.displayValue%> ERA)
+                                <p class="pitcherInfo"><%=competition.competitors[1].probables[0].athlete.displayName%></p> 
+                                <% if (competition.competitors[1].probables[0].statistics.length !== 0) { %>
+                                    <p>(<%=competition.competitors[1].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[1].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[1].probables[0]?.statistics[3]?.displayValue%> ERA)
+                                    <% } else { %>
+                                        (0-0, 0.00 ERA)
+                                    <% } %>
+                                    </p><img class="headshot" src="<%=competition.competitors[1].probables[0].athlete.headshot%>">
+                                <% } else { %>
+                                     <pclass="pitcherInfo">No probable listed</p> 
+                                <% } %>
+                            <!-- HOME TEAM PROBABLE PITCHER -->
+                                <p class="pitcherTeam"><%=competition.competitors[0].team.name%></p>
+                                <% if (competition.competitors[0].probables) { %>
+                                    <p class="pitcherInfo"><%=competition.competitors[0].probables[0].athlete.displayName%> 
+                                        <% if (competition.competitors[0].probables[0].statistics.length !== 0) { %>
+                                            <p>(<%=competition.competitors[0].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[0].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[0].probables[0]?.statistics[3]?.displayValue%> ERA)
                                         <% } else { %>
                                             (0-0, 0.00 ERA)
-                                            <%}%>
-                                        </p><img class="headshot" src="<%=competition.competitors[1].probables[0].athlete.headshot%>">
-                                        <% } else { %>
-                                            <p class="pitcherInfo">No probable listed</p> 
-                                                <% } %>
-                                        <p class="pitcherTeam"><%=competition.competitors[0].team.name%></p>
-                                        <% if (competition.competitors[0].probables) { %>
-                                            <p class="pitcherInfo"><%=competition.competitors[0].probables[0].athlete.displayName%> 
-                                                <% if (competition.competitors[0].probables[0].statistics.length !== 0) { %>
-                                                    (<%=competition.competitors[0].probables[0]?.statistics[2]?.displayValue%>-<%=competition.competitors[0].probables[0]?.statistics[1]?.displayValue%>, <%=competition.competitors[0].probables[0]?.statistics[3]?.displayValue%> ERA)
-                                                    <% } else { %>
-                                                        (0-0, 0.00 ERA)
-                                                        <%}%>
-                                                    </p><img class="headshot" src="<%=competition.competitors[0].probables[0].athlete.headshot%>">
-                                                    <% } else { %>
-                                                        <p class="pitcherInfo">No probable listed</p> 
-                                                    <% } %>
-                                            </div>
-                                            <!--  -->
-                                            <div class="teamLeadersContainer">
-                                                <h4><%=competition.competitors[1].team.name%> Batting Leaders</h4>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[0].shortDisplayName%>: <%=competition.competitors[1].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[0].leaders[0].displayValue%>)</strong></p>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[1].shortDisplayName%>: <%=competition.competitors[1].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[1].leaders[0].displayValue%>)</strong></p>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[2].shortDisplayName%>: <%=competition.competitors[1].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[2].leaders[0].displayValue%>)</strong></p>
-                                                <!--  -->
-                                                <h4><%=competition.competitors[0].team.name%> Batting Leaders</h4>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[0].shortDisplayName%>: <%=competition.competitors[0].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[0].leaders[0].displayValue%>)</strong></p>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[1].shortDisplayName%>: <%=competition.competitors[0].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[1].leaders[0].displayValue%>)</strong></p>
-                                                <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[2].shortDisplayName%>: <%=competition.competitors[0].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[2].leaders[0].displayValue%>)</strong></p>
-                                            </div>
-
-                                            <% }) %>
-                                        </div>
+                                        <%}%>
+                                </p><img class="headshot" src="<%=competition.competitors[0].probables[0].athlete.headshot%>">
+                                <% } else { %>
+                                    <p class="pitcherInfo">No probable listed</p> 
+                                <% } %>
+                        </div>
+                        <div class="teamLeadersContainer">
+                            <!-- AWAY TEAM BATTING LEADERS -->
+                            <h4><%=competition.competitors[1].team.name%> Batting Leaders</h4>
+                            <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[0].shortDisplayName%>: <%=competition.competitors[1].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[0].leaders[0].displayValue%>)</strong></p>
+                            <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[1].shortDisplayName%>: <%=competition.competitors[1].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[1].leaders[0].displayValue%>)</strong></p>
+                            <p class="battingLeadersInfo"><%=competition.competitors[1].leaders[2].shortDisplayName%>: <%=competition.competitors[1].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[1].leaders[2].leaders[0].displayValue%>)</strong></p>
+                            <!-- HOME TEAM BATTING LEADERS -->
+                            <h4><%=competition.competitors[0].team.name%> Batting Leaders</h4>
+                            <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[0].shortDisplayName%>: <%=competition.competitors[0].leaders[0].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[0].leaders[0].displayValue%>)</strong></p>
+                            <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[1].shortDisplayName%>: <%=competition.competitors[0].leaders[1].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[1].leaders[0].displayValue%>)</strong></p>
+                            <p class="battingLeadersInfo"><%=competition.competitors[0].leaders[2].shortDisplayName%>: <%=competition.competitors[0].leaders[2].leaders[0].athlete.displayName%> <strong>(<%=competition.competitors[0].leaders[2].leaders[0].displayValue%>)</strong></p>
+                        </div>
+                        <% }) %>
+                        </div>
                 </section>
                 <div id="overlay-<%=event.id%>" class="overlay hidden"></div>
                 <button class="btn-open" data-target="#modal-<%=event.id%>">PREVIEW</button>
+            <!-- GAME STATUS CONDITIONS FOR USER AWARENESS ONLY -->
             <% } else if (event.status.type.id === "2") { %>
                 <div class="gameStatus inProgress">IN PROGRESS</div>
             <% } else if (event.status.type.id === "3") { %>
@@ -75,44 +81,53 @@
         </div>
         <div class="oddsLogo">
         <% if (event.status.type.id === "1") { %>
+        <!-- GAME STATUS CONDITIONS WHERE USER IS ABLE TO PICK -->
              <% event.competitions.forEach(competition => { %>
+           <!-- AWAY TEAM -->
             <div class="teamContainer">
                 <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
+                    <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                     <p class="spread"><%=competition.competitors[1].team.name%>         
                         <% if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
-                            -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                            <% } else if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                                -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
-                                    +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                    <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                                        +1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                        <% } %>
-                                    </p>
-                <form method="GET" action="/members/new">
-                    <input class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
+                        -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                        <% } else if (competition.odds[1].awayTeamOdds.favorite === true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
+                        -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                        <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) > 0) { %>
+                        +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                        <% } else if (competition.odds[1].awayTeamOdds.favorite === false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
+                        +1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                        <% } %>
+                    </p>
+             <!-- RE ROUTE TO SIGN UP PAGE -->
+             <form method="GET" action="/members/new">
+                    <input required class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
                     <button class="pickButton" type="submit">PICK</button>
                 </form>
                 </div>
-        <div class="teamContainer">
+            <!-- HOME TEAM -->
+            <div class="teamContainer">
             <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
+             <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
             <p class="spread"><%=competition.competitors[0].team.name%>
                 <% if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
-                    -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                    <% } else if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
-                        -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                        <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
-                            +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-               <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
+                -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                <% } else if (competition.odds[1].homeTeamOdds.favorite === true && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
+                -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) > 0) { %>
+                +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                <% } else if (competition.odds[1].homeTeamOdds.favorite === false && parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
                 +1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
                 <% } %>
             </p>
+             <!-- RE ROUTE TO SIGN UP PAGE -->
             <form method="GET" action="/members/new">
-                <input class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
+                <input required class="pickValueInput" type="number" name="pickValue" placeholder="VALUE"/>
                 <button class="pickButton" type="submit">PICK</button>
             </form>
             </div>
+         <!-- GAME STATUS CONDITIONS WHERE USER IS NOT ABLE TO PICK -->
          <% })} else if (event.status.type.id === "2") { %>
+        <!-- GAME IN PROGRESS: SCORES UPDATES ON REFRESH OF PAGE -->
             <% event.competitions.forEach(competition => { %>
             <div class="teamContainer">
                 <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
@@ -122,34 +137,32 @@
                 <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
                 <p class="score"><%=competition.competitors[0].score%></p>
             </div>
-            <% })} else { %>
+        <% })} else { %>
+        <!-- GAME OVER: SCORES UPDATED AND WINNER DETERMINED -->
                 <% event.competitions.forEach(competition => { %>
                     <% if (competition.competitors[1].winner === true) { %>
                     <div class="teamContainer">
                         <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
-                        <p class="score winner">
-                            <%=competition.competitors[1].score%></p></div>
-                            <% } else { %> 
-                                <div class="teamContainer teamLoser">
-                                    <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
-                                <p class="score">
-                                <%=competition.competitors[1].score%></p>
-                            </div>
-                            <% } %>
+                        <p class="score winner"><%=competition.competitors[1].score%></p>
+                    </div>
+                    <% } else { %> 
+                    <div class="teamContainer teamLoser">
+                        <img class="teamLogo" src="<%=competition.competitors[1].team.logo%>">
+                        <p class="score"><%=competition.competitors[1].score%></p>
+                    </div>
+                    <% } %>
                     <% if (competition.competitors[0].winner === true) { %>
                     <div class="teamContainer">
                         <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
-                        <p class="score winner">
-                            <%=competition.competitors[0].score%></p></div>
-                            <% } else { %> 
-                                <div class="teamContainer teamLoser">
-                                <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
-                                    <p class="score">
-                                    <%=competition.competitors[0].score%></p>
-                                </div>
-                                <% } %>
-                    <% })} %>
+                        <p class="score winner"><%=competition.competitors[0].score%></p>
+                    </div>
+                    <% } else { %> 
+                        <div class="teamContainer teamLoser">
+                        <img class="teamLogo" src="<%=competition.competitors[0].team.logo%>">
+                        <p class="score"><%=competition.competitors[0].score%></p>
+                        </div>
+                    <% } %>
+                <% })} %>
         </div>
     <% }) %>
-</div class="pickContainer">
 <%- include("../partials/footer.ejs") %>
