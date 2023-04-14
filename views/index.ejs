@@ -1,19 +1,27 @@
 <%- include("./partials/header.ejs") %>
 <%- include("./partials/nav-signup.ejs") %>
-<h1>Welcome to the auth app, user.</h1>
-<% if (message) {%>
-    <p><%= message %></p>
-    <% } %>
+<h1 class="appTitle">PICK'EM</h1>
 
 <div class="formContainer">
-<form class="credsForm" method="POST" action="/members/login">
-    <label for="email"></label>
-    <input class="credsInput" type="email" name="email" id="email" placeholder="EMAIL" required/>
-
-    <label for="password"></label>
-    <input  class="credsInput" type="password" name="password" id="password" placeholder="PASSWORD" required />
-
-    <button class="credsButton" type="submit">Log in!</button>
+    <form class="credsForm" method="POST" action="/members/login">
+        <h2 class="taglineTop">DISCOVER YOUR GAME. MAKE YOUR PICKS.</h2>
+        <h2 class="taglineBtm">JOIN A COMMUNITY OF WINNERS.</h2>
+        <h3 class="loginHeader">MEMBERS LOGIN</h3>
+        <% if (message) {%>
+            <p><%= message %></p>
+            <% } %>
+            <label for="email"></label>
+            <input class="credsInput" type="email" name="email" id="email" placeholder="EMAIL" required/>
+            
+            <label for="password"></label>
+            <input  class="credsInput" type="password" name="password" id="password" placeholder="PASSWORD" required />
+            
+            <button class="credsButton" type="submit">LOG IN</button>
 </form>
 </div>
+<footer>
+    <a href="https://www.linkedin.com/in/andrewbantly/"><p>LinkedIn </p></a>
+    <a href="https://github.com/andrewbantly"><p>GitHub </p></a>
+    <p>Developed by Andrew Bantly </p>
+</footer>
 <%- include("./partials/footer.ejs") %>

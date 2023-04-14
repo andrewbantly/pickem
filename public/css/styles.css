@@ -9,6 +9,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-attachment: fixed;
 }
 nav {
     background-color: rgb(90, 90, 90);
@@ -27,37 +28,81 @@ a {
     color: rgb(233, 233, 233);
     font-weight: bold;
 }
-
+.appTitle{
+    font-size: 4rem;
+    text-align: center;    
+    color: rgb(233, 233, 233);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    margin: 2rem 0;
+}
+.taglineTop, .taglineBtm, .loginHeader {
+    font-size: 1.5rem;
+    text-align: center;    
+    color: rgb(233, 233, 233);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+.tagline {
+    display: flex;
+flex-direction: column-reverse;
+}
+.taglineTop {
+    margin: 2rem 0 0.5rem; 
+}
+.taglineBtm {
+    margin: 0 0 1rem; 
+}
+.loginHeader {
+    margin: 1rem 0 2rem; 
+}
 .formContainer {
+    background-color: #3c3c3cd3;
+    color: rgb(233, 233, 233);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+    border: 3px solid rgb(233, 233, 233);
+    border-radius: 3px;
+    width: 35rem;
+    height: 30rem;
     margin: 0 auto;
     display: flex;
 }
 .credsForm {
-    border: 3px solid black;
-    width: 40%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .credsInput {
-    border-radius: 5px;
-    margin: 5px 0;
-    border: 2px solid hotpink;
+    margin: 0rem 0 1rem;
+    background-color: rgb(30, 30, 30);
+    color: rgb(200, 200, 200);
+    border: 1px solid rgb(175, 175, 175);;
+    border-radius: 3px;
     text-align: center;
+    height: 3rem;
+    width: 20rem;
+    font-size: 1.2rem;
 }
 .credsInput::placeholder {
-    color: blue;
+    color: rgb(233, 233, 233, 0.5);
     text-align: center;
-    background-color: blanchedalmond;
+    height: 100%;
+    font-size: 1rem;
 }
 .credsButton {
-    color:rgb(161, 161, 161);
-    background-color: rgb(0, 0, 110);
+    color: rgb(175, 175, 175);
+    /* color:rgb(161, 161, 161); */
+    background-color: rgb(30, 30, 30);
     border-radius: 5px;
+    border: 1px solid rgb(175, 175, 175);;
+    margin: 1rem 0;
+    width: 10rem;
+    height: 2.5rem;
 }
 .credsButton:hover {
     cursor: pointer;
+}
+.badLogin {
+    color: rgb(233, 233, 233);
 }
 /* ---------------- PICKS ------------- */
 .pickList {
@@ -476,4 +521,20 @@ input::-webkit-inner-spin-button {
 }
 .rankingThree, .userRanksThree {
     color: rgb(205, 127, 50);
+}
+/* ---------- ANDREW LINKEDIN & GITHUB LINKS --------- */
+footer {
+    margin: 10rem 5rem;
+    display: flex;
+    flex-direction: row-reverse;
+    color: rgb(233, 233, 233);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+}
+footer > a {
+    text-decoration: none;
+    font-size: 1rem;
+    margin-left: 1rem;
+    color: rgb(233, 233, 233);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
