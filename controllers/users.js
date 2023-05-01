@@ -65,21 +65,21 @@ router.post("/login", async (req, res) => {
             }
         })
         const failedLoginMessage = "Incorrect email or password"
-            if (!foundUser) {
-                // if the user's email is not found -- do not let them login
-                res.redirect("/members/login?message=" + failedLoginMessage)
-            } else if(!bcrypt.compareSync(req.body.password, foundUser.password)) {
-                // if the user exists but they have the wrong password -- do not let them login
-                res.redirect("/members/login?message=" + failedLoginMessage)
-            } else {
-                // if the user exists, they know the right password -- log them in
-                    // encrypt the user's PK
-                const encryptedPK = cryptoJs.AES.encrypt(foundUser.id.toString(), process.env.ENC_KEY)
-                // set encryped ID as a cookie
-                res.cookie("userId", encryptedPK.toString())
-                // redirect user
-                res.redirect("/members/profile")
-            }
+        if (!foundUser) {
+            // if the user's email is not found -- do not let them login
+            res.redirect("/members/login?message=" + failedLoginMessage)
+        } else if (!bcrypt.compareSync(req.body.password, foundUser.password)) {
+            // if the user exists but they have the wrong password -- do not let them login
+            res.redirect("/members/login?message=" + failedLoginMessage)
+        } else {
+            // if the user exists, they know the right password -- log them in
+            // encrypt the user's PK
+            const encryptedPK = cryptoJs.AES.encrypt(foundUser.id.toString(), process.env.ENC_KEY)
+            // set encryped ID as a cookie
+            res.cookie("userId", encryptedPK.toString())
+            // redirect user
+            res.redirect("/members/profile")
+        }
     } catch (error) {
         res.redirect("/");
     }
@@ -106,7 +106,7 @@ router.get("/profile", async (req, res) => {
             order: [['id', 'DESC']],
         })
         //if allowed to be here, show them their profile
-        res.render("users/profile.ejs", {myPicks})
+        res.render("users/profile.ejs", { myPicks })
     }
 })
 
@@ -117,13 +117,13 @@ router.get("/edit/:pickId", async (req, res) => {
             id: req.params.pickId
         }
     })
-    res.render("users/edit.ejs", {editPick})
+    res.render("users/edit.ejs", { editPick })
 })
 
 //PUT /members/edit/:pickId -- edit a single pick at the pickId
 router.put("/:pickId", async (req, res) => {
-    try{
-        const updatePick = await db.pick.update({ 
+    try {
+        const updatePick = await db.pick.update({
             selTeam: req.body.selTeam,
             selTeamName: req.body.selTeamName,
             selTeamFavorite: req.body.selTeamFavorite,
@@ -136,11 +136,12 @@ router.put("/:pickId", async (req, res) => {
             againstTeamSpread: req.body.againstTeamSpread,
             againstTeamOdds: req.body.againstTeamOdds,
             againstTeamLogo: req.body.againstTeamLogo
-         }, {
+        }, {
             where: {
                 id: req.body.id
-            }})
-    res.redirect("/members/profile")
+            }
+        })
+        res.redirect("/members/profile")
     } catch (error) {
         res.redirect("404.ejs")
     }
@@ -160,7 +161,7 @@ router.get("/:username", async (req, res) => {
         },
         order: [['id', 'DESC']],
     })
-    res.render("users/visit.ejs", {userPicks, foundUsername, foundUserPoints})
+    res.render("users/visit.ejs", { userPicks, foundUsername, foundUserPoints })
 })
 
 // DELETE /members/:pickId -- delete a single pick at the pickId

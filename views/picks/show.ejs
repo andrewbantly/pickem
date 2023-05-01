@@ -1,35 +1,44 @@
 <%- include("../partials/header.ejs") %>
-<%- include("../partials/nav-signup.ejs") %>
-<h2 class="league">Community Picks</h2>
-<div class="pickList">
-    <% for (let i =0; i< 6; i++) { %>
-        <p class="allPicks"><%=allUsersAndPicks[i].user.username%> selected <%=allUsersAndPicks[i].selTeamName%> at <%=allUsersAndPicks[i].selTeamSpread%> (<% if (allUsersAndPicks[i].selTeamOdds > 0) {%>+<%}%><%=allUsersAndPicks[i].selTeamOdds%>) against the <%=allUsersAndPicks[i].againstTeamName%></p>
-    <div class="pickReactions">
-        <div class="likeContainer">
-            <a class="profileLink" href="/members/new">Profile</a>
-            <form method="GET" action="/members/new">         
-                <button class="like-btn" type="submit"> <img class="likeIcon" src="media/like-icon.png"/>  (
-                <% if (allUsersAndPicks[i].likeCount > 0) { %>
-                <%=allUsersAndPicks[i].likeCount%>
-                <% } else { %>
-                    0
-                <% } %>
-                )</button>
-            </form>
+    <%- include("../partials/nav-signup.ejs") %>
+        <h2 class="league">Community Picks</h2>
+        <div class="pickList">
+            <% for (let i=0; i< 6; i++) { %>
+                <p class="allPicks">
+                    <%=allUsersAndPicks[i].user.username%> selected <%=allUsersAndPicks[i].selTeamName%> at
+                            <%=allUsersAndPicks[i].selTeamSpread%> (<% if (allUsersAndPicks[i].selTeamOdds> 0) {%>+<%}%>
+                                        <%=allUsersAndPicks[i].selTeamOdds%>) against the
+                                            <%=allUsersAndPicks[i].againstTeamName%>
+                </p>
+                <div class="pickReactions">
+                    <div class="likeContainer">
+                        <a class="profileLink" href="/members/new">Profile</a>
+                        <form method="GET" action="/members/new">
+                            <button class="like-btn" type="submit"> <img class="likeIcon" src="media/like-icon.png" /> (
+                                <% if (allUsersAndPicks[i].likeCount> 0) { %>
+                                    <%=allUsersAndPicks[i].likeCount%>
+                                        <% } else { %>
+                                            0
+                                            <% } %>
+                                                )
+                            </button>
+                        </form>
+                    </div>
+                    <form class="commentContainer" method="GET" action="/members/new">
+                        <textarea class="commentBox" name="content"></textarea>
+                        <button class="comment" type="submit">Comment</button>
+                    </form>
+                </div>
+                <% allUsersAndPicks[i].comments.forEach(comment=> { %>
+                    <div class="commentContentContainer">
+                        <p class="commentContent">
+                            <strong>
+                                <%=comment.commenterName%>:
+                            </strong>
+                            <%=comment.content%>
+                        </p>
+                    </div>
+                    <% }) %>
+                        <% } %>
         </div>
-        <form class="commentContainer" method="GET" action="/members/new">
-            <textarea class="commentBox" name="content"></textarea>
-            <button class="comment" type="submit">Comment</button>
-        </form>
-    </div>
-    <% allUsersAndPicks[i].comments.forEach(comment => { %>
-        <div class="commentContentContainer">
-        <p class="commentContent">
-            <strong><%=comment.commenterName%>:</strong> <%=comment.content%> 
-        </p>
-        </div>
-    <% }) %>
-    <% } %>
-</div>
 
-<%- include("../partials/footer.ejs") %>
+        <%- include("../partials/footer.ejs") %>

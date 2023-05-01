@@ -5,30 +5,30 @@ const db = require("../models");
 const axios = require("axios");
 
 router.get("/", async (req, res) => {
-const allUsersAndPicks = await db.pick.findAll({
-    include: [db.user, db.like, db.comment],
-    order: [["id", "DESC"]]
-})
-if (!res.locals.user) {
-    res.render("picks/show.ejs", {
-        allUsersAndPicks
+    const allUsersAndPicks = await db.pick.findAll({
+        include: [db.user, db.like, db.comment],
+        order: [["id", "DESC"]]
     })
-} else {
-    res.render("picks/index.ejs", { allUsersAndPicks })
-} 
+    if (!res.locals.user) {
+        res.render("picks/show.ejs", {
+            allUsersAndPicks
+        })
+    } else {
+        res.render("picks/index.ejs", { allUsersAndPicks })
+    }
 })
 
 // POST - CREATE LIKE OF A PICK
 router.post("/like/:pickId", async (req, res) => {
     const likerName = res.locals.user.username;
-    const [newLike, likeCreated]= await db.like.findOrCreate({
+    const [newLike, likeCreated] = await db.like.findOrCreate({
         where: {
             userId: res.locals.user.id,
             pickId: req.params.pickId,
-            likerName: likerName 
+            likerName: likerName
         }, defaults: {
-            liked: true    
-    }
+            liked: true
+        }
     })
     if (likeCreated === false && newLike.liked === true) {
         const updateLike = await db.like.update({ liked: false, likerName: null }, {
@@ -52,24 +52,24 @@ router.post("/like/:pickId", async (req, res) => {
         }
     })
     const pickLikeCount = usersThatLiked.length;
-    const updatePickLikeCount = await db.pick.update({ likeCount: pickLikeCount},{ 
+    const updatePickLikeCount = await db.pick.update({ likeCount: pickLikeCount }, {
         where: {
             id: req.params.pickId,
         }
-     })  
+    })
     res.redirect("/picks")
 })
 
 router.post("/comment/:pickId", async (req, res) => {
     const commenterName = res.locals.user.username;
-    const [newComment, commentCreated]= await db.comment.findOrCreate({
+    const [newComment, commentCreated] = await db.comment.findOrCreate({
         where: {
             userId: res.locals.user.id,
             pickId: req.params.pickId,
-            commenterName: commenterName 
+            commenterName: commenterName
         }, defaults: {
-            content: req.body.content    
-    }
+            content: req.body.content
+        }
     })
     res.redirect("/picks")
 })

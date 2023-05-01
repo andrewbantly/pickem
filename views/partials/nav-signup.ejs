@@ -4,13 +4,14 @@
         <% if (user) { %>
             <p><a href="/members/profile">HOME</a></p>
             <% } else { %>
-        <!-- shown when the user is logged out -->
-        <p><a href="/">HOME</a></p>
-        <% } %>
+                <!-- shown when the user is logged out -->
+                <p><a href="/">HOME</a></p>
+                <% } %>
     </div>
     <div class="navPicks">
         <!-- Show whether the user is logged in or out -->
-       <p><a href="/picks">PICKS</a><p>
+        <p><a href="/picks">PICKS</a>
+        <p>
     </div>
     <div class="navLeagues">
         <p><a href="/leagues">LEAGUES</a></p>
@@ -22,9 +23,9 @@
         <!-- shown when the user is logged in -->
         <% if (user) { %>
             <p><a href="/members/logout">LOGOUT</a></p>
-        <% } else { %>
-            <!-- shown when the user is logged out -->
-            <p><a href="/members/new">SIGN UP</a></p>
-            <% } %>
+            <% } else { %>
+                <!-- shown when the user is logged out -->
+                <p><a href="/members/new">SIGN UP</a></p>
+                <% } %>
     </div>
 </nav>

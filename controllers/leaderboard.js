@@ -4,9 +4,10 @@ const router = express();
 const db = require("../models");
 
 router.get("/", async (req, res) => {
-        const allUsersAndPicks = await db.user.findAll({
-            include: [db.pick]        })
-        res.render("leaderboard/index.ejs", { allUsersAndPicks })
+    const allUsersAndPicks = await db.user.findAll({
+        include: [db.pick]
     })
+    res.render("leaderboard/index.ejs", { allUsersAndPicks })
+})
 
 module.exports = router

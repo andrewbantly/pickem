@@ -20,11 +20,11 @@ router.get("/", (req, res) => {
                 sports
             })
         } else {
-            const userId = res.locals.user.id;      
+            const userId = res.locals.user.id;
             res.render("leagues/index.ejs", {
                 sports, userId
             })
-        } 
+        }
     })
 })
 
