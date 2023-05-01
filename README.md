@@ -114,4 +114,6 @@ CSS
 * Incorporate one front-end framework element
 * Flexible design for diverse screen sizes, mobile
 
-[GitHubGist](https://gist.github.com/andrewbantly/86869292a2862c58a2c910217f06d0fe)
+Credits:
+ESPN API: [GitHubGist](https://gist.github.com/andrewbantly/86869292a2862c58a2c910217f06d0fe)
+Like icon: [Naba A'la](https://thenounproject.com/icon/like-5663969/)
