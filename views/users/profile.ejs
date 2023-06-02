@@ -14,7 +14,12 @@
                         <%wins.push(pick)%>
                             <%}}) %>
                                 <h2 class="userInfo">Wins:<p class="userInfoNums">
-                                        <%=wins.length%> (<%=(((wins.length) /(myPicks.length)) * 100).toFixed(2)%>%)
+                                        <%if (wins.length> 0) {%>
+                                            <%=wins.length%> (<%=(((wins.length) /(myPicks.length)) * 100).toFixed(2)%>
+                                                    %)
+                                                    <%} else { %>
+                                                        <%=wins.length%>
+                                                            <% }%>
                                     </p>
                                 </h2>
                                 <h2 class="userInfo">picks placed:<p class="userInfoNums">
@@ -23,6 +28,7 @@
                                 </h2>
         </div>
         <div class="userStats">
+            <%if (myPicks.length> 0) { %>
             <h3 class="pickHistory">Pick history</h3>
             <div class="myPicks">
                 <% myPicks.forEach(pick=> { %>
@@ -71,6 +77,6 @@
                                         <p>-<%=pick.pickValue%> points</p>
                                     </div>
                                     <% } %>
-                                        <% }) %>
+                                        <% })} %>
             </div>
             <%- include("../partials/footer.ejs") %>
