@@ -31,12 +31,13 @@ router.get("/", (req, res) => {
 // CREATE PICK IN DATABASE 
 router.post("/", async (req, res) => {
     try {
+        const gameTime = new Date(req.body.gameDate)
         const newPick = await db.pick.create({
             userId: req.body.userId,
             league: req.body.league,
             game: req.body.game,
             shortName: req.body.shortName,
-            gameDate: req.body.gameDate,
+            gameDate: gameTime,
             gameStatus: req.body.gameStatus,
             pickActive: req.body.pickActive,
             pickValue: req.body.pickValue,
