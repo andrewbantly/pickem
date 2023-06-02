@@ -7,6 +7,7 @@ router.get("/", async (req, res) => {
     const allUsersAndPicks = await db.user.findAll({
         include: [db.pick]
     })
+    console.log(allUsersAndPicks)
     res.render("leaderboard/index.ejs", { allUsersAndPicks })
 })
 
