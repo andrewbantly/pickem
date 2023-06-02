@@ -48,8 +48,8 @@
                     </div>
                     <% if (pick.gameStatus===1) { %>
                         <div class="pickStatus scheduledPick">
-                            <%const lockTime = new Date (pick.gameDate) %>
-                            <p>PICK LOCKS AT <%=lockTime%>
+                            <%const lockTime = pick.gameDate.toLocaleString('en-US', {timeZone: 'America/New_York', timeStyle: 'short'}) %>
+                            <p>PICK LOCKS AT <%=lockTime%> EST
                             </p>
                         </div>
                         <form method="GET" action="/members/edit/<%=pick.id%>">
