@@ -48,7 +48,8 @@
                     </div>
                     <% if (pick.gameStatus===1) { %>
                         <div class="pickStatus scheduledPick">
-                            <p>PICK LOCKS AT <%=pick.gameDate%>
+                            <%const lockTime = new Date (pick.gameDate) %>
+                            <p>PICK LOCKS AT <%=lockTime%>
                             </p>
                         </div>
                         <form method="GET" action="/members/edit/<%=pick.id%>">
