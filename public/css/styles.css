@@ -184,6 +184,13 @@ a {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
 }
+.postedCommentsContainer{
+    background-color: #3c3c3c;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    padding: 0.1rem 0.7rem;
+    border-radius: 3px;
+}
 .commentContentContainer{
     background-color: rgb(233, 233, 233);
     margin: 0.5rem 0 0.8rem;

@@ -29,16 +29,20 @@
                         <button class="comment" type="submit">Comment</button>
                     </form>
                 </div>
-                <% allUsersAndPicks[i].comments.forEach(comment=> { %>
-                    <div class="commentContentContainer">
-                        <p class="commentContent">
-                            <strong>
-                                <%=comment.commenterName%>:
+                <%if (allUsersAndPicks[i].comments.length > 0) {%>
+                <div class="postedCommentsContainer">
+                    <% allUsersAndPicks[i].comments.forEach(comment=> { %>
+                        <div class="commentContentContainer">
+                            <p class="commentContent">
+                                <strong>
+                                    <%=comment.commenterName%>:
                             </strong>
                             <%=comment.content%>
                         </p>
                     </div>
                     <% }) %>
+                </div>
+                <%}%>
                         <% } %>
         </div>
 
