@@ -42,7 +42,8 @@
                     </div>
                     <% if (pick.gameStatus===1) { %>
                         <div class="pickStatus scheduledPick">
-                            <p>GAME STARTS AT <%=pick.gameDate%>
+                            <%const lockTime = pick.gameDate.toLocaleString('en-US', {timeZone: 'America/New_York', timeStyle: 'short'}) %>
+                            <p>GAME STARTS AT <%=lockTime%>
                             </p>
                         </div>
                         <% } else if (pick.gameStatus===2) { %>
