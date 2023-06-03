@@ -171,24 +171,19 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[1].team.name%>
-                                        <% if (competition.odds[1].awayTeamOdds.favorite===true &&
-                                            parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
-                                            -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===true &&
-                                                    parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                                                    -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                        <% } else if (competition.odds[1].awayTeamOdds.favorite===false
-                                                            && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0)
-                                                            { %>
-                                                            +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                                <% } else if
-                                                                    (competition.odds[1].awayTeamOdds.favorite===false
-                                                                    &&
-                                                                    parseInt(competition.odds[1].awayTeamOdds.spreadOdds)
-                                                                    < 0) { %>
-                                                                    +1.5 (
-                                                                    <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                                        <% } %>
+                                        <%if (competition.odds) {%>
+                                            <%if (competition.odds[1].awayTeamOdds.spreadOdds) {%>
+                                                <% if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
+                                                -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1]?.spreadOdds) < 0) { %>
+                                                -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
+                                                +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                            <% } else if (competition.odds[1].awayTeamOdds.favorite===false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
+                                                +1.5 (
+                                                <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                                    <% }} %>
+                                        <%}%>
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON AWAY TEAM -->
                                 <form method="POST" action="/leagues">

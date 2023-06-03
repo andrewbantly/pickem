@@ -9,12 +9,11 @@ router.get("/", (req, res) => {
     let mlbURL = "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
     axios.get(mlbURL).then(apiResponse => {
         let sports = apiResponse.data;
-        sports.events.forEach(event => {
-            event.competitions.forEach(competition => {
-                competition.competitors.forEach(competitor => {
-                })
-            })
-        })
+        // sports.events.forEach(event => {
+        //     event.competitions.forEach(competition => {
+        //         console.log(competition.odds[1].awayTeamOdds)
+        //     })
+        // })
         if (!res.locals.user) {
             res.render("leagues/show.ejs", {
                 sports
