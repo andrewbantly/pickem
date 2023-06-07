@@ -182,6 +182,9 @@ a {
     margin: 0;
     display: flex;
 }
+.profileLink:hover, .like-btn:hover, .comment:hover {
+    background-color: black;
+}
 
 .profileLink {
     font-size: 1.7rem;
