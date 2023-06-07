@@ -3,6 +3,7 @@ html {
     box-sizing: border-box;
     letter-spacing: 0.1rem;
 }
+
 body {
     font-family: 'Bebas Neue', sans-serif;
     margin: 0;
@@ -12,6 +13,7 @@ body {
     background-position: center center;
     background-attachment: fixed;
 }
+
 nav {
     background-color: rgb(90, 90, 90);
     display: flex;
@@ -19,14 +21,29 @@ nav {
     width: 100%;
     border-bottom: 5px solid rgb(60, 60, 60);
 }
-.navHome, .navPicks, .navLeagues, .navLeaders, .navLogIOS {
+
+.navHome,
+.navPicks,
+.navLeagues,
+.navLeaders,
+.navLogIOS {
     width: 20%;
     text-align: center;
 }
-.navHome > p, .navPicks > p, .navLeagues > p, .navLeaders > p, .navLogIOS > p {
+
+.navHome>p,
+.navPicks>p,
+.navLeagues>p,
+.navLeaders>p,
+.navLogIOS>p {
     margin: 1rem 0;
 }
-.navHome > p :hover, .navPicks > p :hover, .navLeagues > p :hover, .navLeaders > p :hover, .navLogIOS > p :hover {
+
+.navHome>p :hover,
+.navPicks>p :hover,
+.navLeagues>p :hover,
+.navLeaders>p :hover,
+.navLogIOS>p :hover {
     color: black;
 }
 
@@ -35,33 +52,42 @@ a {
     color: rgb(233, 233, 233);
     font-weight: bold;
 }
-.appTitle{
+
+.appTitle {
     font-size: 8rem;
-    text-align: center;    
+    text-align: center;
     color: rgb(233, 233, 233);
     -webkit-text-stroke: 1px rgb(30, 30, 30);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     margin: 1.5rem 0;
 }
-.taglineTop, .taglineBtm, .loginHeader {
+
+.taglineTop,
+.taglineBtm,
+.loginHeader {
     font-size: 1.5rem;
-    text-align: center;    
+    text-align: center;
     color: rgb(233, 233, 233);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 .tagline {
     display: flex;
     flex-direction: column-reverse;
 }
+
 .taglineTop {
-    margin: 2rem 0 0.5rem; 
+    margin: 2rem 0 0.5rem;
 }
+
 .taglineBtm {
-    margin: 0 0 1rem; 
+    margin: 0 0 1rem;
 }
+
 .loginHeader {
-    margin: 1rem 0 2rem; 
+    margin: 1rem 0 2rem;
 }
+
 .formContainer {
     background-color: #3c3c3cd3;
     color: rgb(233, 233, 233);
@@ -73,32 +99,36 @@ a {
     margin: 0 auto;
     display: flex;
 }
+
 .credsForm {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .credsInput {
     margin: 0rem 0 1rem;
     background-color: rgb(30, 30, 30);
     color: rgb(200, 200, 200);
-    border: 1px solid rgb(175, 175, 175);;
+    border: 1px solid rgb(175, 175, 175);
+    ;
     border-radius: 3px;
     text-align: center;
     height: 3rem;
     width: 20rem;
     font-size: 1.2rem;
 }
+
 .credsInput::placeholder {
     color: rgb(233, 233, 233, 0.5);
     text-align: center;
     height: 100%;
     font-size: 1rem;
 }
+
 .credsButton {
     color: rgb(175, 175, 175);
-    /* color:rgb(161, 161, 161); */
     background-color: rgb(30, 30, 30);
     border-radius: 5px;
     border: 1px solid rgb(175, 175, 175);
@@ -106,13 +136,16 @@ a {
     width: 10rem;
     height: 2.5rem;
 }
+
 .credsButton:hover {
     cursor: pointer;
     background-color: black;
 }
+
 .badLogin {
     color: rgb(233, 233, 233);
 }
+
 /* ---------------- PICKS ------------- */
 .pickList {
     justify-content: center;
@@ -121,6 +154,7 @@ a {
     width: fit-content;
     margin: 0 auto 4rem;
 }
+
 .allPicks {
     font-size: 2rem;
     margin: 0.5rem 0;
@@ -129,7 +163,10 @@ a {
     color: rgb(233, 233, 233);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
-.profileLink, .like-btn, .comment {
+
+.profileLink,
+.like-btn,
+.comment {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
     background-color: #3c3c3c;
@@ -145,17 +182,21 @@ a {
     margin: 0;
     display: flex;
 }
+
 .profileLink {
     font-size: 1.7rem;
 }
+
 .pickReactions {
     display: flex;
     justify-content: space-between;
 }
-.likeContainer{
+
+.likeContainer {
     display: flex;
     width: 40;
 }
+
 .like-btn {
     margin-left: 1rem;
     height: fit-content;
@@ -163,18 +204,21 @@ a {
     display: flex;
     padding-bottom: 0.4rem;
 }
+
 .likeIcon {
     height: 1.4rem;
     margin-right: 0.3rem;
     margin-top: 0.3rem;
 }
-.commentContainer{
+
+.commentContainer {
     display: flex;
     width: 60%;
     justify-content: flex-start;
     align-items: flex-end;
     flex-direction: column;
 }
+
 .commentBox {
     background-color: #3c3c3c;
     color: rgb(233, 233, 233);
@@ -188,14 +232,16 @@ a {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
 }
-.postedCommentsContainer{
+
+.postedCommentsContainer {
     background-color: #3c3c3c;
     margin-top: 0.3rem;
     margin-bottom: 1rem;
     padding: 0.1rem 0.7rem;
     border-radius: 3px;
 }
-.commentContentContainer{
+
+.commentContentContainer {
     background-color: rgb(233, 233, 233);
     margin: 0.5rem 0 0.8rem;
     max-width: 50rem;
@@ -203,20 +249,22 @@ a {
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     padding: 0.5rem;
 }
+
 .commentContent {
     color: #3c3c3c;
     margin: 0.3rem 0;
     font-size: 1.8rem;
 }
+
 /* ------------ /LEAGUES ---------------- */
 .league {
     font-size: 4rem;
-    text-align: center;    
+    text-align: center;
     color: rgb(233, 233, 233);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     margin: 1.8rem 0;
-    /* -webkit-text-stroke: 1px rgb(30, 30, 30); */
 }
+
 .pickContainer {
     width: 80%;
     margin: 0 auto 4rem;
@@ -224,10 +272,12 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .eventName {
     width: 50%;
     margin: 0.3rem 0;
 }
+
 .oddsLogo {
     width: 50%;
     display: flex;
@@ -235,6 +285,7 @@ a {
     margin-bottom: 0.5rem;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
+
 .game {
     font-size: 2.2rem;
     font-weight: bold;
@@ -242,6 +293,7 @@ a {
     color: rgb(233, 233, 233);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 .gameStatus {
     width: fit-content;
     padding: 0 0.3rem;
@@ -251,19 +303,24 @@ a {
     border-radius: 3px;
     color: rgb(233, 233, 233);
 }
+
 .scheduled {
     background-color: rgb(0, 125, 0);
 }
+
 .inProgress {
     background-color: rgb(0, 0, 125);
 }
+
 .final {
     background-color: rgb(125, 0, 0);
 
 }
+
 .other {
     background-color: rgb(200, 200, 0);
 }
+
 .teamContainer {
     width: 45%;
     background-color: rgb(213, 213, 213);
@@ -274,11 +331,13 @@ a {
     flex-direction: column;
     padding: 0.3rem;
 }
+
 .teamLoser {
     background-color: rgb(106, 106, 106);
     border: 3px solid rgb(60, 60, 60);
     filter: saturate(0);
 }
+
 .spread {
     display: inline;
     margin: 0.2rem;
@@ -298,13 +357,15 @@ a {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0
+    -webkit-appearance: none;
+    margin: 0
 }
+
 .pickValueInput::placeholder {
     font-size: 1rem;
     justify-content: center;
 }
+
 .pickButton {
     width: 5rem;
     border: none;
@@ -319,26 +380,32 @@ input::-webkit-inner-spin-button {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
 }
+
 .teamLogo {
     height: 6vh;
 }
-.teamContainer > p {
-    color:rgb(61, 61, 61);
+
+.teamContainer>p {
+    color: rgb(61, 61, 61);
     margin: 0;
 }
+
 .score {
     text-align: center;
     font-size: 2.5rem;
 }
+
 .winner {
     font-weight: bold;
     color: rgb(233, 233, 233);
 }
+
 .userHeader {
     margin: 0.7rem 15rem;
     color: rgb(233, 233, 233);
     font-size: 5rem;
 }
+
 .profileContainer {
     display: flex;
     flex-direction: row-reverse;
@@ -349,18 +416,21 @@ input::-webkit-inner-spin-button {
     background-color: rgb(213, 213, 213, 0.5);
     border: 3px solid rgb(60, 60, 60);
 }
+
 .userInfo {
     color: rgb(233, 233, 233);
     font-size: 5rem;
     margin: 0 auto;
     text-align: center;
 }
-.userInfoNums{
+
+.userInfoNums {
     color: rgb(60, 60, 60);
     font-size: 5rem;
     margin: 0;
     text-align: center;
 }
+
 .pickHistory {
     margin: 0 5rem;
     color: rgb(233, 233, 233);
@@ -368,6 +438,7 @@ input::-webkit-inner-spin-button {
     font-size: 5rem;
     width: 80%;
 }
+
 .myPicks {
     width: 80%;
     margin: 0 auto;
@@ -380,31 +451,37 @@ input::-webkit-inner-spin-button {
     border-radius: 3px;
     padding-bottom: 1rem;
 }
-.myPickandLogo{
+
+.myPickandLogo {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin: 2rem 3rem 0;
     align-items: center;
 }
+
 .pickActionsContainer {
     height: 2rem;
 }
+
 .userStats {
     position: relative;
     display: inline-block;
     margin-bottom: 5rem;
 }
+
 .pick {
     width: 90%;
     margin: 0;
     display: inline-block;
     font-size: 3rem;
 }
+
 .pickLogo {
     height: 8vh;
     margin: 0 1.3rem 0 0.7rem;
 }
+
 .pickStatus {
     border-radius: 4px;
     width: fit-content;
@@ -416,23 +493,30 @@ input::-webkit-inner-spin-button {
     font-size: 1.3rem;
     margin: 0 1rem 0 3rem;
 }
-.pickStatus > p {
+
+.pickStatus>p {
     margin: 0;
     color: rgb(233, 233, 233);
 }
+
 .scheduledPick {
     background-color: rgb(125, 125, 0);
 }
-.pickInProgress{
+
+.pickInProgress {
     background-color: rgb(0, 0, 125);
 }
+
 .pickWin {
     background-color: rgb(0, 125, 0);
 }
+
 .pickLose {
     background-color: rgb(125, 0, 0);
 }
-.cancelPick-btn, .editPick-btn {
+
+.cancelPick-btn,
+.editPick-btn {
     width: 5rem;
     border: none;
     bottom: 1px;
@@ -444,15 +528,18 @@ input::-webkit-inner-spin-button {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
 }
+
 .editPick-btn {
     color: #3c3c3c;
     background: rgb(233, 233, 233);
     margin-right: 1rem;
 }
+
 .cancelPick-btn {
     background: #3c3c3c;
     color: rgb(233, 233, 233);
 }
+
 .editPickContainer {
     width: 80%;
     margin: 3rem auto;
@@ -464,28 +551,33 @@ input::-webkit-inner-spin-button {
     border: 3px solid rgb(60, 60, 60);
     border-radius: 3px;
 }
+
 .editPickHeader {
     width: 100%;
     margin: 3rem 0 0 3rem;
     font-size: 5rem;
 }
+
 .editPickShortName {
     width: 100%;
     margin: 0 0 0 3rem;
     font-size: 4rem;
     color: rgb(60, 60, 60);
 }
+
 .editPickDate {
     width: 100%;
     margin: 0 0 1rem 3rem;
     font-size: 2rem;
     color: rgb(60, 60, 60);
 }
+
 .editPickInfo {
     width: 100%;
     margin: 0 0 1rem 3rem;
     font-size: 3rem;
 }
+
 .editPickConfirm-btn {
     width: 5rem;
     border: none;
@@ -502,18 +594,19 @@ input::-webkit-inner-spin-button {
 }
 
 /* MODAL STYLING */
- .overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(3px);
-  z-index: 1;
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 1;
 }
+
 .modal {
     width: 40rem;
     padding: 1.5rem;
@@ -526,60 +619,70 @@ input::-webkit-inner-spin-button {
     border: 5px solid rgb(99, 99, 99);
     border-radius: 5px;
     z-index: 2;
-  }
-.modal > p {
+}
+
+.modal>p {
     font-size: 0.9rem;
     color: #3c3c3c;
     margin: 0.4rem 0 0.2rem;
-  }
+}
+
 .modalContainer {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
 }
+
 .gameNameContainer {
     width: 100%;
     position: relative;
     justify-content: space-between;
     display: flex;
-  }
-  .matchup {
+}
+
+.matchup {
     display: block;
     margin: 0;
     margin-bottom: 0.2rem;
     font-size: 2rem;
 }
-.ballpark, .firstPitch {
-      display: block;
-      margin: 0;
-      margin-bottom: 0.2rem;
-      font-size: 1rem;
-      color: #3c3c3c;
-  }
+
+.ballpark,
+.firstPitch {
+    display: block;
+    margin: 0;
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    color: #3c3c3c;
+}
+
 .btn-close {
-      display: flex;
-      position: relative;
-      cursor: pointer;
-      padding: 0.5rem 0.5rem;
-      right: 0;
-      font-size: 1rem;
-      align-items: center;
-      justify-content: center;
-      font-weight: 300;
-      height: 2rem;
-      width: 2rem;
-      border: none;
-      background: #000000;
-      color: rgb(233, 233, 233);
-      border-radius: 50%;
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 0.1rem;
-  }
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem 0.5rem;
+    right: 0;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+    height: 2rem;
+    width: 2rem;
+    border: none;
+    background: #000000;
+    color: rgb(233, 233, 233);
+    border-radius: 50%;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.1rem;
+}
+
 .probablesContainer {
     width: 50%;
     border: 3px soild green;
-  }
-.probablesHeader, .battingLeadersTeam {
+}
+
+.probablesHeader,
+.battingLeadersTeam {
     margin: 0.3rem 0 0.8rem;
     font-size: 1rem;
     background: #3c3c3c;
@@ -589,18 +692,22 @@ input::-webkit-inner-spin-button {
     border: none;
     border-radius: 3px;
 }
-  .pitcherTeam {
+
+.pitcherTeam {
     font-weight: bold;
     margin: 0.5rem 0;
     text-decoration: underline;
 }
+
 .pitcherInfo {
     margin: 0;
     margin-bottom: 0.3rem;
 }
+
 .teamLeadersContainer {
     width: 45%;
 }
+
 .headshot {
     height: 3rem;
     margin-bottom: .3rem;
@@ -608,10 +715,12 @@ input::-webkit-inner-spin-button {
     border: none;
     border-radius: 3px;
 }
+
 .battingLeadersInfo {
     margin: 0;
     margin-bottom: 0.5rem;
 }
+
 .btn-open {
     border: none;
     bottom: 1px;
@@ -626,9 +735,10 @@ input::-webkit-inner-spin-button {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1rem;
 }
+
 .hidden {
     display: none;
-  }
+}
 
 /* ------------ LEADERBOARD -------------- */
 .rankingContainer {
@@ -638,12 +748,18 @@ input::-webkit-inner-spin-button {
     background-color: rgb(60, 60, 60, .5);
     border-radius: 3px;
 }
-.nOneContainer, .nTwoContainer, .nThreeContainer {
+
+.nOneContainer,
+.nTwoContainer,
+.nThreeContainer {
     display: flex;
     align-items: center;
     margin: 3rem 0;
 }
-.rankingOne, .rankingTwo, .rankingThree {
+
+.rankingOne,
+.rankingTwo,
+.rankingThree {
     display: inline-block;
     font-size: 5rem;
     margin: 0;
@@ -651,20 +767,29 @@ input::-webkit-inner-spin-button {
     text-align: center;
 }
 
-.userRanksOne, .userRanksTwo, .userRanksThree {
-    display: inline-block; 
+.userRanksOne,
+.userRanksTwo,
+.userRanksThree {
+    display: inline-block;
     font-size: 4rem;
     margin: 0;
 }
-.rankingOne, .userRanksOne {
-    color: rgb(255,215,0);
+
+.rankingOne,
+.userRanksOne {
+    color: rgb(255, 215, 0);
 }
-.rankingTwo, .userRanksTwo {
-    color: rgb(192,192,192);
+
+.rankingTwo,
+.userRanksTwo {
+    color: rgb(192, 192, 192);
 }
-.rankingThree, .userRanksThree {
+
+.rankingThree,
+.userRanksThree {
     color: rgb(205, 127, 50);
 }
+
 /* ---------- ANDREW LINKEDIN & GITHUB LINKS --------- */
 footer {
     margin: 3rem 5rem;
@@ -674,16 +799,19 @@ footer {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     font-size: 1rem;
 }
-footer > a {
+
+footer>a {
     text-decoration: none;
     font-size: 1rem;
     margin-left: 1rem;
     color: rgb(233, 233, 233);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
-footer > a:hover {
-    color:rgb(50, 138, 246)
+
+footer>a:hover {
+    color: rgb(50, 138, 246)
 }
+
 .FoF {
     color: rgb(233, 233, 233);
     font-size: 5rem;
