@@ -171,6 +171,9 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[1].team.name%>
+
+
+                                    <% if (competition.odds[1]) { %>
                                                 <% if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
                                                 -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
                                                 <% } else if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1]?.spreadOdds) < 0) { %>
@@ -181,6 +184,28 @@
                                                 +1.5 (
                                                 <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
                                         <%}%>
+                                        <% } else {%>
+                                        <% if (competition.odds[0].awayTeamOdds.favorite===true &&
+                                            parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0) { %>
+                                            -1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===true &&
+                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
+                                                    -1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                        <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===false
+                                                            && parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0)
+                                                            { %>
+                                                            +1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                                <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===false
+                                                                    &&
+                                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds)
+                                                                    < 0) { %>
+                                                                    +1.5 (
+                                                                    <%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                                        <% } %>
+                                                                    <%  } %>
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON AWAY TEAM -->
                                 <form method="POST" action="/leagues">
@@ -198,7 +223,12 @@
                                     <input hidden type="text" name="selTeamName"
                                         value="<%=competition.competitors[1].team.name%>" />
                                     <input hidden type="boolean" name="selTeamFavorite"
-                                        value="<%=competition.odds[1].awayTeamOdds.favorite%>" />
+                                        <%if (competition.odds[1]) {%>
+                                            value="<%=competition.odds[1].awayTeamOdds.favorite%>"
+                                            <%} else { %>
+                                                value="<%=competition.odds[0].awayTeamOdds.favorite%>" />
+                                                <% } %>
+                                    <%if (competition.odds[1]) {%>
                                     <% if (competition.odds[1].awayTeamOdds.favorite===true) { %>
                                         <input hidden type="text" name="selTeamSpread" value="-1.5" />
                                         <% } else if (competition.odds[1].awayTeamOdds.favorite===false) { %>
@@ -223,6 +253,32 @@
                                                         <% } %>
                                                             <input hidden type="number" name="againstTeamOdds"
                                                                 value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>" />
+                                              <%} else { %>
+                                                <% if (competition.odds[0].awayTeamOdds.favorite===true) { %>
+                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
+                                        <% } else if (competition.odds[0].awayTeamOdds.favorite===false) { %>
+                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
+                                            <% } %>
+                                                <input hidden type="number" name="selTeamOdds"
+                                                    value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
+                                                <input hidden type="text" name="selTeamLogo"
+                                                    value="<%=competition.competitors[1].team.logo%>" />
+                                                <input hidden type="number" name="againstTeam"
+                                                    value="<%=competition.competitors[0].id%>" />
+                                                <input hidden type="text" name="againstTeamName"
+                                                    value="<%=competition.competitors[0].team.name%>" />
+                                                <input hidden type="boolean" name="againstTeamFavorite"
+                                                    value="<%=competition.odds[0].homeTeamOdds.favorite%>" />
+                                                <% if (competition.odds[0].homeTeamOdds.favorite===true) { %>
+                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
+                                                    <% } else if (competition.odds[0].homeTeamOdds.favorite===false) {
+                                                        %>
+                                                        <input hidden type="text" name="againstTeamSpread"
+                                                            value="+1.5" />
+                                                        <% } %>
+                                                            <input hidden type="number" name="againstTeamOdds"
+                                                                value="<%=competition.odds[0].homeTeamOdds.spreadOdds%>" />
+                                                <% } %>
                                                             <input hidden type="text" name="againstTeamLogo"
                                                                 value="<%=competition.competitors[0].team.logo%>" />
                                                             <button class="pickButton" type="submit">PICK</button>
@@ -234,6 +290,7 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[0].team.name%>
+                                    <% if (competition.odds[1]) { %>
                                         <% if (competition.odds[1].homeTeamOdds.favorite===true &&
                                             parseInt(competition.odds[1].homeTeamOdds.spreadOdds)> 0) { %>
                                             -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
@@ -252,6 +309,27 @@
                                                                     +1.5 (
                                                                     <%=competition.odds[1].homeTeamOdds.spreadOdds%>)
                                                                         <% } %>
+                                                                        <% } else {%>
+                                            <% if (competition.odds[0].homeTeamOdds.favorite===true &&
+                                                parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0) { %>
+                                                -1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[0].homeTeamOdds.favorite===true &&
+                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
+                                                        -1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                            <% } else if (competition.odds[0].homeTeamOdds.favorite===false
+                                                                && parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0)
+                                                                { %>
+                                                                +1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                                    <% } else if
+                                                                        (competition.odds[0].homeTeamOdds.favorite===false
+                                                                        &&
+                                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds)
+                                                                        < 0) { %>
+                                                                        +1.5 (
+                                                                        <%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                                            <% } %>
+                                            <%}%>
+
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON HOME TEAM -->
                                 <form method="POST" action="/leagues">
@@ -269,7 +347,13 @@
                                     <input hidden type="text" name="selTeamName"
                                         value="<%=competition.competitors[0].team.name%>" />
                                     <input hidden type="boolean" name="selTeamFavorite"
-                                        value="<%=competition.odds[1].homeTeamOdds.favorite%>" />
+                                    <%if (competition.odds[1]) {%>
+                                        value="<%=competition.odds[1].homeTeamOdds.favorite%>" 
+                                        <% } else {%>
+                                            value="<%=competition.odds[0].homeTeamOdds.favorite%>" 
+                                            <%}%>
+                                        />
+                                        <%if (competition.odds[1]) {%>
                                     <% if (competition.odds[1].homeTeamOdds.favorite===true) { %>
                                         <input hidden type="text" name="selTeamSpread" value="-1.5" />
                                         <% } else if (competition.odds[1].homeTeamOdds.favorite===false) { %>
@@ -294,6 +378,32 @@
                                                         <% } %>
                                                             <input hidden type="number" name="againstTeamOdds"
                                                                 value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>" />
+                                                <% } else {%>
+                                                    <% if (competition.odds[0].homeTeamOdds.favorite===true) { %>
+                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
+                                        <% } else if (competition.odds[0].homeTeamOdds.favorite===false) { %>
+                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
+                                            <% } %>
+                                                <input hidden type="number" name="selTeamOdds"
+                                                    value="<%=competition.odds[0].homeTeamOdds.spreadOdds%>" />
+                                                <input hidden type="text" name="selTeamLogo"
+                                                    value="<%=competition.competitors[0].team.logo%>" />
+                                                <input hidden type="number" name="againstTeam"
+                                                    value="<%=competition.competitors[1].id%>" />
+                                                <input hidden type="text" name="againstTeamName"
+                                                    value="<%=competition.competitors[1].team.name%>" />
+                                                <input hidden type="boolean" name="againstTeamFavorite"
+                                                    value="<%=competition.odds[0].awayTeamOdds.favorite%>" />
+                                                <% if (competition.odds[0].awayTeamOdds.favorite===true) { %>
+                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
+                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite===false) {
+                                                        %>
+                                                        <input hidden type="text" name="againstTeamSpread"
+                                                            value="+1.5" />
+                                                        <% } %>
+                                                            <input hidden type="number" name="againstTeamOdds"
+                                                                value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
+                                                    <%}%>
                                                             <input hidden type="text" name="againstTeamLogo"
                                                                 value="<%=competition.competitors[1].team.logo%>" />
                                                             <button class="pickButton" type="submit">PICK</button>

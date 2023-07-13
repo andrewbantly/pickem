@@ -173,24 +173,49 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[1].team.name%>
-                                        <% if (competition.odds[1].awayTeamOdds.favorite===true &&
+                                        <% if (competition.odds[1]) { %>
+                                            <% if (competition.odds[1].awayTeamOdds.favorite===true &&
                                             parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
                                             -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===true &&
+                                                <% } 
+                                            else if (competition.odds[1].awayTeamOdds.favorite===true &&
                                                     parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
                                                     -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                        <% } else if (competition.odds[1].awayTeamOdds.favorite===false
+                                                        <% } 
+                                            else if (competition.odds[1].awayTeamOdds.favorite===false
                                                             && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0)
                                                             { %>
                                                             +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                                <% } else if
-                                                                    (competition.odds[1].awayTeamOdds.favorite===false
+                                                                <% } 
+                                            else if (competition.odds[1].awayTeamOdds.favorite===false
                                                                     &&
                                                                     parseInt(competition.odds[1].awayTeamOdds.spreadOdds)
                                                                     < 0) { %>
                                                                     +1.5 (
                                                                     <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
                                                                         <% } %>
+                                        <% } else {%>
+                                        <% if (competition.odds[0].awayTeamOdds.favorite===true &&
+                                            parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0) { %>
+                                            -1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===true &&
+                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
+                                                    -1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                        <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===false
+                                                            && parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0)
+                                                            { %>
+                                                            +1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                                <% } 
+                                            else if (competition.odds[0].awayTeamOdds.favorite===false
+                                                                    &&
+                                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds)
+                                                                    < 0) { %>
+                                                                    +1.5 (
+                                                                    <%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                                        <% } %>
+                                                                    <%  } %>
                                 </p>
                                 <!-- RE ROUTE TO SIGN UP PAGE -->
                                 <form method="GET" action="/members/new">
@@ -205,6 +230,8 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[0].team.name%>
+
+                                    <% if (competition.odds[1]) { %>
                                         <% if (competition.odds[1].homeTeamOdds.favorite===true &&
                                             parseInt(competition.odds[1].homeTeamOdds.spreadOdds)> 0) { %>
                                             -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
@@ -223,6 +250,27 @@
                                                                     +1.5 (
                                                                     <%=competition.odds[1].homeTeamOdds.spreadOdds%>)
                                                                         <% } %>
+                                        <% } else {%>
+                                            <% if (competition.odds[0].homeTeamOdds.favorite===true &&
+                                                parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0) { %>
+                                                -1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[0].homeTeamOdds.favorite===true &&
+                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
+                                                        -1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                            <% } else if (competition.odds[0].homeTeamOdds.favorite===false
+                                                                && parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0)
+                                                                { %>
+                                                                +1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                                    <% } else if
+                                                                        (competition.odds[0].homeTeamOdds.favorite===false
+                                                                        &&
+                                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds)
+                                                                        < 0) { %>
+                                                                        +1.5 (
+                                                                        <%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                                            <% } %>
+                                            <%}%>
+
                                 </p>
                                 <!-- RE ROUTE TO SIGN UP PAGE -->
                                 <form method="GET" action="/members/new">
