@@ -184,28 +184,21 @@
                                                 +1.5 (
                                                 <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
                                         <%}%>
-                                        <% } else {%>
-                                        <% if (competition.odds[0].awayTeamOdds.favorite===true &&
-                                            parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0) { %>
-                                            -1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                <% } 
-                                            else if (competition.odds[0].awayTeamOdds.favorite===true &&
-                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
-                                                    -1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                        <% } 
-                                            else if (competition.odds[0].awayTeamOdds.favorite===false
-                                                            && parseInt(competition.odds[0].awayTeamOdds.spreadOdds)> 0)
-                                                            { %>
-                                                            +1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                                <% } 
-                                            else if (competition.odds[0].awayTeamOdds.favorite===false
-                                                                    &&
-                                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds)
-                                                                    < 0) { %>
-                                                                    +1.5 (
-                                                                    <%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                                        <% } %>
-                                                                    <%  } %>
+                                        <% } else { %>
+                                                <% if (competition.odds && competition.odds[0] && competition.odds[0].awayTeamOdds) { %>
+                                                    <% if (competition.odds[0].awayTeamOdds.favorite === true && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) > 0) { %>
+                                                        -1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === true && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
+                                                        -1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === false && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) > 0) { %>
+                                                        +1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === false && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
+                                                        +1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
+                                                    <% } %>
+                                                <% } else { %>
+                                                    Odds not yet available
+                                                <% } %>
+                                            <% } %>
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON AWAY TEAM -->
                                 <form method="POST" action="/leagues">
@@ -309,26 +302,21 @@
                                                                     +1.5 (
                                                                     <%=competition.odds[1].homeTeamOdds.spreadOdds%>)
                                                                         <% } %>
-                                                                        <% } else {%>
-                                            <% if (competition.odds[0].homeTeamOdds.favorite===true &&
-                                                parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0) { %>
-                                                -1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                    <% } else if (competition.odds[0].homeTeamOdds.favorite===true &&
-                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
-                                                        -1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                            <% } else if (competition.odds[0].homeTeamOdds.favorite===false
-                                                                && parseInt(competition.odds[0].homeTeamOdds.spreadOdds)> 0)
-                                                                { %>
-                                                                +1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                                    <% } else if
-                                                                        (competition.odds[0].homeTeamOdds.favorite===false
-                                                                        &&
-                                                                        parseInt(competition.odds[0].homeTeamOdds.spreadOdds)
-                                                                        < 0) { %>
-                                                                        +1.5 (
-                                                                        <%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                                            <% } %>
-                                            <%}%>
+                                       <% } else { %>
+                                            <% if (competition.odds && competition.odds[0] && competition.odds[0].homeTeamOdds) { %>
+                                                <% if (competition.odds[0].homeTeamOdds.favorite === true && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) > 0) { %>
+                                                    -1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === true && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
+                                                    -1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === false && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) > 0) { %>
+                                                    +1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === false && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
+                                                    +1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
+                                                <% } %>
+                                            <% } else { %>
+                                                Odds not yet available
+                                            <% } %>
+                                        <% } %>
 
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON HOME TEAM -->
