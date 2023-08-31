@@ -95,8 +95,7 @@
                                             <%=competition.competitors[1].leaders[0].leaders[0].athlete.displayName%>
                                                 <strong>(
                                                     <%=competition.competitors[1].leaders[0].leaders[0].displayValue%>
-                                                        )
-                                                </strong>
+                                                        )</strong>
                                     </p>
                                     <p class="battingLeadersInfo">
                                         <%=competition.competitors[1].leaders[1].shortDisplayName%>:
@@ -173,32 +172,80 @@
                                     <%=competition.competitors[1].team.name%>
 
 
-                                    <% if (competition.odds[1]) { %>
-                                                <% if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
+                                        <% if (competition.odds[1]) { %>
+                                            <% if (competition.odds[1].awayTeamOdds.favorite===true &&
+                                                parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
                                                 -1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===true && parseInt(competition.odds[1]?.spreadOdds) < 0) { %>
-                                                -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[1].awayTeamOdds.favorite===false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds)> 0) { %>
-                                                +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                            <% } else if (competition.odds[1].awayTeamOdds.favorite===false && parseInt(competition.odds[1].awayTeamOdds.spreadOdds) < 0) { %>
-                                                +1.5 (
-                                                <%=competition.odds[1].awayTeamOdds.spreadOdds%>)
-                                        <%}%>
-                                        <% } else { %>
-                                                <% if (competition.odds && competition.odds[0] && competition.odds[0].awayTeamOdds) { %>
-                                                    <% if (competition.odds[0].awayTeamOdds.favorite === true && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) > 0) { %>
-                                                        -1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === true && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
-                                                        -1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === false && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) > 0) { %>
-                                                        +1.5 (+<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite === false && parseInt(competition.odds[0].awayTeamOdds.spreadOdds) < 0) { %>
-                                                        +1.5 (<%=competition.odds[0].awayTeamOdds.spreadOdds%>)
-                                                    <% } %>
-                                                <% } else { %>
-                                                    Odds not yet available
-                                                <% } %>
-                                            <% } %>
+                                                    <% } else if (competition.odds[1].awayTeamOdds.favorite===true &&
+                                                        parseInt(competition.odds[1]?.spreadOdds) < 0) { %>
+                                                        -1.5 (<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                                            <% } else if
+                                                                (competition.odds[1].awayTeamOdds.favorite===false &&
+                                                                parseInt(competition.odds[1].awayTeamOdds.spreadOdds)>
+                                                                0) { %>
+                                                                +1.5 (+<%=competition.odds[1].awayTeamOdds.spreadOdds%>)
+                                                                    <% } else if
+                                                                        (competition.odds[1].awayTeamOdds.favorite===false
+                                                                        &&
+                                                                        parseInt(competition.odds[1].awayTeamOdds.spreadOdds)
+                                                                        < 0) { %>
+                                                                        +1.5 (
+                                                                        <%=competition.odds[1].awayTeamOdds.spreadOdds%>
+                                                                            )
+                                                                            <%}%>
+                                                                                <% } else { %>
+                                                                                    <% if (competition.odds &&
+                                                                                        competition.odds[0] &&
+                                                                                        competition.odds[0].awayTeamOdds)
+                                                                                        { %>
+                                                                                        <% if
+                                                                                            (competition.odds[0].awayTeamOdds.favorite===true
+                                                                                            &&
+                                                                                            parseInt(competition.odds[0].awayTeamOdds.spreadOdds)>
+                                                                                            0) { %>
+                                                                                            -1.5 (+
+                                                                                            <%=competition.odds[0].awayTeamOdds.spreadOdds%>
+                                                                                                )
+                                                                                                <% } else if
+                                                                                                    (competition.odds[0].awayTeamOdds.favorite===true
+                                                                                                    &&
+                                                                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds)
+                                                                                                    < 0) { %>
+                                                                                                    -1.5 (
+                                                                                                    <%=competition.odds[0].awayTeamOdds.spreadOdds%>
+                                                                                                        )
+                                                                                                        <% } else if
+                                                                                                            (competition.odds[0].awayTeamOdds.favorite===false
+                                                                                                            &&
+                                                                                                            parseInt(competition.odds[0].awayTeamOdds.spreadOdds)>
+                                                                                                            0) { %>
+                                                                                                            +1.5 (+
+                                                                                                            <%=competition.odds[0].awayTeamOdds.spreadOdds%>
+                                                                                                                )
+                                                                                                                <% } else
+                                                                                                                    if
+                                                                                                                    (competition.odds[0].awayTeamOdds.favorite===false
+                                                                                                                    &&
+                                                                                                                    parseInt(competition.odds[0].awayTeamOdds.spreadOdds)
+                                                                                                                    < 0)
+                                                                                                                    { %>
+                                                                                                                    +1.5
+                                                                                                                    (
+                                                                                                                    <%=competition.odds[0].awayTeamOdds.spreadOdds%>
+                                                                                                                        )
+                                                                                                                        <% }
+                                                                                                                            %>
+                                                                                                                            <% } else
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                Odds
+                                                                                                                                not
+                                                                                                                                yet
+                                                                                                                                available
+                                                                                                                                <% }
+                                                                                                                                    %>
+                                                                                                                                    <% }
+                                                                                                                                        %>
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON AWAY TEAM -->
                                 <form method="POST" action="/leagues">
@@ -215,66 +262,212 @@
                                         value="<%=competition.competitors[1].id%>" />
                                     <input hidden type="text" name="selTeamName"
                                         value="<%=competition.competitors[1].team.name%>" />
-                                    <input hidden type="boolean" name="selTeamFavorite"
-                                        <%if (competition.odds[1]) {%>
-                                            value="<%=competition.odds[1].awayTeamOdds.favorite%>"
-                                            <%} else { %>
+                                    <input hidden type="boolean" name="selTeamFavorite" <%if (competition.odds[1]) {%>
+                                    value="<%=competition.odds[1].awayTeamOdds.favorite%>"
+                                        <%} else { %>
+                                            <% if (competition.odds[0] && competition.odds[0].awayTeamOdds) { %>
                                                 value="<%=competition.odds[0].awayTeamOdds.favorite%>" />
-                                                <% } %>
-                                    <%if (competition.odds[1]) {%>
-                                    <% if (competition.odds[1].awayTeamOdds.favorite===true) { %>
-                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
-                                        <% } else if (competition.odds[1].awayTeamOdds.favorite===false) { %>
-                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
-                                            <% } %>
-                                                <input hidden type="number" name="selTeamOdds"
-                                                    value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>" />
-                                                <input hidden type="text" name="selTeamLogo"
-                                                    value="<%=competition.competitors[1].team.logo%>" />
-                                                <input hidden type="number" name="againstTeam"
-                                                    value="<%=competition.competitors[0].id%>" />
-                                                <input hidden type="text" name="againstTeamName"
-                                                    value="<%=competition.competitors[0].team.name%>" />
-                                                <input hidden type="boolean" name="againstTeamFavorite"
-                                                    value="<%=competition.odds[1].homeTeamOdds.favorite%>" />
-                                                <% if (competition.odds[1].homeTeamOdds.favorite===true) { %>
-                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
-                                                    <% } else if (competition.odds[1].homeTeamOdds.favorite===false) {
-                                                        %>
-                                                        <input hidden type="text" name="againstTeamSpread"
-                                                            value="+1.5" />
+                                                    <% } else { %>
+                                                        value="0"/>
                                                         <% } %>
-                                                            <input hidden type="number" name="againstTeamOdds"
-                                                                value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>" />
-                                              <%} else { %>
-                                                <% if (competition.odds[0].awayTeamOdds.favorite===true) { %>
-                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
-                                        <% } else if (competition.odds[0].awayTeamOdds.favorite===false) { %>
-                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
-                                            <% } %>
-                                                <input hidden type="number" name="selTeamOdds"
-                                                    value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
-                                                <input hidden type="text" name="selTeamLogo"
-                                                    value="<%=competition.competitors[1].team.logo%>" />
-                                                <input hidden type="number" name="againstTeam"
-                                                    value="<%=competition.competitors[0].id%>" />
-                                                <input hidden type="text" name="againstTeamName"
-                                                    value="<%=competition.competitors[0].team.name%>" />
-                                                <input hidden type="boolean" name="againstTeamFavorite"
-                                                    value="<%=competition.odds[0].homeTeamOdds.favorite%>" />
-                                                <% if (competition.odds[0].homeTeamOdds.favorite===true) { %>
-                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
-                                                    <% } else if (competition.odds[0].homeTeamOdds.favorite===false) {
-                                                        %>
-                                                        <input hidden type="text" name="againstTeamSpread"
-                                                            value="+1.5" />
-                                                        <% } %>
-                                                            <input hidden type="number" name="againstTeamOdds"
-                                                                value="<%=competition.odds[0].homeTeamOdds.spreadOdds%>" />
-                                                <% } %>
-                                                            <input hidden type="text" name="againstTeamLogo"
-                                                                value="<%=competition.competitors[0].team.logo%>" />
-                                                            <button class="pickButton" type="submit">PICK</button>
+
+                                                            <% } %>
+
+
+
+                                                                <%if (competition.odds[1]) {%>
+                                                                    <% if
+                                                                        (competition.odds[1].awayTeamOdds.favorite===true)
+                                                                        { %>
+                                                                        <input hidden type="text" name="selTeamSpread"
+                                                                            value="-1.5" />
+                                                                        <% } else if
+                                                                            (competition.odds[1].awayTeamOdds.favorite===false)
+                                                                            { %>
+                                                                            <input hidden type="text"
+                                                                                name="selTeamSpread" value="+1.5" />
+                                                                            <% } %>
+                                                                                <input hidden type="number"
+                                                                                    name="selTeamOdds"
+                                                                                    value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>" />
+                                                                                <input hidden type="text"
+                                                                                    name="selTeamLogo"
+                                                                                    value="<%=competition.competitors[1].team.logo%>" />
+                                                                                <input hidden type="number"
+                                                                                    name="againstTeam"
+                                                                                    value="<%=competition.competitors[0].id%>" />
+                                                                                <input hidden type="text"
+                                                                                    name="againstTeamName"
+                                                                                    value="<%=competition.competitors[0].team.name%>" />
+                                                                                <input hidden type="boolean"
+                                                                                    name="againstTeamFavorite"
+                                                                                    value="<%=competition.odds[1].homeTeamOdds.favorite%>" />
+                                                                                <% if
+                                                                                    (competition.odds[1].homeTeamOdds.favorite===true)
+                                                                                    { %>
+                                                                                    <input hidden type="text"
+                                                                                        name="againstTeamSpread"
+                                                                                        value="-1.5" />
+                                                                                    <% } else if
+                                                                                        (competition.odds[1].homeTeamOdds.favorite===false)
+                                                                                        { %>
+                                                                                        <input hidden type="text"
+                                                                                            name="againstTeamSpread"
+                                                                                            value="+1.5" />
+                                                                                        <% } %>
+                                                                                            <input hidden type="number"
+                                                                                                name="againstTeamOdds"
+                                                                                                value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>" />
+                                                                                            <%} else { %>
+
+                                                                                                <% if
+                                                                                                    (competition.odds[0]
+                                                                                                    &&
+                                                                                                    competition.odds[0].awayTeamOdds
+                                                                                                    &&
+                                                                                                    competition.odds[0].awayTeamOdds.favorite===true)
+                                                                                                    { %>
+                                                                                                    <input hidden
+                                                                                                        type="text"
+                                                                                                        name="selTeamSpread"
+                                                                                                        value="-1.5" />
+                                                                                                    <% } else if
+                                                                                                        (competition.odds[0]
+                                                                                                        &&
+                                                                                                        competition.odds[0].awayTeamOdds
+                                                                                                        &&competition.odds[0].awayTeamOdds.favorite===false)
+                                                                                                        { %>
+                                                                                                        <input hidden
+                                                                                                            type="text"
+                                                                                                            name="selTeamSpread"
+                                                                                                            value="+1.5" />
+                                                                                                        <% } else { %>
+                                                                                                            <input
+                                                                                                                hidden
+                                                                                                                type="text"
+                                                                                                                name="selTeamSpread"
+                                                                                                                value="0" />
+                                                                                                            <% } %>
+                                                                                                                <% if
+                                                                                                                    (competition.odds[0]
+                                                                                                                    &&
+                                                                                                                    competition.odds[0].awayTeamOdds
+                                                                                                                    &&
+                                                                                                                    competition.odds[0].awayTeamOdds.spreadOdds)
+                                                                                                                    { %>
+                                                                                                                    <input
+                                                                                                                        hidden
+                                                                                                                        type="number"
+                                                                                                                        name="selTeamOdds"
+                                                                                                                        value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
+                                                                                                                    <% } else
+                                                                                                                        {
+                                                                                                                        %>
+                                                                                                                        <input
+                                                                                                                            hidden
+                                                                                                                            type="number"
+                                                                                                                            name="selTeamOdds"
+                                                                                                                            value="0" />
+                                                                                                                        <%}%>
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="text"
+                                                                                                                                name="selTeamLogo"
+                                                                                                                                value="<%=competition.competitors[1].team.logo%>" />
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="number"
+                                                                                                                                name="againstTeam"
+                                                                                                                                value="<%=competition.competitors[0].id%>" />
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="text"
+                                                                                                                                name="againstTeamName"
+                                                                                                                                value="<%=competition.competitors[0].team.name%>" />
+                                                                                                                            <% if
+                                                                                                                                (competition.odds[0]
+                                                                                                                                &&
+                                                                                                                                competition.odds[0].homeTeamOdds
+                                                                                                                                &&
+                                                                                                                                competition.odds[0].homeTeamOdds.favorite)
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                <input
+                                                                                                                                    hidden
+                                                                                                                                    type="boolean"
+                                                                                                                                    name="againstTeamFavorite"
+                                                                                                                                    value="<%=competition.odds[0].homeTeamOdds.favorite%>" />
+                                                                                                                                <% }
+                                                                                                                                    %>
+                                                                                                                                    <% if
+                                                                                                                                        (competition.odds[0]
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0].homeTeamOdds
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0].homeTeamOdds.favorite===true)
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <input
+                                                                                                                                            hidden
+                                                                                                                                            type="text"
+                                                                                                                                            name="againstTeamSpread"
+                                                                                                                                            value="-1.5" />
+                                                                                                                                        <% } else
+                                                                                                                                            if
+                                                                                                                                            (competition.odds[0]
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0].homeTeamOdds
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0].homeTeamOdds.favorite===false)
+                                                                                                                                            {
+                                                                                                                                            %>
+                                                                                                                                            <input
+                                                                                                                                                hidden
+                                                                                                                                                type="text"
+                                                                                                                                                name="againstTeamSpread"
+                                                                                                                                                value="+1.5" />
+                                                                                                                                            <% }
+                                                                                                                                                %>
+
+
+                                                                                                                                                <% if
+                                                                                                                                                    (competition.odds
+                                                                                                                                                    &&
+                                                                                                                                                    competition.odds[0]
+                                                                                                                                                    &&
+                                                                                                                                                    competition.odds[0].homeTeamOdds)
+                                                                                                                                                    {
+                                                                                                                                                    %>
+                                                                                                                                                    <input
+                                                                                                                                                        hidden
+                                                                                                                                                        type="number"
+                                                                                                                                                        name="againstTeamOdds"
+                                                                                                                                                        value="<%= competition.odds[0].homeTeamOdds.spreadOdds %>" />
+                                                                                                                                                    <% } else
+                                                                                                                                                        {
+                                                                                                                                                        %>
+                                                                                                                                                        <!-- Provide an alternative value or handle this case accordingly -->
+                                                                                                                                                        <input
+                                                                                                                                                            hidden
+                                                                                                                                                            type="number"
+                                                                                                                                                            name="againstTeamOdds"
+                                                                                                                                                            value="default_value_here" />
+                                                                                                                                                        <% }
+                                                                                                                                                            %>
+
+
+
+
+                                                                                                                                                            <% }
+                                                                                                                                                                %>
+                                                                                                                                                                <input
+                                                                                                                                                                    hidden
+                                                                                                                                                                    type="text"
+                                                                                                                                                                    name="againstTeamLogo"
+                                                                                                                                                                    value="<%=competition.competitors[0].team.logo%>" />
+                                                                                                                                                                <button
+                                                                                                                                                                    class="pickButton"
+                                                                                                                                                                    type="submit">PICK</button>
                                 </form>
                             </div>
                             <!-- HOME TEAM -->
@@ -283,40 +476,85 @@
                                 <!-- DIFFERENT FORMATTING DEPENDING ON THE SPREAD & IF TEAM IS FAVORITE -->
                                 <p class="spread">
                                     <%=competition.competitors[0].team.name%>
-                                    <% if (competition.odds[1]) { %>
-                                        <% if (competition.odds[1].homeTeamOdds.favorite===true &&
-                                            parseInt(competition.odds[1].homeTeamOdds.spreadOdds)> 0) { %>
-                                            -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[1].homeTeamOdds.favorite===true &&
-                                                    parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
-                                                    -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                                                        <% } else if (competition.odds[1].homeTeamOdds.favorite===false
-                                                            && parseInt(competition.odds[1].homeTeamOdds.spreadOdds)> 0)
-                                                            { %>
-                                                            +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                                                                <% } else if
-                                                                    (competition.odds[1].homeTeamOdds.favorite===false
-                                                                    &&
-                                                                    parseInt(competition.odds[1].homeTeamOdds.spreadOdds)
-                                                                    < 0) { %>
-                                                                    +1.5 (
-                                                                    <%=competition.odds[1].homeTeamOdds.spreadOdds%>)
-                                                                        <% } %>
-                                       <% } else { %>
-                                            <% if (competition.odds && competition.odds[0] && competition.odds[0].homeTeamOdds) { %>
-                                                <% if (competition.odds[0].homeTeamOdds.favorite === true && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) > 0) { %>
-                                                    -1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === true && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
-                                                    -1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === false && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) > 0) { %>
-                                                    +1.5 (+<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                <% } else if (competition.odds[0].homeTeamOdds.favorite === false && parseInt(competition.odds[0].homeTeamOdds.spreadOdds) < 0) { %>
-                                                    +1.5 (<%=competition.odds[0].homeTeamOdds.spreadOdds%>)
-                                                <% } %>
-                                            <% } else { %>
-                                                Odds not yet available
-                                            <% } %>
-                                        <% } %>
+                                        <% if (competition.odds[1]) { %>
+                                            <% if (competition.odds[1].homeTeamOdds.favorite===true &&
+                                                parseInt(competition.odds[1].homeTeamOdds.spreadOdds)> 0) { %>
+                                                -1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                                                    <% } else if (competition.odds[1].homeTeamOdds.favorite===true &&
+                                                        parseInt(competition.odds[1].homeTeamOdds.spreadOdds) < 0) { %>
+                                                        -1.5 (<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                                                            <% } else if
+                                                                (competition.odds[1].homeTeamOdds.favorite===false &&
+                                                                parseInt(competition.odds[1].homeTeamOdds.spreadOdds)>
+                                                                0)
+                                                                { %>
+                                                                +1.5 (+<%=competition.odds[1].homeTeamOdds.spreadOdds%>)
+                                                                    <% } else if
+                                                                        (competition.odds[1].homeTeamOdds.favorite===false
+                                                                        &&
+                                                                        parseInt(competition.odds[1].homeTeamOdds.spreadOdds)
+                                                                        < 0) { %>
+                                                                        +1.5 (
+                                                                        <%=competition.odds[1].homeTeamOdds.spreadOdds%>
+                                                                            )
+                                                                            <% } %>
+                                                                                <% } else { %>
+                                                                                    <% if (competition.odds &&
+                                                                                        competition.odds[0] &&
+                                                                                        competition.odds[0].homeTeamOdds)
+                                                                                        { %>
+                                                                                        <% if
+                                                                                            (competition.odds[0].homeTeamOdds.favorite===true
+                                                                                            &&
+                                                                                            parseInt(competition.odds[0].homeTeamOdds.spreadOdds)>
+                                                                                            0) { %>
+                                                                                            -1.5 (+
+                                                                                            <%=competition.odds[0].homeTeamOdds.spreadOdds%>
+                                                                                                )
+                                                                                                <% } else if
+                                                                                                    (competition.odds[0].homeTeamOdds.favorite===true
+                                                                                                    &&
+                                                                                                    parseInt(competition.odds[0].homeTeamOdds.spreadOdds)
+                                                                                                    < 0) { %>
+                                                                                                    -1.5 (
+                                                                                                    <%=competition.odds[0].homeTeamOdds.spreadOdds%>
+                                                                                                        )
+                                                                                                        <% } else if
+                                                                                                            (competition.odds[0].homeTeamOdds.favorite===false
+                                                                                                            &&
+                                                                                                            parseInt(competition.odds[0].homeTeamOdds.spreadOdds)>
+                                                                                                            0) { %>
+                                                                                                            +1.5 (+
+                                                                                                            <%=competition.odds[0].homeTeamOdds.spreadOdds%>
+                                                                                                                )
+                                                                                                                <% } else
+                                                                                                                    if
+                                                                                                                    (competition.odds[0].homeTeamOdds
+                                                                                                                    &&
+                                                                                                                    competition.odds[0].homeTeamOdds.favorite
+                                                                                                                    &&
+                                                                                                                    competition.odds[0].homeTeamOdds.favorite===false
+                                                                                                                    &&
+                                                                                                                    parseInt(competition.odds[0].homeTeamOdds.spreadOdds)
+                                                                                                                    < 0)
+                                                                                                                    { %>
+                                                                                                                    +1.5
+                                                                                                                    (
+                                                                                                                    <%=competition.odds[0].homeTeamOdds.spreadOdds%>
+                                                                                                                        )
+                                                                                                                        <% }
+                                                                                                                            %>
+                                                                                                                            <% } else
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                Odds
+                                                                                                                                not
+                                                                                                                                yet
+                                                                                                                                available
+                                                                                                                                <% }
+                                                                                                                                    %>
+                                                                                                                                    <% }
+                                                                                                                                        %>
 
                                 </p>
                                 <!-- INPUTS FOR PLACING A PICK ON HOME TEAM -->
@@ -334,71 +572,228 @@
                                         value="<%=competition.competitors[0].id%>" />
                                     <input hidden type="text" name="selTeamName"
                                         value="<%=competition.competitors[0].team.name%>" />
-                                    <input hidden type="boolean" name="selTeamFavorite"
-                                    <%if (competition.odds[1]) {%>
-                                        value="<%=competition.odds[1].homeTeamOdds.favorite%>" 
+                                    <input hidden type="boolean" name="selTeamFavorite" <%if (competition.odds[1]) {%>
+                                    value="<%=competition.odds[1].homeTeamOdds.favorite%>"
                                         <% } else {%>
-                                            value="<%=competition.odds[0].homeTeamOdds.favorite%>" 
-                                            <%}%>
-                                        />
-                                        <%if (competition.odds[1]) {%>
-                                    <% if (competition.odds[1].homeTeamOdds.favorite===true) { %>
-                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
-                                        <% } else if (competition.odds[1].homeTeamOdds.favorite===false) { %>
-                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
-                                            <% } %>
-                                                <input hidden type="number" name="selTeamOdds"
-                                                    value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>" />
-                                                <input hidden type="text" name="selTeamLogo"
-                                                    value="<%=competition.competitors[0].team.logo%>" />
-                                                <input hidden type="number" name="againstTeam"
-                                                    value="<%=competition.competitors[1].id%>" />
-                                                <input hidden type="text" name="againstTeamName"
-                                                    value="<%=competition.competitors[1].team.name%>" />
-                                                <input hidden type="boolean" name="againstTeamFavorite"
-                                                    value="<%=competition.odds[1].awayTeamOdds.favorite%>" />
-                                                <% if (competition.odds[1].awayTeamOdds.favorite===true) { %>
-                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
-                                                    <% } else if (competition.odds[1].awayTeamOdds.favorite===false) {
-                                                        %>
-                                                        <input hidden type="text" name="againstTeamSpread"
-                                                            value="+1.5" />
-                                                        <% } %>
-                                                            <input hidden type="number" name="againstTeamOdds"
-                                                                value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>" />
-                                                <% } else {%>
-                                                    <% if (competition.odds[0].homeTeamOdds.favorite===true) { %>
-                                        <input hidden type="text" name="selTeamSpread" value="-1.5" />
-                                        <% } else if (competition.odds[0].homeTeamOdds.favorite===false) { %>
-                                            <input hidden type="text" name="selTeamSpread" value="+1.5" />
-                                            <% } %>
-                                                <input hidden type="number" name="selTeamOdds"
-                                                    value="<%=competition.odds[0].homeTeamOdds.spreadOdds%>" />
-                                                <input hidden type="text" name="selTeamLogo"
-                                                    value="<%=competition.competitors[0].team.logo%>" />
-                                                <input hidden type="number" name="againstTeam"
-                                                    value="<%=competition.competitors[1].id%>" />
-                                                <input hidden type="text" name="againstTeamName"
-                                                    value="<%=competition.competitors[1].team.name%>" />
-                                                <input hidden type="boolean" name="againstTeamFavorite"
-                                                    value="<%=competition.odds[0].awayTeamOdds.favorite%>" />
-                                                <% if (competition.odds[0].awayTeamOdds.favorite===true) { %>
-                                                    <input hidden type="text" name="againstTeamSpread" value="-1.5" />
-                                                    <% } else if (competition.odds[0].awayTeamOdds.favorite===false) {
-                                                        %>
-                                                        <input hidden type="text" name="againstTeamSpread"
-                                                            value="+1.5" />
-                                                        <% } %>
-                                                            <input hidden type="number" name="againstTeamOdds"
-                                                                value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
+                                            <% if (competition.odds[0] && competition.odds[0].homeTeamOdd &&
+                                                competition.odds[0].homeTeamOdds.favorite) { %>
+                                                value="<%=competition.odds[0].homeTeamOdds.favorite%>"
                                                     <%}%>
-                                                            <input hidden type="text" name="againstTeamLogo"
-                                                                value="<%=competition.competitors[1].team.logo%>" />
-                                                            <button class="pickButton" type="submit">PICK</button>
+                                                        <%}%>
+                                                            />
+                                                            <%if (competition.odds[1]) {%>
+                                                                <% if (competition.odds[1].homeTeamOdds.favorite===true)
+                                                                    { %>
+                                                                    <input hidden type="text" name="selTeamSpread"
+                                                                        value="-1.5" />
+                                                                    <% } else if
+                                                                        (competition.odds[1].homeTeamOdds.favorite===false)
+                                                                        { %>
+                                                                        <input hidden type="text" name="selTeamSpread"
+                                                                            value="+1.5" />
+                                                                        <% } %>
+                                                                            <input hidden type="number"
+                                                                                name="selTeamOdds"
+                                                                                value="<%=competition.odds[1].homeTeamOdds.spreadOdds%>" />
+                                                                            <input hidden type="text" name="selTeamLogo"
+                                                                                value="<%=competition.competitors[0].team.logo%>" />
+                                                                            <input hidden type="number"
+                                                                                name="againstTeam"
+                                                                                value="<%=competition.competitors[1].id%>" />
+                                                                            <input hidden type="text"
+                                                                                name="againstTeamName"
+                                                                                value="<%=competition.competitors[1].team.name%>" />
+                                                                            <input hidden type="boolean"
+                                                                                name="againstTeamFavorite"
+                                                                                value="<%=competition.odds[1].awayTeamOdds.favorite%>" />
+                                                                            <% if
+                                                                                (competition.odds[1].awayTeamOdds.favorite===true)
+                                                                                { %>
+                                                                                <input hidden type="text"
+                                                                                    name="againstTeamSpread"
+                                                                                    value="-1.5" />
+                                                                                <% } else if
+                                                                                    (competition.odds[1].awayTeamOdds.favorite===false)
+                                                                                    { %>
+                                                                                    <input hidden type="text"
+                                                                                        name="againstTeamSpread"
+                                                                                        value="+1.5" />
+                                                                                    <% } %>
+                                                                                        <input hidden type="number"
+                                                                                            name="againstTeamOdds"
+                                                                                            value="<%=competition.odds[1].awayTeamOdds.spreadOdds%>" />
+
+
+
+
+                                                                                        <% } else {%>
+                                                                                            <% if (competition.odds &&
+                                                                                                competition.odds.length>
+                                                                                                0) { %>
+                                                                                                <% if
+                                                                                                    (competition.odds[0].homeTeamOdds)
+                                                                                                    { %>
+                                                                                                    <% if
+                                                                                                        (competition.odds[0].homeTeamOdds.favorite===true)
+                                                                                                        { %>
+                                                                                                        <input hidden
+                                                                                                            type="text"
+                                                                                                            name="selTeamSpread"
+                                                                                                            value="-1.5" />
+                                                                                                        <% }}} else if
+                                                                                                            (competition.odds[0].homeTeamOdds.favorite===false)
+                                                                                                            { %>
+                                                                                                            <input
+                                                                                                                hidden
+                                                                                                                type="text"
+                                                                                                                name="selTeamSpread"
+                                                                                                                value="+1.5" />
+                                                                                                            <% } %>
+
+
+
+
+                                                                                                                <% if
+                                                                                                                    (competition.odds
+                                                                                                                    &&
+                                                                                                                    competition.odds[0]
+                                                                                                                    &&
+                                                                                                                    competition.odds[0].homeTeamOdds)
+                                                                                                                    { %>
+                                                                                                                    <input
+                                                                                                                        hidden
+                                                                                                                        type="number"
+                                                                                                                        name="selTeamOdds"
+                                                                                                                        value="<%=competition.odds[0].homeTeamOdds.spreadOdds%>" />
+                                                                                                                    <% } else
+                                                                                                                        {
+                                                                                                                        %>
+                                                                                                                        <input
+                                                                                                                            hidden
+                                                                                                                            type="number"
+                                                                                                                            name="selTeamOdds"
+                                                                                                                            value="0" />
+                                                                                                                        <% }
+                                                                                                                            %>
+
+
+
+
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="text"
+                                                                                                                                name="selTeamLogo"
+                                                                                                                                value="<%=competition.competitors[0].team.logo%>" />
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="number"
+                                                                                                                                name="againstTeam"
+                                                                                                                                value="<%=competition.competitors[1].id%>" />
+                                                                                                                            <input
+                                                                                                                                hidden
+                                                                                                                                type="text"
+                                                                                                                                name="againstTeamName"
+                                                                                                                                value="<%=competition.competitors[1].team.name%>" />
+
+
+
+
+                                                                                                                            <% if
+                                                                                                                                (competition.odds
+                                                                                                                                &&
+                                                                                                                                competition.odds[0]
+                                                                                                                                &&
+                                                                                                                                competition.odds[0].awayTeamOdds)
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                <input
+                                                                                                                                    hidden
+                                                                                                                                    type="boolean"
+                                                                                                                                    name="againstTeamFavorite"
+                                                                                                                                    value="<%=competition.odds[0].awayTeamOdds.favorite%>" />
+                                                                                                                                <% }
+                                                                                                                                    %>
+
+
+
+
+
+                                                                                                                                    <% if
+                                                                                                                                        (competition.odds
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0]
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0].awayTeamOdds
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0].awayTeamOdds.favorite
+                                                                                                                                        &&
+                                                                                                                                        competition.odds[0].awayTeamOdds.favorite===true)
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <input
+                                                                                                                                            hidden
+                                                                                                                                            type="text"
+                                                                                                                                            name="againstTeamSpread"
+                                                                                                                                            value="-1.5" />
+                                                                                                                                        <% } else
+                                                                                                                                            if
+                                                                                                                                            (competition.odds
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0]
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0].awayTeamOdds
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0].awayTeamOdds.favorite
+                                                                                                                                            &&
+                                                                                                                                            competition.odds[0].awayTeamOdds.favorite===false)
+                                                                                                                                            {
+                                                                                                                                            %>
+                                                                                                                                            <input
+                                                                                                                                                hidden
+                                                                                                                                                type="text"
+                                                                                                                                                name="againstTeamSpread"
+                                                                                                                                                value="+1.5" />
+                                                                                                                                            <% }
+                                                                                                                                                %>
+
+
+
+                                                                                                                                                <% if
+                                                                                                                                                    (competition.odds
+                                                                                                                                                    &&
+                                                                                                                                                    competition.odds[0]
+                                                                                                                                                    &&
+                                                                                                                                                    competition.odds[0].awayTeamOdds)
+                                                                                                                                                    {
+                                                                                                                                                    %>
+                                                                                                                                                    <input
+                                                                                                                                                        hidden
+                                                                                                                                                        type="number"
+                                                                                                                                                        name="againstTeamOdds"
+                                                                                                                                                        value="<%=competition.odds[0].awayTeamOdds.spreadOdds%>" />
+                                                                                                                                                    <% }
+                                                                                                                                                        %>
+
+
+
+                                                                                                                                                        <input
+                                                                                                                                                            hidden
+                                                                                                                                                            type="text"
+                                                                                                                                                            name="againstTeamLogo"
+                                                                                                                                                            value="<%=competition.competitors[1].team.logo%>" />
+
+
+                                                                                                                                                        <button
+                                                                                                                                                            class="pickButton"
+                                                                                                                                                            type="submit">PICK</button>
                                 </form>
                             </div>
                             <!-- GAME STATUS CONDITIONS WHERE USER IS NOT ABLE TO PICK -->
-                            <% })} else if (event.status.type.id==="2" ) { %>
+                            <% }})} else if (event.status.type.id==="2" ) { %>
+
+
+
+
                                 <!-- GAME IN PROGRESS: SCORES UPDATES ON REFRESH OF PAGE -->
                                 <% event.competitions.forEach(competition=> { %>
                                     <div class="teamContainer">
